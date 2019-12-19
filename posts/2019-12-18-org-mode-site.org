@@ -1,0 +1,281 @@
+#+TITLE: Build a blog with Emacs and Org mode
+#+SUBTITLE: Or building this website
+#+DATE: <2019-12-18 Wed>
+
+* Story time
+
+Since I discovered [[https://orgmode.org][Org mode]] I kinda want to use it for everything I write, from note taking to essay writing. /Everything/ also implies my blog. So I had to try to convert my [[https://github.com/cobalt-org/cobalt.rs][cobalt]] + Markdown setup to a bit of Emacs Lisp and Org. For a "Why Org?" explanation, see the [[*So... why Org?][end of the document]].
+
+* Give me the code!
+
+Ok, ok, calm down. We'll get to it. I'll try to explain my way of thinking such that maybe you'll learn something, and not just how to copy and paste some code.
+
+Before doing doing this website, the only things I knew about Emacs Lisp was that ~setq~ is somehow involved with setting variables and that Emacs Lisp is a Lisp. So not much.
+
+** Q: What to do when hacking the unknown?
+
+A: Read the documentation! 
+
+Both [[https://orgmode.org/org.pdf][Org's docs]] and [[https://www.gnu.org/software/emacs/manual/pdf/elisp.pdf][Elisp's]] are great (combined with Emacs' ~C-h f~ and ~C-h d~ you get a lot of things done).
+
+** Configuring the website as an Org project
+
+We need to export a bunch of files together while following some rules, from Org to HTML. This is called "publishing". Publishing is configured almost entirely through setting the value of one variable, called ~org-publish-project-alist~.[fn::https://orgmode.org/org.html#Project-alist]
+
+Let's think about how we want our website to be structured. In the final, published form, I want it to have a couple of top-level pages, like ~index.html~, ~donate.html~ and ~extra.html~. There should also be a ~posts~ folder (we're doing a blog here after all) and we need an ~assets~ directory to store CSS and the like. Translating this structure in our unpublished project, I thought we'll do it like this:
+
+#+BEGIN_SRC text
+.
+├── assets
+│   └── css
+├── pages
+│   ├── donate.org
+│   ├── extra.org
+│   └── index.org
+├── posts
+│   └── 2019-12-18-org-mode-site.org   (this blog post)
+└── public
+#+END_SRC
+
+The ~public~ directory is meant to hold the published version of the project.
+
+To define this kind of project structure, we'll create a new Emacs Lisp file in the project root and start writing, according to the documentation and the [[https://orgmode.org/org.html#Sample-Configuration][example configs]]:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-publish-project-alist
+      '(("pages"
+	 :base-directory "pages"
+	 :base-extension "org"
+	 :publishing-directory "public"
+	 :publishing-function org-html-publish-to-html)
+	("posts"
+	 :base-directory "posts"
+	 :base-extension "org"
+	 :publishing-directory "public/posts"
+	 :publishing-function org-html-publish-to-html)
+	("assets"
+	 :base-directory "assets"
+	 :base-extension any
+	 :recursive t
+	 :publishing-directory "public/assets"
+	 :publishing-function org-publish-attachment)
+	("website" :components ("pages" "posts" "assets"))))
+#+END_SRC
+
+Notice we define an item for each of the individual "mini-projects" (~pages~, ~posts~ and ~assets~), each with it's own rules and then we define the ~website~ project which will build all of the previous ones.
+
+To make sure we have anything we need to run this code, we must include the Org package (which is called ~ox~ for what we need), so we need to add this to the beginning of our script:
+
+#+BEGIN_SRC emacs-lisp
+(require 'package)
+(package-initialize)
+
+(require 'ox)
+#+END_SRC 
+
+After this, you should be able to publish your project with ~M-x org-publish RET website RET~.
+
+You'll have the pages built as the default is specified by the HTML exporter. For my website, I don't want pages to include a table of contents (TOC). This requires setting ~org-export-with-toc~ to a nil value.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-export-with-toc nil)
+#+END_SRC
+
+Next, let's include some custom CSS for our website. Define your styles in a file and put it in ~assets/css/~. I called mine ~style.css~. We need to set the ~org-export-head~ variable to add stuff to the ~<head>~ tag of the resulting document.
+
+#+BEGIN_SRC emacs-lisp
+(setq org-html-head 
+      "<link rel='stylesheet' type='text/css' href='/assets/css/style.css'>")
+#+END_SRC 
+
+Now we need to include a header and a footer in our website. We can add text before and after an Org file's HTML translation with ~org-html-preamble~ and ~org-html-postamble~. The preamble is simple -- just a string:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-html-preamble "
+<header>
+    <nav>
+        <a href='/'>HOME</a> |
+        <a href='/donate.html'>DONATE</a> |
+        <a href='/extra.html'>EXTRA</a>
+    </nav>
+    <hr>
+</header>
+")
+#+END_SRC 
+
+The postamble (footer) wouldn't be so easy though. I want to add a webring to it. We'll generate one using [[https://git.sr.ht/~sircmpwn/openring][openring]]. Next, write a Makefile to make it easier to work with all the generation taking place:
+
+#+BEGIN_SRC makefile
+.PHONY : publish clean
+
+publish : clean
+	./assets/bin/openring \
+	  -s https://drewdevault.com/feed.xml \
+          -s https://emersion.fr/blog/rss.xml \
+          -s https://danluu.com/atom.xml \
+          -s https://www.fsf.org/static/fsforg/rss/news.xml \
+          -s https://www.fsf.org/static/fsforg/rss/blogs.xml \
+          -n 6 \
+          < includes/webring-in.html \
+          > includes/webring-out.html
+	emacs --script project.el
+
+clean :
+	rm -rf ./public
+#+END_SRC
+
+I placed ~openring~ in the ~assets~ directory, in a ~bin~ subdirectory. Don't forget to mark it as executable. If you're running GNU Guix, like me, you'll probably need to compile openring yourself, as the provided binary doesn't seem to work (I think it's some linking problem). I also created an ~includes~ folder in which I added the template for openring to work with.
+
+To read openring's output, we'll use [[https://github.com/rejeep/f.el][*f*]]. If you don't have it installed, you can get it from MELPA -- ~M-x package-install f~.
+
+#+BEGIN_SRC emacs-lisp
+(require 'f)
+
+;; the rest of our code...
+
+(setq webring (f-read "includes/webring-out.html"))
+#+END_SRC
+
+Now that we have this in place, we need include the generated HTML in the footer of our webpages. ~concat~ comes to the rescue:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-html-postamble (concat "
+<footer>
+    <hr>
+    <marquee>
+	<a href='https://git.sr.ht/~brown121407/brown.121407.xyz' target=\"_blank\">Source code</a> is licensed under <a rel=\"license\" href=\"/COPYING\">GNU GPLv3</a> | 
+	Content is licensed under <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">CC-BY-SA</a> |
+	<a href=\"/donate.html\">DONATE</a> |
+	    why the fuck is the &lt;marquee&gt; tag deprecated?
+    </marquee>
+    <hr>
+"
+				 webring
+				 "</footer>"))
+#+END_SRC
+
+To do all the necessary tasks while running the script, avoiding ~M-x eval-buffer~ and ~M-x org-publish RET website~, we add the following to the file:
+
+#+BEGIN_SRC emacs-lisp
+(org-publish-remove-all-timestamps)
+(org-publish-project "website")
+#+END_SRC
+
+We also remove all timestamps to clear the data Org saves for us. That way each time we run our script the site is generated from scratch, no cache used.
+
+To run the script you type in a shell ~emacs --script project.el~ (replace ~project.el~ with the name of your script file).
+
+** Listing the latest posts
+
+Let's build a list of the latest posts to include on the index page. Ideally, the Org code for each post entry would look like:
+
+: - <date> - [[</path/to/post>][<post-title>]]
+
+For this we need to do a couple of things:
+1. List all files from the ~posts~ directory.
+2. Extract the title and date from each one.
+3. Format each item accordingly to achieve something like the example from above.
+4. Write them to a file to be included in the index page.
+
+To list the files, we'll use our library friend *f*, ~f-files~ to be more specific. Now, let's get the details we need from each post. Org has some handy functions for this: ~org-publish-find-title~ and ~org-publish-find-date~. Because those need to project to be already published, we'll write our code after the previous call to ~org-publish-project~. Transform the list of file paths into a list of list of details for each post, the inner lists all having three elements, which are: the file path, the post's title, the post's date, formatted as YYYY-MM-DD. After doing this, we can construct the items of the list that we'll insert into the index page, by turning each three-element inner list into a string.
+
+Now that we have each line of the list we want to write, let's actually write it. We'll do that in ~includes/posts.inc~. First we delete the old file, to avoid appending to stuff that got there during the last publish. Then we write an empty string to the file to ensure it is created. After this, we can finally output each line of our list into that file. I think that sorting the lines by ~string>~ should keep the newest ones on top, because of the way we formatted dates. 
+
+The code for all this stuff I said is below. Try to recap everything we said in the last paragraphs while reading it:
+
+#+begin_src emacs-lisp
+(let* ((file-paths (f-files posts-path))
+       (posts (mapcar
+	       (lambda (path)
+		 (list (f-filename path)
+		       (org-publish-find-title path '("posts"))
+		       (format-time-string "%Y-%m-%d"
+					   (org-publish-find-date path '("posts")))))
+	       file-paths))
+       (lines (mapcar
+	       (lambda (x)
+		 (format "- %s - [[../posts/%s][%s]]\n"
+			 (caddr x) (car x) (cadr x)))
+	       posts)))
+  (f-delete "includes/posts.inc")
+  (f-write "" 'utf-8 "includes/posts.inc")
+  (dolist (line (sort lines 'string>))
+    (f-append line 'utf-8 "includes/posts.inc")))
+#+end_src
+
+Assuming the index file (the one that will become index.html) is at ~pages/index.org~, we need to add, somewhere inside it, a line that includes the generated post list:
+
+: #+INCLUDE: ../includes/posts.inc
+
+After this we should republish our project to update the index file, so the last line of our ~project.el~ becomes:
+
+#+begin_src emacs-lisp
+(org-publish-project "website")
+#+end_src
+
+This website's ~project.el~ is always available at [[../assets/project.el][/assets/project.el]].
+
+Now, you should have a working static blog generator made with Emacs Lisp and Org!
+
+** Fixing overflowing code blocks
+
+One thing that I didn't like about the default export layout was that long code blocks would overflow their container if it had any width restrictions. 
+
+Take, for example, this very long line of e's.
+
+#+begin_src text
+eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeenevergonnagiveyouup
+#+end_src
+
+If I did everything right, it should have a scroll bar underneath and you should be able to scroll to it's end.
+
+To achieve this, I came up with a hacky solution. We'll need just a tiny bit of Elisp, CSS and HTML to solve our problem.
+
+The thing that defines how code blocks are exported is the ~org-html-src-block~ function. You can get to it by pressing ~C-h f RET org-html-src-block RET~ and then clicking on the link to the file that defines it (at the time of writing, it should be ~ox-html.el~). We'll copy the whole function and paste it somewhere before the first call to ~org-publish-project~ in our ~project.el~.
+
+We need to modify only a single line of this function, and that is the one before the last (it should be a ~format~ call).
+
+We'll transform it from:
+
+#+begin_src emacs-lisp
+(format "<pre class=\"src src-%s\"%s>%s</pre>" lang label code)
+#+end_src
+
+into:
+
+#+begin_src emacs-lisp
+(format "<pre class=\"src src-%s\"%s><pre class=\"inside-src\">%s</pre></pre>" lang label code)
+#+end_src
+
+You can find the whole function in my [[../assets/project.el][project.el]].
+
+The only thing that remains is writing some CSS. Remember that this is something you'll likely put in a file in the ~assets~ dir if you followed the steps above:
+
+#+begin_src css
+pre.inside-src {
+    position: relative;
+    overflow-x: auto;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+    padding: 16px 8px;
+}
+
+pre.src {
+    padding: 0px;
+}
+#+end_src
+
+If I didn't forget something, you should have a working blog configuration for Org /with scrolling code blocks/.
+
+* So... why Org?
+
+Org can do what Markdown does (but better[fn::At least for me.]) and not only. A big advantage of Org over Markdown is the document look and feel. 
+
+In ~.md~'s you usually get a bit of syntax highlighting (and maybe a preview window) and that's it in the usual text editors. 
+
+Org integration in Emacs is /waaaaay/ better. Links get compressed into colored underlined text so you don't get to see ugly ~https://~'s everywhere in your document while editing. Tables auto-resize to fit your content on a ~TAB~ press and they also draw the cells by their own once you give Org a hint that what you want to write is a table. Easy handling of inserting dates (press C-c C-. and a date picker pops up). Automatic indentaion of text based on headline level. Inline images in the editor! Evaluate blocks of code from withing the document!! Org mode is a beast.[fn::Oh, and you have nice footnotes out of the box!]
+
+The only possible downside I see for now is that you have to use Emacs. It's not really an inconvenience for me as I seem to get along nice with Emacs[fn::I must admit I installed evil-mode...].
+
+Also, it's pretty easy to hack on it. It took me only two days to write the code[fn::/very/ hacky code, but code nonetheless] for this blog without knowing much about Org or Emacs Lisp before.

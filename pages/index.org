@@ -1,0 +1,15 @@
+#+TITLE: Sergiu Marton's Website
+#+OPTIONS: num:nil
+
+* About me
+
+Passionate about programming, free software, mathematics. I usually go by the nick *brown121407*.
+
+Want to chat? Shoot me an email.
+
+- email :: [[mailto:brown121407@member.fsf.org][brown121407@member.fsf.org]]
+- sourcehut :: [[https://git.sr.ht/~brown121407][~brown121407]]
+- mastodon :: [[https://fosstodon.org/@brown121407][@brown121407@fosstodon.org]]
+
+* Posts
+#+INCLUDE: ../includes/posts.inc

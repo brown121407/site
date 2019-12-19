@@ -1,0 +1,12 @@
+#+TITLE: why the fuck is the marquee tag deprecated?
+#+DATE: <2019-11-23 Sat>
+
+#+begin_export html
+<h3><marquee>Why????</marquee></h3>
+
+<marquee direction="right">It's such an awesome tag.</marquee>
+
+<marquee direction="down"><b>EDIT</b> (5 minutes later):</marquee>
+
+<marquee direction="right">My head hurts. I think I understand now.</marquee>
+#+end_export

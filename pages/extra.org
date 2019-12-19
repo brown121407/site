@@ -1,0 +1,14 @@
+#+TITLE: Extra
+#+OPTIONS: num:nil
+
+Here I keep anything else that doesn't go in a post but I still want to have in my corner of the internet.
+
+* Other documents
+
+- [[./notes.org][Notebook]]
+
+* TODO Reminders & ideas [1/4]
+- [ ] Maybe setup my own server and not rely on static website hosting? Or at least find a way to move from GitLab. I heard Drew DeVault talk a couple days ago (now it's <2019-12-18 Wed>) about being able to achieve something like Pages for sourcehut, but he said it in a context that implied other things and he wants to get it right so it may take a while. I'd be extremely happy if I could move from GitLab Pages to sourcehut whatever-it-will-be-called. Else, maybe I'll setup my own server... Oooo, a private instance of sourcehut with customized background. Lava lamp background. Or something retro-hackish-green. Need to get to work on this. Soon... (yea, that's what you always say)
+- [ ] Backup [[https://templeos.org]]
+- [ ] Add a folder with all my books and link them nicely.
+- [X] I freaking forgot what I wanted to write here to remind me to do...
