@@ -59,3 +59,7 @@ code {
 .timestamp {
     color: #a1a1a1;
 }
+
+.table-container {
+    overflow-x: auto;
+}

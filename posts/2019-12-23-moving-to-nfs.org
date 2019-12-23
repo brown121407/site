@@ -1,0 +1,38 @@
+#+TITLE: Moving to NearlyFreeSpeech.NET
+#+DATE: <2019-12-23 Mon>
+
+For a while I searched for better hosting solutions for my personal website than GitLab/Hub Pages.
+
+A thing that kept me going back to the free hosting offered by those two hosts was the lack of a price for their services. As a highschool student in Eastern Europe you don't really afford to spend much money stuff. I didn't want to pay 5 USD per month (minimum) to host this site on something like [[https://www.linode.com/][Linode]] or other cloud providers. Not that I have something against Linode, but 5 USD translated to around 25 RON and that would be money spent on just having a simple, personal blog. I didn't /really/ need the dynamic capabilities of having my own VPS.
+
+But it would be nice if I had them, right?
+
+I also wanted to be able to get away from GitLab. The same with GitHub, that's why I was on GitLab in the first place. My preferred git hosting platform is now [[https://sourcehut.org/][sourcehut]], a [[https://git.sr.ht/~sircmpwn/?search=sr.ht][fully libre]] platform of efficient engineering tools. I don't want to have to mirror my repos on GitLab and trigger builds there. Not to mention that GitLab is impossible to use with [[https://www.gnu.org/software/librejs/][LibreJS]]. That platform is a just a big f-ing ton of JavaScript soup. Hooray for the era of web apps!
+
+I can't remember how I found [[https://www.nearlyfreespeech.net/][NearlyFreeSpeech.NET]]. I think it must have been from somewhere on the fediverse. I made an account around a month ago, but never got to play with it properly until last week.
+
+NFS is extremely cheap as a host for a small website. It's 0.01 USD per day. That means around 30 cents per month. Now this is something that I can afford. That solves the price problem. For now, I don't need anything else more performant. And if I do, I can just change the website plan. I'll put together a table down below with [[https://www.nearlyfreespeech.net/services/hosting][their plans]] at the time of writing (that is <2019-12-23 Mon>):
+
+| Metric          | Non-Production                                                       | Production                        | Critical                         |
+|-----------------+----------------------------------------------------------------------+-----------------------------------+----------------------------------|
+| Base Charge     | $0.01 / day                                                          | $0.05 / day                       | $0.50 / day                      |
+| Intended Usage  | Personal sites, beta sites, experiments                              | The website is for your business. | The website is your business.    |
+| Restrictions    | Limited quantity, limited realm selection, may be selected for betas | None                              | Requires subscription membership |
+| Base Bandwidth  | 1 GiB / day                                                          | 10 GiB / day                      | 100 GiB / day                    |
+| Extra Bandwidth | $0.10 / GiB*                                                         | $0.10 / GiB*                      | $0.10 / GiB*                     |
+| Storage         | $1.00 / GiB-month                                                    | $1.00 / GiB-month                 | $1.00 / GiB-month                |
+| Resources       | $0.01 / 44.64 RAUs**                                                 | $0.01 / 44.64 RAUs**              | $0.01 / 44.64 RAUs**             |
+
+*Currently, they are not tracking (and hence not billing for) extra bandwidth usage. This is subject to change at any time.
+
+**A RAU is our unit of CPU-RAM accounting. It refers to the use of one gigabyte of RAM for one minute, or the equivalent amount of CPU power.[fn::I have no idea what this means.]
+
+Their web interface is intuitive and simple and administering your websites is easy. You can access your website's server by means of SSH or SFTP. To get some content on it, you just put some files in ~/home/public~ and they immediately become available.
+
+When you create a website on their platform, it automatically gets assigned an URL of the form ~my-website.nfshost.com~. Adding custom domains is a breeze.
+
+In case you have any problems, their members' FAQ will surely answer most of your questions. If not, they have a forum, too.
+
+I don't know if I'll do anything with this platform's powers for now, but hey, I can play with [[../assets/test.php][backend stuff]] now!
+
+If you're looking for a web host that's both cheap and good, I wholeheartedly recommend [[https://www.nearlyfreespeech.net/][NearlyFreeSpeech.NET]].
