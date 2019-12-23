@@ -25,7 +25,7 @@ NFS is extremely cheap as a host for a small website. It's 0.01 USD per day. Tha
 
 *Currently, they are not tracking (and hence not billing for) extra bandwidth usage. This is subject to change at any time.
 
-**A RAU is our unit of CPU-RAM accounting. It refers to the use of one gigabyte of RAM for one minute, or the equivalent amount of CPU power.[fn::I have no idea what this means.]
+**A RAU is their unit of CPU-RAM accounting. It refers to the use of one gigabyte of RAM for one minute, or the equivalent amount of CPU power.[fn::I have no idea what this means.]
 
 Their web interface is intuitive and simple and administering your websites is easy. You can access your website's server by means of SSH or SFTP. To get some content on it, you just put some files in ~/home/public~ and they immediately become available.
 
