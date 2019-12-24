@@ -1,6 +1,10 @@
 #+TITLE: Notebook
 #+OPTIONS: num:nil
 
+* <2019-12-23 Mon>
+
+I don't know what I'll write here. It seems like half the stuff I thought I'll put here is going into the "Reminders & ideas" section of [[./extra.org][Extra]], the second half in posts and the third, I'm not allowed to talk about it here yet cause it may get me expelled from school if they find this site.
+
 * <2019-12-18 Wed>
 Test entry
 
