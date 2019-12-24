@@ -1,0 +1,33 @@
+#+TITLE: Contributing to Guix
+#+DATE: <2019-12-24 Tue>
+
+[[https://git.savannah.gnu.org/cgit/guix.git/commit/?id=88c9408070280db51d1a0e604b9ec77f1611ab3c][Today I got my name in the GNU Guix log]].
+
+I like tiling window managers. Being influenced by the meme, I started with i3 on Arch. I saw other people's rices on [[https://www.reddit.com/r/unixporn/][r/unixporn]] and a lot of them had gaps around the windows. I think gaps look nice. I know people have mixed opinions on this but I personally like to see a bit of my wallpapers ([[https://github.com/LukeSmithxyz/wallpapers]["stolen" from Luke Smith]]).
+
+Recently I installed the GNU Guix System on my laptop. They had an ~i3-wm~ package but no ~i3-gaps~. I don't really like working in a Desktop Environment and I don't have the time to try out other Window Managers so I installed ~i3-wm~, it being the only one I know my way around.
+
+But I wanted my gaps back.
+
+So I looked up on [[https://guix.gnu.org/manual/en/html_node/Programming-Interface.html#Programming-Interface][how to package stuff for Guix]]. It's pretty simple. The Guile API for packaging in extremely nice. I also had a bit of luck because ~i3-gaps~ has the same build requirements and process as ~i3-wm~ so I could take a part of the code from the vanilla i3 package definition.
+
+The [[https://guix.gnu.org/manual/en/html_node/Contributing.html#Contributing][Contributing section]] of the Guix manual has pretty much all you need to setup the repository and make a contribution. 
+
+With this occasion, I also learned [[https://git-send-email.io/][how ~git send-email~ works]].
+
+My code wasn't ideal, as it just copied a lot from the ~i3-wm~ definition, but Brett Gilio (a long time contributor to Guix, admin of a GNU Telegram group and a very nice person) taught me about the inheritance mechanism.
+
+#+begin_quote
+I want to offer you some kind advice. You may not be familiar with our
+inheritance mechanism. Since i3-gaps is really just a derivative form of
+core i3, we can actually just inherit the package parameters, arguments,
+inputs, etc. modifying only what we need to. \\
+    -- Brett in [[https://debbugs.gnu.org/cgi/bugreport.cgi?bug=38721][his reply]] to the patch I sent
+#+end_quote
+
+He modified the patch to use ~(inherit i3-wm)~ and pushed it to master. 
+
+I hope this proves useful to other people rather than me too.
+
+Contributing to Free Software fills my heart with joy.
+
