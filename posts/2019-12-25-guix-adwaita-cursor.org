@@ -1,0 +1,24 @@
+#+TITLE: Use Adwaita cursors in the GNU Guix System
+#+DATE: <2019-12-25 Wed>
+
+One of the problems I had with Guix was that the default cursors were too small for my display. They didn't scale. But I knew Adwaita did.
+
+To get Adwaita cursors in your Guix system, first install the ~adwaita-icon-theme~ package. 
+
+After that, link ~$HOME/.guix-profile/share/icons/~ to ~$HOME/.icons~.
+
+Add the following line in ~$HOME/.Xresources~:
+
+#+BEGIN_SRC text
+Xcursor.theme: Adwaita
+#+END_SRC
+
+Then reload the X resources database:
+
+#+BEGIN_SRC bash
+xrdb -merge .Xresources
+#+END_SRC
+
+And reload your WM. That should be it, if I recall correctly.
+
+If it doesn't work, [[mailto:brown121407@member.fsf.org][send me an email]] and I'll look into it to see what I missed.

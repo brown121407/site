@@ -1,3 +1,4 @@
+- 2019-12-25 - [[../posts/2019-12-25-guix-adwaita-cursor.org][Use Adwaita cursors in the GNU Guix System]]
 - 2019-12-24 - [[../posts/2019-12-24-getting-into-lambda-calculus.org][Getting into Lambda Calculus]]
 - 2019-12-24 - [[../posts/2019-12-24-contributing-to-guix.org][Contributing to Guix]]
 - 2019-12-23 - [[../posts/2019-12-23-moving-to-nfs.org][Moving to NearlyFreeSpeech.NET]]
