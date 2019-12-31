@@ -8,13 +8,10 @@ Here I keep anything else that doesn't go in a post but I still want to have in 
 - [[./notes.org][Notebook]]
 - [[../assets/templeos/index.org][TempleOS website backup]]
 
-* TODO Reminders & ideas [3/9]
-- [ ] Write post about my love for free software
+* TODO Reminders & ideas [0/6]
+- [ ] Clean this list sometime in the future.
+- [ ] Write post about using proprietary crapware in Romanian schools and the Information and Communication Technology curriculum and exam.
+- [ ] Write post about my love for free software.
 - [ ] "Without Facebook you don't exist"
-- [ ] Maybe add the navigation links somewhere in the footer too, to avoid needing to scroll back to top?
-- [ ] Clean this list sometime in the future
 - [ ] Generate an RSS feed.
-- [X] Maybe setup my own server and not rely on static website hosting? Or at least find a way to move from GitLab. I heard Drew DeVault talk a couple days ago (now it's <2019-12-18 Wed>) about being able to achieve something like Pages for sourcehut, but he said it in a context that implied other things and he wants to get it right so it may take a while. I'd be extremely happy if I could move from GitLab Pages to sourcehut whatever-it-will-be-called. Else, maybe I'll setup my own server... Oooo, a private instance of sourcehut with customized background. Lava lamp background. Or something retro-hackish-green. Need to get to work on this. Soon... (yea, that's what you always say) -- Done: This website is now hosted on [[https://www.nearlyfreespeech.net][NearlyFreeSpeech.NET]].
-- [X] Backup [[https://templeos.org]]
 - [ ] Add a folder with all my books and link them nicely.
-- [X] I freaking forgot what I wanted to write here to remind me to do...

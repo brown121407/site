@@ -4,13 +4,6 @@
 (require 'ox)
 (require 'f)
 
-(setq posts-path "posts"
-      pages-path "pages"
-      assets-path "assets"
-      publish-base-path "public"
-      publish-posts-path (concat publish-base-path "/" posts-path)
-      publish-assets-path (concat publish-base-path "/" assets-path))
-
 (setq org-publish-project-alist
       '(("pages"
 	 :base-directory "pages"
@@ -175,7 +168,7 @@ contextual information."
 (org-publish-remove-all-timestamps)
 (org-publish-project "website")
 
-(let* ((file-paths (f-files posts-path))
+(let* ((file-paths (f-files "posts"))
        (posts (mapcar
 	       (lambda (path)
 		 (list (f-filename path)

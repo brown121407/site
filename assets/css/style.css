@@ -27,6 +27,7 @@ a.liberapay {
     border: 0.2rem #f6c915 outset;
     background-color: #f6c915;;
     padding: 5px;
+    color: black !important;
 }
 
 a.liberapay:hover {
@@ -62,4 +63,18 @@ code {
 
 .table-container {
     overflow-x: auto;
+}
+
+a:visited:hover {
+    background-color: blueviolet;
+    color: white;
+}
+
+a:link:hover {
+    background-color: blue;
+    color: white;
+}
+
+a:hover code {
+    background-color: gray;
 }

@@ -1,0 +1,136 @@
+#+TITLE: CS teachers hate him! See how he wrote READABLE code with one simple trick...
+#+DATE: <2019-12-26 Thu>
+
+It looks like a lot of people around here (Romania) don't know how to properly format code.
+
+This is not a TABS vs SPACES debate, or a "where to put the curly braces" holy war, but rather a cry of despair caused by reading code from Computer Science teachers, students, books or exam subjects.
+
+We use C/C++ or Pascal to teach Computer Science in high schools, but as I never used Pascal, I can only complain about the people that use C/C++. Though I don't think the others are saints either -- after all, they come from the same system...
+
+* Teachers and students and the f-ing whiteboard
+
+Note that it's only my personal experience from where I'm getting those things. There may be teachers that value proper formatting and readable code. I haven't found them yet.
+
+Here, in Romania, we do a lot of computer science on our notebooks and on the whiteboard. There's no tool (to the present) that automatically fixes indentation of hand written code. Nothing that enforces a consistent style. That means that people can write however the fuck they want.
+
+#+begin_src cpp
+#include <iostream>
+using namespace std;
+
+int main() 
+  {
+ int i,j,n;
+ cin>>n;
+ for (i=0;i<n;i++) 
+    {
+   for(j=i;j<n;j++)
+    { cout<<j;
+      }
+  cout<<'\n';
+        }
+    return 0;  }
+#+end_src
+
+See that shit? That's how we write code in school on the whiteboard. Both the teacher and the students. And guess what? Because we aren't taught anything about style, this is pretty much how code written by students on the computer looks like in most of the cases.
+
+If any of you likes that please tell me where you live and I'll deal with buying the flamethrower and getting transportation to your address myself, don't worry.
+
+Children may not know what their passions really are in the 9th grade. I get sad when I think that maybe a lot of them say they don't like programming and they don't understand it just cause someone didn't teach them using neatly organized code. I wouldn't like nor understand basic reading and writing too if my teacher would have written all over the place with horrible handwriting. I would think books shouldn't make sense for me if that's how the things work -- because the way the teachers show it /is/ the way things work[fn::False].
+
+* Books
+
+If the teacher isn't the best, at least we have books and we can learn by ourselves then, right? I'm not talking about the passionate, the kind that know what Stack Overflow is. I'm talking about the regular children that may just want to learn to have good grades or, better, to get a taste of what programming is about.
+
+Let's reproduce some code from some of my books, shall we?
+
+#+CAPTION: "Informatică : Curs pentru clasele a IX-a și a X-a" (/Computer science : Course for the 9th and 10th grades/) by Tudor Sorin
+#+BEGIN_SRC cpp
+#include <iostream>
+using namespace std;
+int main()
+{ int multa[9],multb[9],multc[9],n,m,j,k,gasit;
+  cout<<"numarul de elemente al multimii A"; cin>>n;
+  for(i=0;i<n;i++)
+  { cout<<"mult["<<i+1<<"]="; cin>>multa[i]; }
+  cout<<"numarul de elemente al multimii B"; cin>>m;
+  for(i=0;i<m;i++)
+  { cout<<"mult["<<i+1<<"]="; cin>>multb[i]; }
+  k=0;
+  for (i=0;i<n;i++)
+   { gasit=0;
+     for (j=0;j<=m && !gasit;j++)
+      if (multa[i]==multb[j]) gasit=1;
+     if(!gasit)multc[k++]=multa[i];
+   }
+  cout<<"A-B"<<endl;
+  for (i=0;i<k;i++) cout<<multc[i]<<endl;
+}
+#+END_SRC
+
+#+CAPTION: "Programarea în limbajul C/C++ pentru liceu" (/Programming in the C/C++ language for high school/) by Emanuela Cerchez and Marinel Șerban
+#+BEGIN_SRC cpp
+int main()
+{ int dim;
+  citire();
+  do
+    { linmax=0; colmin=m+1;
+      dim = prelucrare_tabla();
+      if (dim>1)
+   { nrclic++;
+     refa_tabla(linmax, colmin);   }
+    }
+  while (dim>1);
+afisare();
+return 0;
+}
+#+END_SRC
+
+I hope you enjoyed those beautiful, beautiful examples. And keep in mind that the books don't have any kind of syntax highlighting. It's all plain black monospace on white.
+
+Let's try to rewrite at least the second example in a cleaner way.
+
+#+BEGIN_SRC cpp
+int main() {
+    int dim;
+
+    citire();
+
+    do {
+        linmax = 0;
+        colmin = m + 1;
+        dim = prelucrare_tabla();
+
+        if (dim < 1) {
+            nrclic++;
+            refa_tabla(linmax, colmin);
+        }
+    } while (dim > 1);
+
+    afisare();
+
+    return 0;
+}
+#+END_SRC
+
+Eh? Now tell me which version do you think is easier to understand? It took me less than 30 seconds to format the code. I think the authors could have done that themselves, too.
+
+* Exam subjects
+
+I was reading some Baccalaureate subjects from the past the other day and (guess what?) the code looks like crap.
+
+#+CAPTION: Baccalaureate example subject for 2020
+#+BEGIN_SRC cpp
+p=1;
+if(n%2==1)
+{ p=n; n=n-1; }
+for(i=1;i<=n/2;i++)
+  p=p*i*(n+1-i);
+#+END_SRC
+
+* Conclusion
+
+Please, whoever you are, take good care in formatting your code. Make sure that you'll understand what you've written if 5 minutes pass and think about the fact that others may want to read your code, too!
+
+And don't get me started on shitty variable naming...
+
+

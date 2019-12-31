@@ -1,6 +1,18 @@
 #+TITLE: Notebook
 #+OPTIONS: num:nil
 
+* <2019-12-27 Fri>
+
+We need some kind of open framework for *getting the villages and cities of a country*. Each country has to have a database of all of those somewhere. There should be an open protocol (like a simple fucking API that sits on top of that database) that allows anyone to query it. I want to get a freaking list of all the places in my country. From official sources. Updated all the time. For free (I mean I want it to be funded by public money -- taxes). I want the name, the population size at the last census. The coordinates of the location. Basic things.
+
+We need free software *job posting platforms* that cities and states can put up to display local jobs (both for the state and for particular companies). It would be cool if some kind of federation-by-location would be done between those. They should all federate, so everyone knows about every job everywhere, but there should be a cool location based menu where you could tune your searches and maybe it should recommend by default the closest ones.
+
+Kinda same thing as above, but for restaurants, hotels and every other thing that can be implemented similarly (and for which there would be a need of -- no one wants to see federated lists of trees that look like genitals).
+
+* <2019-12-26 Thu>
+
+Fourth day in a row writing daily here. Org mode is a blessing for my will to write -- it makes the process so much more enjoyable. And the fact that I'm in the winter break and there's no f-ing school for three quarters of the day each day may be helping too.
+
 * <2019-12-23 Mon>
 
 I don't know what I'll write here. It seems like half the stuff I thought I'll put here is going into the "Reminders & ideas" section of [[./extra.org][Extra]], the second half in posts and the third, I'm not allowed to talk about it here yet cause it may get me expelled from school if they find this site.
