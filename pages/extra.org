@@ -5,7 +5,7 @@ Here I keep anything else that doesn't go in a post but I still want to have in 
 
 * Other documents
 
-- [[./notes.org][Notebook]]
+- [[./notes.org][Notebook]] (project ideas and thoughts that can't go into a post)
 - [[../assets/templeos/index.org][TempleOS website backup]]
 
 * TODO Reminders & ideas [0/6]
@@ -14,4 +14,4 @@ Here I keep anything else that doesn't go in a post but I still want to have in 
 - [ ] Write post about my love for free software.
 - [ ] "Without Facebook you don't exist"
 - [ ] Generate an RSS feed.
-- [ ] Add a folder with all my books and link them nicely.
+- [ ] Add a folder with all my books and link them nicely. (MUST DO -- I collected over 100 cool books about math & computer science stuff just in the last week).
