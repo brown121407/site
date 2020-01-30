@@ -12,6 +12,8 @@ You can see my Guix configuration files on my [[https://git.sr.ht/~brown121407/g
 
 If an item is marked with a red TODO at the beginning it means that I haven't yet written all I have to say about it. I'll occasionally come back and edit this document. I just don't have the time now to make it as nice as I want.
 
+If you're interested in Guix, keep an eye out for [[https://guix.121407.xyz][guix.121407.xyz]]. I plan to concentrate my Guixy stuff on there.
+
 * Base installation
 [[https://guix.gnu.org/manual/en/html_node/System-Installation.html#System-Installation][DOCS - System Installation]]
 
