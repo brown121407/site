@@ -3,7 +3,7 @@
 
 * Why would you give me money?
 
-I'm a high school student passionate about programming and [[https://www.gnu.org/philosophy/free-sw.html][Free Software]]. I also like writing about stuff (mostly about things that grind my gears or tutorials). I don't want to /have to/ work for corporations developing proprietary crapware. Every cent you send will be extremely helpful to sustain myself during University next year and to follow my dream of contributing to Free Software projects.
+I'm a high school student passionate about programming and [[https://www.gnu.org/philosophy/free-sw.html][Free Software]]. I also like writing about stuff (mostly about things that grind my gears or tutorials). I don't want to /have to/ work for corporations developing proprietary crapware. Every cent you send will be extremely helpful to sustain myself during University next year and to follow my dream of contributing to Free Software projects. I'll also release every personal project under the GPL to ensure your freedoms are respected.
 
 * Where to donate?
 
@@ -16,4 +16,4 @@ I currently accept donations on LiberaPay. If any other libre donation service o
 
 \\
 
-I also have a [[https://www.paypal.me/brown121407][PayPal account]] though I don't encourage you to use proprietary software. 
+I have a [[https://www.paypal.me/brown121407][PayPal account]] if you wish to make a one-time donation.

@@ -1,3 +1,5 @@
+- 2020-01-14 - [[../posts/2020-01-14-guix-databases.org][GNU Guix: Databases]]
+- 2020-01-12 - [[../posts/2020-01-12-guix-setup.org][Setting up a GNU Guix System]]
 - 2019-12-29 - [[../posts/2019-12-29-guix-fonts-cursors-icons.org][GNU Guix System: Fonts, icons and cursors]]
 - 2019-12-26 - [[../posts/2019-12-26-please-format-your-code-nicely.org][CS teachers hate him! See how he wrote READABLE code with one simple trick...]]
 - 2019-12-25 - [[../posts/2019-12-25-guix-adwaita-cursor.org][Use Adwaita cursors in the GNU Guix System]]

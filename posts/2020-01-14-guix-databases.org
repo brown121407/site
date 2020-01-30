@@ -1,0 +1,10 @@
+#+TITLE: GNU Guix: Databases
+#+DATE: <2020-01-14 Tue>
+
+In this post I will write about how to set up databases on a GNU Guix System. I am going to only talk about PostgreSQL and MySQL (MariaDB) because those are the only two systems I have some knowledge about. For more informations about databases on Guix, see the [[https://guix.gnu.org/manual/en/html_node/Database-Services.html#Database-Services][Database Services]] section in the [[https://guix.gnu.org/manual/][GNU Guix manual]], ask around on the [[https://guix.gnu.org/contact/irc/][IRC]] (#guix on irc.freenode.net) or on the [[https://lists.gnu.org/archive/html/help-guix/][help-guix]] mailing list.
+
+* TODO PostgreSQL
+
+
+* TODO MySQL
+At the moment, I'm having a bit of trouble with setting up MariaDB.

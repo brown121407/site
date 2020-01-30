@@ -3,7 +3,12 @@ mkfile_dir := $(dir $(mkfile_path))
 
 .PHONY : publish clean
 
-publish : clean
+all : clean ring publish
+
+publish :
+	emacs --script project.el
+
+ring :
 	./assets/bin/openring \
 	  -s https://drewdevault.com/feed.xml \
           -s https://emersion.fr/blog/rss.xml \
@@ -13,7 +18,6 @@ publish : clean
           -n 6 \
           < includes/webring-in.html \
           > includes/webring-out.html
-	emacs --script project.el
 
 clean :
 	rm -rf ./public

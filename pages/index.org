@@ -12,4 +12,6 @@ Want to chat? Shoot me an email.
 - mastodon :: [[https://fosstodon.org/@brown121407][@brown121407@fosstodon.org]]
 
 * Posts
+*NOTE*: Some posts may include sections that are not finished. I will come back to those when I have the time and fill in the gaps. I apologise for releasing half-baked posts into the wild.
+
 #+INCLUDE: ../includes/posts.inc
