@@ -3,8 +3,66 @@
 
 In this post I will write about how to set up databases on a GNU Guix System. I am going to only talk about PostgreSQL and MySQL (MariaDB) because those are the only two systems I have some knowledge about. For more informations about databases on Guix, see the [[https://guix.gnu.org/manual/en/html_node/Database-Services.html#Database-Services][Database Services]] section in the [[https://guix.gnu.org/manual/][GNU Guix manual]], ask around on the [[https://guix.gnu.org/contact/irc/][IRC]] (#guix on irc.freenode.net) or on the [[https://lists.gnu.org/archive/html/help-guix/][help-guix]] mailing list.
 
-* TODO PostgreSQL
+* Generic
+To be able to specify any database service you need to include the ~(gnu services databases)~ module in your system configuration file.
 
+#+BEGIN_SRC scheme
+(use-modules (gnu services databases))
+;; or
+(use-service-modules databases)
+#+END_SRC
+
+* PostgreSQL
+Setting up PostgreSQL requires paying close attention to the Guix manual. I missed a key part when reading it for the first time.
+
+To have the PostgreSQL database service running you need to add ~(postgresql-service)~ to the list of services.
+
+#+BEGIN_SRC scheme
+(services
+ (cons*
+  (postgresql-service)
+  %base-services)))
+#+END_SRC
+
+But don't reconfigure your system yet! We need to do one more thing -- install the postgresql package system-wide to be able to use the =psql= CLI.
+
+#+BEGIN_SRC scheme
+(use-package-modules databases)
+;; ...
+(packages (cons* postgresql %base-packages))
+#+END_SRC
+
+This is the thing that I missed the first time. I spent an hour trying to figure out why I couldn't use =psql= only to later see the little comment in the example code in the documentation that says to install the =postgresql= package.
+
+The documentation shows an example where they enter the Postgres CLI using ~psql -U postgres~. If that doesn't work on your machine (it didn't on mine), you can use ~sudo -u postgres psql~.
+
+After logging in to the =postgres= database as the =postgres= user, it's time to create a new user for your regular account. In this case I will create a user with the name "brown" and the password "1234".
+
+#+BEGIN_SRC sql
+CREATE USER brown WITH PASSWORD '1234';
+#+END_SRC
+
+Let's also create a database to showcase setting permissions:
+
+#+BEGIN_SRC sql
+CREATE DATABASE my_test_db;
+#+END_SRC
+
+To grant administrative privileges for this database to the newly created user we write:
+
+#+BEGIN_SRC sql
+GRANT ALL PRIVILEGES ON DATABASE my_test_db TO brown;
+#+END_SRC
+
+Replace "my_test_db" and "brown" with your database name and user name.
+
+You can quit your session now. The next time you want to work on that database, you can do that by using the username and database name:
+
+#+BEGIN_SRC bash
+psql -U brown -d my_test_db
+#+END_SRC
+
+If your *nix account has the same name as the PostgreSQL user you want to connect as, the ~-U username~ part can be ommited from the above command.
 
 * TODO MySQL
 At the moment, I'm having a bit of trouble with setting up MariaDB.
