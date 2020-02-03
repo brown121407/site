@@ -78,3 +78,20 @@ a:link:hover {
 a:hover code {
     background-color: gray;
 }
+
+ul.project-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.project-list li {
+    border: 1px solid gray;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.project-list details summary {
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+}

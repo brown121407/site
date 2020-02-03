@@ -1,0 +1,66 @@
+#+TITLE: Projects
+
+Here's a list of the projects I work on or contribute to. Click on any of those items to expand it and show more information.
+
+#+begin_export html
+<ul class="project-list">
+  <li>
+    <details>
+      <summary>brown.121407.xyz (this website)</summary>
+      <p>
+	Minimalist weblog built using Emacs Lisp and Org.
+	<dl>
+          <dt>relation</dt>
+          <dd>maintainer</dd>
+
+	  <dt>source code</dt>
+	  <dd><a href="https://git.sr.ht/~brown121407/brown.121407.xyz">sourcehut</a></dd>
+	  
+	  <dt>license</dt>
+	  <dd><a href="/COPYING">GPL 3+</a></dd>
+	</dl>
+      </p>
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>f.scm</summary>
+      <p>
+        Guile Scheme library for common operations on files and directories.
+
+        <dl>
+          <dt>relation</dt>
+          <dd>maintainer</dd>
+
+          <dt>source code</dt>
+          <dd><a href="https://git.sr.ht/~brown121407/f.scm">sourcehut</a></dd>
+
+          <dt>license</dt>
+          <dd><a href="https://git.sr.ht/~brown121407/f.scm/tree/master/COPYING">GPL 3+</a></dd>
+        </dl>
+      </p>
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>GNU Guix</summary>
+      <p>
+	Guix is an advanced distribution of the GNU operating system developed by the GNU Project—which respects the freedom of computer users.
+
+	<dl>
+	  <dt>relation</dt>
+	  <dd><a href="http://git.savannah.gnu.org/cgit/guix.git/log/?qt=author&q=Alexandru-Sergiu+Marton">contributor</a></dd>
+
+	  <dt>source code</dt>
+	  <dd><a href="http://git.savannah.gnu.org/cgit/guix.git">savannah</a></dd>
+
+	  <dt>license</dt>
+	  <dd><a href="http://git.savannah.gnu.org/cgit/guix.git/tree/COPYING">GPL 3+</a></dd>
+	</dl>
+      </p>
+    </details>
+  </li>
+</ul>
+#+end_export
+
+Fun fact: Those dropdowns are achieved using plain HTML. No JavaShit at work here. Inspect the source and read about the ~<details>~ tag if you don't know this already.

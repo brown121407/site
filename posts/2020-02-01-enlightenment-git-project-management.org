@@ -1,0 +1,28 @@
+#+TITLE: Enlightenment: Git and project management
+#+DATE: <2020-02-01 Sat>
+
+This is the first post in a series I want to write about things regarding which "my eyes have been opened". Watch for posts starting with "Enlightenment".
+
+My other posts were more tutorial-like, with lots of snippets and explanations regarding how to do stuff. This will a more relaxed read, for which you don't need to be at a computer typing stuff to be able to enjoy it to its maximum potential.
+
+* "Modern" collaboration practices or ShitHubs
+Don't get all defensive for your favourite closed-source open-source nest and its thousands of clones. You'll (hopefully) get why I'm calling it ShitHub and why the ShitHub model is a flawed one by the end of this post. If you don't, read this again until you do.
+
+
+
+* Virgin Pull Request vs. Chad git format-patch
+
+
+* Bring back the mailing lists (pretty please)
+I'm not one of the oldies around here. At the time of writing I'm still in high school. "In my youth" I didn't use much technology -- I wasn't one of those hacker kids that are below 15 and have at least 20 acquaintances from IRC, are profficient in 37 programming languages (including Forth, Prolog, Haskell and Brainfuck) and who eat git diffs for breakfast. So that means I'm not the most experimented guy when it comes to tech. Keep that in mind.
+
+I heard mailing lists where the norm a while ago. I first got involved with one when I wanted to send patches to GNU Guix.
+
+* To: The version control systems and software forges
+
+* Where to then?
+
+
+-------
+
+I hope you liked this post and got something useful out of it. If you spotted any typo, want to make some completions or just want to yell at me, open an Issue or a Pull Request at... Oh, wait. You can't. Thank God. You could consider [[https://brown.121407.xyz/donate.html][donating]] instead.

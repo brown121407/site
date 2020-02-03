@@ -1,0 +1,9 @@
+#+TITLE: Bookmarks
+
+Cool links I don't want to lose and which may be of interest to you, too:
+- [[https://drewdevault.com/][Drew DeVault's Blog]]
+- [[https://josephg.com/blog/electron-is-flash-for-the-desktop/][Electron is flash for the desktop]]
+- [[https://guix.gnu.org/][GNU's advanced distro and transactional package manager — GNU Guix]]
+- [[https://www.gnu.org/][GNU Operating System]]
+- [[https://www.marxists.org/][Marxists Internet Archive]]
+- [[https://tonsky.me/blog/disenchantment/][Software disenchantment]]

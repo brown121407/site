@@ -1,0 +1,5 @@
+#+TITLE: New: PROJECTS page
+
+This is just a quick announcement that the website just got a [[https://brown.121407.xyz/projects.html][PROJECTS]] page.
+
+#+HTML: <small>But still no RSS feed... :(</small>

@@ -31,6 +31,7 @@
 <header>
     <nav>
         <a href='/'>HOME</a> |
+        <a href='/projects.html'>PROJECTS</a> |
         <a href='/donate.html'>DONATE</a> |
         <a href='/extra.html'>EXTRA</a>
     </nav>
