@@ -1,0 +1,6 @@
+#+TITLE: Forgive me, Lord, for I have sinned
+#+SUBTITLE: I installed Doom Emacs
+
+* TODO everything
+- great startup time
+- It even works great in the terminal!

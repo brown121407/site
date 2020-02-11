@@ -23,11 +23,11 @@
 	 :publishing-function org-publish-attachment)
 	("website" :components ("pages" "posts" "assets"))))
 
-(setq org-export-with-toc nil)
-(setq org-html-head
-      "<link rel='stylesheet' type='text/css' href='/assets/css/style.css'>")
-
-(setq org-html-preamble "
+(setq geiser-default-implementation 'guile
+      org-export-with-toc nil
+      org-html-head
+      "<link rel='stylesheet' type='text/css' href='/assets/css/style.css'>"
+      org-html-preamble "
 <header>
     <nav>
         <a href='/'>HOME</a> |

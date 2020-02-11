@@ -2,29 +2,42 @@
 #+DATE: <2020-01-12 Sun>
 #+OPTIONS: toc:t
 
-I highly recommend reading the [[https://guix.gnu.org/manual/en/][GNU Guix manual]]. It proves itself to be a great guidance tool and will solve most of your problems. I managed to learn Guix mostly by consulting the manual everytime I didn't know how to do something -- which is at least one time per day. 
+I highly recommend reading the [[https://guix.gnu.org/manual/en/][GNU Guix manual]]. It proves itself to be a great
+guidance tool and will solve most of your problems. I managed to learn Guix
+mostly by consulting the manual everytime I didn't know how to do something --
+which is at least one time per day.
 
-*NOTE*: This post is written in such manner so that it's not a replacement for the official docs regarding installation and configuration, but rather it tries to supplement those with examples and clarifications in some places.
+*NOTE*: This post is written in such manner so that it's not a replacement for
+the official docs regarding installation and configuration, but rather it tries
+to supplement those with examples and clarifications in some places.
 
-*NOTE*: I may change my software preferences in time, and I'm not sure if I want this to be a living document, so if it's been a few months after I published this there is a chance I already switched some of those things.
+*NOTE*: I may change my software preferences in time, and I'm not sure if I want
+this to be a living document, so if it's been a few months after I published
+this there is a chance I already switched some of those things.
 
 You can see my Guix configuration files on my [[https://git.sr.ht/~brown121407/guix-cfg/tree/master/machines/121408/][sourcehut]].
 
-If an item is marked with a red TODO at the beginning it means that I haven't yet written all I have to say about it. I'll occasionally come back and edit this document. I just don't have the time now to make it as nice as I want.
+If an item is marked with a red TODO at the beginning it means that I haven't
+yet written all I have to say about it. I'll occasionally come back and edit
+this document. I just don't have the time now to make it as nice as I want.
 
-If you're interested in Guix, keep an eye out for [[https://guix.121407.xyz][guix.121407.xyz]]. I plan to concentrate my Guixy stuff on there.
+If you're interested in Guix, keep an eye out for [[https://guix.121407.xyz][guix.121407.xyz]]. I plan to
+concentrate my Guixy stuff on there.
 
 * Base installation
 [[https://guix.gnu.org/manual/en/html_node/System-Installation.html#System-Installation][DOCS - System Installation]]
 
-I always use the graphical installation method. Here are the way I set my options through the installation process:
+I always use the graphical installation method. Here are the way I set my
+options through the installation process:
 - Installation and system language: English
   - Territory: United States
 - Timezone: Europe/Bucharest
 - Keyboard layout: Romanian, cedilla
 - Partitioning method: Guided - using the entire disk.
   - Partitioning scheme: Everything is one partition.
-  - *NOTE*: I installed Guix on an SSD on both my PC and my laptop. Each of them have besides that an 1 TB HDD for which I configure the mounting after the installation.
+  - *NOTE*: I installed Guix on an SSD on both my PC and my laptop. Each of them
+    have besides that an 1 TB HDD for which I configure the mounting after the
+    installation.
 - Root password: =**********=
 - User creation: Always create at least one other user than root.
 - Desktop environment: I don't check any of them, because I configure mine after the installation.

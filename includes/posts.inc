@@ -1,3 +1,4 @@
+- 2020-02-09 - [[../posts/2020-02-09-doom-emacs.org][Forgive me, Lord, for I have sinned]]
 - 2020-02-03 - [[../posts/2020-02-03-projects-page.org][New: PROJECTS page]]
 - 2020-02-01 - [[../posts/2020-02-01-enlightenment-git-project-management.org][Enlightenment: Git and project management]]
 - 2020-01-14 - [[../posts/2020-01-14-guix-databases.org][GNU Guix: Databases]]

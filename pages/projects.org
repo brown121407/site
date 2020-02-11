@@ -1,6 +1,10 @@
 #+TITLE: Projects
 
-Here's a list of the projects I work on or contribute to. Click on any of those items to expand it and show more information.
+Here's a list of the projects I work on or contribute to. Click on any of those
+items to expand it and show more information.
+
+If you think I'm cool and you want to hire me or something, [[mailto:brown121407@member.fsf.org][send me an email]].
+You can also [[https://brown.121407.xyz/donate.html][donate]].
 
 #+begin_export html
 <ul class="project-list">
@@ -8,17 +12,36 @@ Here's a list of the projects I work on or contribute to. Click on any of those 
     <details>
       <summary>brown.121407.xyz (this website)</summary>
       <p>
-	Minimalist weblog built using Emacs Lisp and Org.
-	<dl>
+        Minimalist weblog built using Emacs Lisp and Org.
+        <dl>
           <dt>relation</dt>
           <dd>maintainer</dd>
 
-	  <dt>source code</dt>
-	  <dd><a href="https://git.sr.ht/~brown121407/brown.121407.xyz">sourcehut</a></dd>
-	  
-	  <dt>license</dt>
-	  <dd><a href="/COPYING">GPL 3+</a></dd>
-	</dl>
+          <dt>source code</dt>
+          <dd><a href="https://git.sr.ht/~brown121407/brown.121407.xyz">sourcehut</a></dd>
+
+          <dt>license</dt>
+          <dd><a href="/COPYING">GPL 3+</a></dd>
+        </dl>
+      </p>
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>guix.121407.xyz</summary>
+      <p>
+        Public channel for GNU Guix.
+
+        <dl>
+          <dt>relation</dt>
+          <dd>maintainer</dd>
+
+          <dt>source code</dt>
+          <dd><a href="https://git.sr.ht/~brown121407/guix.121407.xyz">sourcehut</a></dd>
+
+          <dt>license</dt>
+          <dd><a href="https://git.sr.ht/~brown121407/guix.121407.xyz/tree/master/COPYING">GPL 3+</a></dd>
+        </dl>
       </p>
     </details>
   </li>
@@ -45,22 +68,24 @@ Here's a list of the projects I work on or contribute to. Click on any of those 
     <details>
       <summary>GNU Guix</summary>
       <p>
-	Guix is an advanced distribution of the GNU operating system developed by the GNU Project—which respects the freedom of computer users.
+        Guix is an advanced distribution of the GNU operating system developed by the GNU Project—which respects the freedom of computer users.
 
-	<dl>
-	  <dt>relation</dt>
-	  <dd><a href="http://git.savannah.gnu.org/cgit/guix.git/log/?qt=author&q=Alexandru-Sergiu+Marton">contributor</a></dd>
+        <dl>
+          <dt>relation</dt>
+          <dd><a href="http://git.savannah.gnu.org/cgit/guix.git/log/?qt=author&q=Alexandru-Sergiu+Marton">contributor</a></dd>
 
-	  <dt>source code</dt>
-	  <dd><a href="http://git.savannah.gnu.org/cgit/guix.git">savannah</a></dd>
+          <dt>source code</dt>
+          <dd><a href="http://git.savannah.gnu.org/cgit/guix.git">savannah</a></dd>
 
-	  <dt>license</dt>
-	  <dd><a href="http://git.savannah.gnu.org/cgit/guix.git/tree/COPYING">GPL 3+</a></dd>
-	</dl>
+          <dt>license</dt>
+          <dd><a href="http://git.savannah.gnu.org/cgit/guix.git/tree/COPYING">GPL 3+</a></dd>
+        </dl>
       </p>
     </details>
   </li>
 </ul>
 #+end_export
 
-Fun fact: Those dropdowns are achieved using plain HTML. No JavaShit at work here. Inspect the source and read about the ~<details>~ tag if you don't know this already.
+Fun fact: Those dropdowns are achieved using plain HTML. No JavaShit at work
+here. Inspect the source and read about the ~<details>~ tag if you don't know
+this already.

@@ -1,28 +1,125 @@
 #+TITLE: Enlightenment: Git and project management
 #+DATE: <2020-02-01 Sat>
 
-This is the first post in a series I want to write about things regarding which "my eyes have been opened". Watch for posts starting with "Enlightenment".
+This is the first post in a series I want to write about things regarding which
+"my eyes have been opened". Watch for posts starting with "Enlightenment".
 
-My other posts were more tutorial-like, with lots of snippets and explanations regarding how to do stuff. This will a more relaxed read, for which you don't need to be at a computer typing stuff to be able to enjoy it to its maximum potential.
+My other posts were more tutorial-like, with lots of snippets and explanations
+regarding how to do stuff. This will a more relaxed read, for which you don't
+need to be at a computer typing stuff to be able to enjoy it to its maximum
+potential.
 
 * "Modern" collaboration practices or ShitHubs
-Don't get all defensive for your favourite closed-source open-source nest and its thousands of clones. You'll (hopefully) get why I'm calling it ShitHub and why the ShitHub model is a flawed one by the end of this post. If you don't, read this again until you do.
+Don't get all defensive for your favourite closed-source open-source nest and
+its thousands of clones. You'll (hopefully) get why I'm calling it ShitHub and
+why the ShitHub model is a flawed one by the end of this post. If you don't,
+read this again until you do.
 
+If you're into /[[https://www.gnu.org/philosophy/open-source-misses-the-point.en.html][open-source]]/ or free software, you might have downloaded some
+projects from GitHub, sent in some Issues or Pull Requests. Let's analyse those
+processes a bit.
 
+Imagine two of your favourite programs mishabit. You do a search on the
+interwe(e)bs or whatever and find their source code -- on GitHub. Let's say one
+of those projects is more in your area of expertise than the other, so you
+decide to hack a bit on its code and send in your bug fix, and to create a bug
+report for the other one.
+
+Both of those things require you to create an account on ShitHub. That's a red
+flag already. Where's the praised decentralization of the Internet? Surely not
+inside this lock-in that is ShitHub. To post an Issue you use a form on the
+website that allows for some special formatting with Markdown and that's about
+it, I think. Now, let's talk about sending a /patch/. You know, when you got a
+new video game and it was buggy, the developers would release a /patch/ for it.
+Yeah, about that... the new dev generation calls those Pull Requests.
+
+You cloned the code, made the changes needed to fix the bug you were
+encountering and commited them on your system. YOU FOOL. C'mon... that's not how
+it's done! First, fork the repository on your ShitHub account. Then clone
+/that/. /Now/ do your changes, commit and push. Go into the web interface and
+create a pull request from there which is pretty confusing for a beginner --
+speaking from experience. Comments and further work on your Pull Request need
+interacting with the web UI too, and need you to be logged in (but I guess you
+got that already).
+
+And do I even have to point out the fact that you don't have any clue of what's
+going on inside the ShitHub, because it's proprietary software?
 
 * Virgin Pull Request vs. Chad git format-patch
+Let me show you what they don't want you to know.
 
+There is this cool little thing, built right into git, called [[https://git-scm.com/docs/git-format-patch][git format-patch]].
+It spits out one file per commit in a range of your choice in a format that git
+itself will be able understand later (which is also human readable). Those files
+are called, as you may have guessed, /patches/. The true patches. The easy to
+make--easy to use patches.
 
-* Bring back the mailing lists (pretty please)
-I'm not one of the oldies around here. At the time of writing I'm still in high school. "In my youth" I didn't use much technology -- I wasn't one of those hacker kids that are below 15 and have at least 20 acquaintances from IRC, are profficient in 37 programming languages (including Forth, Prolog, Haskell and Brainfuck) and who eat git diffs for breakfast. So that means I'm not the most experimented guy when it comes to tech. Keep that in mind.
+Let me show you an example of such a patch. Since those are basically plain
+text, they can be sent in the body of an email, for example:
 
-I heard mailing lists where the norm a while ago. I first got involved with one when I wanted to send patches to GNU Guix.
+[[https://lists.gnu.org/archive/html/guix-patches/2020-02/msg00079.html][[bug#38808] [PATCH v2] gnu: Add ghcid.]]
 
-* To: The version control systems and software forges
+Why are patches so OP? Let's see (from the contributor's perspective)...
 
-* Where to then?
+- They can be quicly created directly from the command line or from your
+  favourite git client[fn::If that is Magit. I don't know about the others].
+- It takes like 5 minutes to get accustomed to how git format-patch works.
+- Patches let you contribute to projects without requiring you to have an
+  account on any platform. Just clone the source of the project you want to work
+  on (this is done without forking to your account and other extra bullshit
+  steps -- clone it directly from its home), do your changes, commit, ~git
+  format-patch <options>~ and find a way to send the patch files.
+- Because patch file are just plain-text files you can send them in a lot of
+  different ways: by email, via an USB stick, by normal mail, by morse code
+  (through smoke signals), by radio etc. As long as the person to whom you want
+  to send the patches can get them into plain text, it doesn't matter, it will
+  work.
+- Sometimes you want to record some changes and allow others to optionally apply
+  them. This is how extra features are distributed for [[https://suckless.org/][suckless software]]. For
+  example, to add transparency to [[https://st.suckless.org/][st]], you want [[https://st.suckless.org/patches/alpha/][this patch]].
 
+** TODO I need a maintainer's perspective on applying patches vs accepting Pull Requests
+
+* TODO Bring back the mailing lists (pretty please)
+I'm not one of the oldies around here. At the time of writing I'm still in high
+school. "In my youth" I didn't use much technology -- I wasn't one of those
+hacker kids that are below 15 and have at least 20 acquaintances from IRC, are
+profficient in 37 programming languages (including Forth, Prolog, Haskell and
+Brainfuck) and who eat git diffs for breakfast. So that means I'm not the most
+experimented guy when it comes to tech. Keep that in mind.
+
+I heard mailing lists where the norm a while ago. I discovered them at the end
+of 2019 when I wanted to send patches to GNU Guix.
+
+* TODO To: The version control systems and software forges
+Please don't move further away from basic patch-by-email support. It's the
+easiest and fastest method to contribute, and the one that discriminates the
+least. Everyone can use their own email client and prepare the patches on their
+own machines without being locked in some web UI.
+
+* TODO Where to then?
+There is this [[https://git-send-email.io/][amazing guide to git send-email]] for multiple systems and email
+providers. git send-email is a tool for sending patches by email, build into git
+itself, just like git format-patch.
+
+Look for a sofware forge that doesn't restrict contributors and that doesn't
+require them to create accounts. [[https://sourcehut.org/][SourceHut]] is the only one that I know of
+(besides GNU Savannah, which is pretty old and I don't know how it works; there
+may be many more out there). SourceHut also lets you to create mailing lists.
+
+Accept and send patches, not Pull Requests.
+
+Keep in mind that all this rant is coming from someone that's in high school. I
+should be blindly supporting the "JavaShit all the things" movement and I should
+hunger for GitHub stars while I work on my IoT project using Python in Visual
+Studio Code but instead of that I rant about sending patches by email. If you
+think about it for a second, that means there's something cool as hell about
+patches and email.
 
 -------
 
-I hope you liked this post and got something useful out of it. If you spotted any typo, want to make some completions or just want to yell at me, open an Issue or a Pull Request at... Oh, wait. You can't. Thank God. You could consider [[https://brown.121407.xyz/donate.html][donating]] instead.
+I hope you liked this post and got something useful out of it. If you spotted
+any typo, want to make some completions or just want to yell at me, open an
+Issue or a Pull Request at... Oh, wait. You can't. Thank God. You could consider
+[[https://brown.121407.xyz/donate.html][donating]] instead. The only pull request you'll see here is me requesting you
+pull your code from ShitHubs.
