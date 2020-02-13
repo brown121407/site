@@ -11,8 +11,9 @@ Here I keep anything else that doesn't go in a post but I still want to have in 
 * Other documents
 - [[./notes.org][Notebook]] (project ideas and thoughts that can't go into a post)
 
-* TODO Reminders & ideas [0/6]
+* TODO Reminders & ideas [0/8]
 - [ ] Clean this list sometime in the future.
+- [ ] Write post about Doom Emacs.
 - [ ] Finish some of my projects and find a way to sell them (as libre software, of course).
 - [ ] Write post about using proprietary crapware in Romanian schools and the Information and Communication Technology curriculum and exam.
 - [ ] Write post about my love for free software.

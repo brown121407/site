@@ -2,6 +2,10 @@
 #+DATE: <2020-01-12 Sun>
 #+OPTIONS: toc:t
 
+*NOTE*: This post is currently in an archived state due to time
+constraints. While I will write new articles, I can't guarantee
+anymore I'll come back to this one.
+
 I highly recommend reading the [[https://guix.gnu.org/manual/en/][GNU Guix manual]]. It proves itself to be a great
 guidance tool and will solve most of your problems. I managed to learn Guix
 mostly by consulting the manual everytime I didn't know how to do something --

@@ -1,6 +1,5 @@
-- 2020-02-09 - [[../posts/2020-02-09-doom-emacs.org][Forgive me, Lord, for I have sinned]]
 - 2020-02-03 - [[../posts/2020-02-03-projects-page.org][New: PROJECTS page]]
-- 2020-02-01 - [[../posts/2020-02-01-enlightenment-git-project-management.org][Enlightenment: Git and project management]]
+- 2020-02-01 - [[../posts/2020-02-01-enlightenment-git-project-management.org][Enlightenment: Git patches and mailing lists]]
 - 2020-01-14 - [[../posts/2020-01-14-guix-databases.org][GNU Guix: Databases]]
 - 2020-01-12 - [[../posts/2020-01-12-guix-setup.org][Setting up a GNU Guix System]]
 - 2019-12-29 - [[../posts/2019-12-29-guix-fonts-cursors-icons.org][GNU Guix System: Fonts, icons and cursors]]

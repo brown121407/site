@@ -3,7 +3,8 @@
 Here's a list of the projects I work on or contribute to. Click on any of those
 items to expand it and show more information.
 
-If you think I'm cool and you want to hire me or something, [[mailto:brown121407@member.fsf.org][send me an email]].
+If you think I'm cool and you want to hire me or something, [[mailto:brown121407@member.fsf.org][send me an email]]. As much as I'm shitting on proprietary software I still need to buy food, so, while I prefer working on and with libre software, I still accept job offers that don't include such basic life-sustaining conditions. 
+
 You can also [[https://brown.121407.xyz/donate.html][donate]].
 
 #+begin_export html
