@@ -5,7 +5,7 @@ mkfile_dir := $(dir $(mkfile_path))
 
 all : clean ring publish
 
-publish :
+publish : clean
 	emacs --script project.el
 
 ring :

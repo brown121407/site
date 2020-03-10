@@ -72,6 +72,9 @@ You can also [[https://brown.121407.xyz/donate.html][donate]].
         Guix is an advanced distribution of the GNU operating system developed by the GNU Project—which respects the freedom of computer users.
 
         <dl>
+          <dt>homepage</dt>
+          <dd><a href="https://guix.gnu.org/">website</a><dd>
+
           <dt>relation</dt>
           <dd><a href="http://git.savannah.gnu.org/cgit/guix.git/log/?qt=author&q=Alexandru-Sergiu+Marton">contributor</a></dd>
 

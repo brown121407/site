@@ -3,30 +3,50 @@
 
 This is a follow up to "[[./2019-12-25-guix-adwaita-cursor.org][Use Adwaita cursors in the GNU Guix System]]".
 
+*NOTE*: Please read the [[*EDIT <2020-02-22 Sat>][EDIT]].
+
 * Icons and cursors
 
-For icons and cursors to be usable, I found that you may need to link ~$GUIX_PROFILE/share/icons~ to ~$HOME/.icons~.
+For icons and cursors to be usable, I found that you may need to link
+~$GUIX_PROFILE/share/icons~ to ~$HOME/.icons~.
 
 #+begin_src bash
 ln -sf "$GUIX_PROFILE/share/icons" "$HOME/.icons"
 #+end_src
 
-After that, you can do something like change your cursor from your ~$HOME/.Xresources~:
+After that, you can do something like change your cursor from your
+~$HOME/.Xresources~:
 
 #+begin_src text
 Xcursor.theme: THEME_NAME_HERE
 #+end_src
 
-and load the new settings with ~xrdb -merge ~/.Xresources~. Note that your window manager may need a restart to properly pick up the changes.
+and load the new settings with ~xrdb -merge ~/.Xresources~. Note that
+your window manager may need a restart to properly pick up the
+changes.
 
 * Fonts
 
-I read somewhere that Guix's fontconfig should pick up fonts from ~$GUIX_PROFILE/share/fonts~. I don't know how fontconfig works but I can say that [[https://www.gnu.org/software/gnuzilla/][IceCat]] couldn't find any of the fonts I manually installed. ~fc-list~ also didn't report anything other than what I got on the system when I intially installed it.
+I read somewhere that Guix's fontconfig should pick up fonts from
+~$GUIX_PROFILE/share/fonts~. I don't know how fontconfig works but I
+can say that [[https://www.gnu.org/software/gnuzilla/][IceCat]] couldn't find any of the fonts I manually
+installed. ~fc-list~ [fn::Both ~fc-list~ and ~fc-cache~ are part of the
+=fontconfig= package.]also didn't report anything other than what I got
+on the system when I intially installed it.
 
-If you experience the same problem, link ~$GUIX_PROFILE/share/fonts/~ to ~$HOME/.fonts~.
+If you experience the same problem, link ~$GUIX_PROFILE/share/fonts/~
+to ~$HOME/.fonts~.
 
 #+begin_src bash
 ln -sf "$GUIX_PROFILE/share/fonts" "$HOME/.fonts"
 #+end_src
 
-Fonts installed by Guix should now be shown by ~fc-list~ and should be available to select from your programs.
+Fonts installed by Guix should now be shown by ~fc-list~ and should be
+available to select from your programs. If not, try to update your
+cache first: ~fc-cache -f~.
+
+** EDIT <2020-02-22 Sat>
+I wouldn't recommend doing this anymore. Some
+programs will want to write to your =~/.fonts= directory. I also
+removed my =.fonts= symlink completely and Guix still recognized my
+fonts. When I install any new ones, all I have to do is run ~fc-cache -f~.

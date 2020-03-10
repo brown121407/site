@@ -1,0 +1,175 @@
+#+TITLE: A module system for coding FTC robots
+
+* Abstract
+Writing code for FTC[fn::[[https://www.firstinspires.org/robotics/ftc][FIRST Tech Challenge]]] often turns into a mess
+--- the need to quickly and often change what the robot does to get
+the perfect autonomous, the modifications done on the physical systems
+by the engineers, the fact that you didn't account for some edge case
+when the robot doesn't want to rotate more than 66.6 degrees on a full
+moon etc., all those things mean that you, as a programmer, will often
+have to resort to dropping some quick hacks in the middle of your
+codebase. This article will present a way to structure your code in
+such a way that you'll be able to develop faster and bugs will be
+easier to triangulate by representing (roughly) every physical system
+as a /module/.
+
+* Vision
+What do I mean by /module/?
+
+Well, a module should:
+- encapsulate all the data and logic of a physical system
+  (e.g. represent all the motors of the drive train and contain
+  functions that make them go vrummm)
+- be somehow generic (in the sense that different modules can be used
+  together thanks to their abstractions; e.g. to have the capacity to store
+  multiple modules in a container)
+- be easily swappable (very important to point out, but this point is
+  practically a product of the previous one)
+- be easy to use (this means that it requires implementing some
+  helpers around the project to decrease the code needed to access and
+  use a module's properties and functions; the API has to be
+  intuitive)
+
+On one hand, modules should greatly improve a team's productivity
+during the testing period. The ease of quickly swapping components
+instead of commenting large regions or adapting them for new systems
+will quickly win over both the organized and the lazy
+programmers. Your engineers decide to change the drive train? While it
+may take 30 minutes for them, for you it's just a few seconds --
+replace ~HolonomicDriveTrainModule~ with ~MecanumDriveTrainModule~ and
+you're done.
+
+On the other hand, high stress moments such as quickly fixing
+something between matches will also benefit from such a neat way of
+organizing code as modules. Finding the place where you need to
+perform an intervention will be easier now that you don't have all
+your code in a single monolithic OpMode file.
+
+Even more so, modules reduce duplicated code. We all had a time when
+we would jump between OpModes dancing with the fingers on Control, C,
+X and V. That time is over --- modules come with the philosophy of
+/write once, use anywhere/. 
+
+In the end all of this will basically turn into a bit of boilerplate,
+but boilerplate which, in my opinion, is worth the effort because it
+makes organising the code, localizing bugs and switching components
+very easy.
+
+*NOTE*: All the code in this article is Kotlin.
+
+*NOTE*: There will be /a lot/ of code in this article.
+
+*NOTE*: I will be removing the ~import~ statements from the files
+because only God knows which ones to keep and which to
+discard.[fn::I'm writing this from a machine with GNU Guix, which
+doesn't have Android Studio to give me insights as to what is needed.]
+
+*NOTE*: I will be modifying some of the snippets /in place/ (that
+means I'm copying them from a git repo into this article and /then/,
+without any tool to verify the correctness of the code, I'm messing
+with it).
+
+*NOTE*: Actual review my team got for this: "So your programmer was
+bored and he decided to jerk out some fancy-looking complicated code".
+
+* The base for our modules
+Enough with the propaganda, let's get to work.
+
+Since we've established that a module should, more or less, fully
+encapsulate a physical system, it should /contain/ a /container/ for
+robot components: a ~HashMap<String, HardwareDevice>~ where the key is
+the name of a component and the value is the actual component itself
+as a ~HardwareDevice~. We'll want to firstly create a blueprint of
+what a module should be, so we'll use an interface.
+
+Here's the definition of the base of all our modules:
+#+CAPTION: RobotModule.kt
+#+BEGIN_SRC kotlin
+interface RobotModule {
+    var components: HashMap<String, HardwareDevice>
+    val opMode: OpMode
+    val hardwareMap get() = opMode.hardwareMap
+    val telemetry get() = opMode.telemetry
+
+    fun init() { }
+    fun start() { }
+    fun stop() { }
+
+    fun <T: HardwareDevice> get(name: String): T = components[name] as T
+}
+#+END_SRC
+
+As you see, it contains a bit more than a hashmap.
+
+To be able to initialize all the hardware it uses, the module also
+needs to hold a reference to the opMode it's used from. ~hardwareMap~ and
+~telemetry~ are just properties that ~get~ frequently used fields of
+the ~opMode~.
+
+I also defined three methods: ~init~, ~start~, ~stop~. Those do
+nothing by default, but it's nice to have some guaranteed standard way
+to initialize a module. Custom modules will override those methods
+with their own logic.
+
+Finally, the ~get~ method accepts a string representing the name of a
+component, but also a type parameter that inherits
+~HardwareDevice~. We use ~get~ to retrieve a hardware component from a
+module's hashmap and to convert it to a specified type. For example:
+
+#+BEGIN_SRC kotlin
+val frontLeftMotor = driveTrain.get<DcMotor>("front-left")
+#+END_SRC
+
+* Constructing a Robot
+#+CAPTION: Robot.kt
+#+BEGIN_SRC kotlin
+class Robot(val opMode: OpMode, val modules: Set<RobotModule>) {
+    inline fun <reified T: RobotModule> get(): T = modules.first { x -> x is T } as T
+}
+#+END_SRC
+
+* Making use of our Robot in OpModes
+#+CAPTION: MyOpModeBase.kt
+#+BEGIN_SRC kotlin
+interface MyOpModeBase  {
+    val robot: Robot
+}
+
+inline fun <reified T: RobotModule> MyOpModeBase.get(): T = robot.get()
+#+END_SRC
+
+* Sample modules and usage
+** Mecanum drivetrain
+
+** Hooks for grabbing the tray
+
+** Example OpMode structure using modules
+
+#+BEGIN_SRC kotlin
+@TeleOp(name = "Sample", group = "TESTS")
+class ControlledSimple : MyOpMode() {
+    override val robot: Robot = Robot(this,
+        setOf(
+            Mecanum(this),
+            Hook(this),
+            Lift(this),
+            Intake(this)
+        ))
+
+    override fun init() {
+        robot.modules.forEach { it.init() }
+    }
+
+    override fun loop() {
+        // ...
+    }
+}
+#+END_SRC
+
+
+* Using the same module class multiple times
+Imagine your robot has two identical pieces that can be represented as
+a module, but each one of those require some special values to work
+right. You could think of two servos that do the same things but only
+on opposite sides of the robot, so they would require different
+positions.

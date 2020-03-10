@@ -1,0 +1,5 @@
+#+TITLE: StumpWM and fonts
+
+Getting StumpWM to play nice with fonts was a headache on my HiDPI
+laptop so I thought to write a post about my adventure to help others
+who may want to modify the appearance of this great window manager.

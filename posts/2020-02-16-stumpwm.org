@@ -1,0 +1,169 @@
+#+TITLE: StumpWM
+
+* Towards a LISP Machine[fn::https://en.wikipedia.org/wiki/Lisp_machine]
+
+I recently ditched my i3 setup in favour of [[https://stumpwm.github.io/][StumpWM]] which "is a
+tiling, keyboard driven X11 Window Manager written entirely in Common
+Lisp".
+
+One cool thing about StumpWM is that, besides being written in Common
+Lisp, it is /configured/ using Common Lisp. No obscure, half baked,
+weird configuration language needed! It's all just
+s-expressions[fn::S-expression stands for "sexy expression". Trust me,
+don't search.].
+
+While still a newcomer to the stump-land, I have to say I'm amazed. At
+first I kept i3 around in case I messed something up or I wasn't
+getting along with StumpWM but I have since removed it completely from
+my system. This window manager is easy to use and easy to configure,
+and a lot more accessible than I thought.
+
+As always, when I present a new piece of software, I recommend you to
+read it's [[https://stumpwm.github.io/][official documentation]]. Yes, it may be boring sometimes, but
+you'll find most of the things you're interested it in there. I
+guarantee it. You can also get the list of keybindings directly from
+your WM at any time by pressing =Prefix ?= (by default, prefix is
+=Control-t=, so this becomes =C-t ?=).
+
+* How does it work?
+
+Let's start with a quick, basic introduction to the way StumpWM
+manages your windows.
+
+StumpWM splits the visible screen into regions called *frames*. Frames
+are delimited sections of the screen that can contain windows. Unlike
+i3[fn::If I think about it, you can have stumpish behaviour in i3 with
+tabbed layouts, I guess.], which automatically positions windows
+around the screen when you open up new ones, StumpWM will open a new
+windows in the current frame, over the previous one. If you want to
+have two windows side by side, you need to create two frames, and open
+each window in a separate frame.
+
+The frame concept is nice because it allows you to have more windows
+open that what is actually on the screen. Of course, you can move
+windows between frames, and this is called *pulling* a window, from
+what I understand.
+
+But what if you want to have something like a "workspace", multiple
+windows /grouped/ together for some reason. i3 manages this using,
+well, workspaces. StumpWM calls its thing *groups*. Groups can have
+names, and windows can be moved from one group to another.
+
+Let's say I have a frame with Emacs and one with IceCat, working on a
+software project. I remember I have some homework to do, but I don't
+want to cross my homework with my code work, so I create a new group
+in which I can open up LibreOffice or something, without having to
+create a mess between the setup I created for my programming workflow.
+
+StumpWM works mostly by invoking different commands. For example, to
+use the ~windows~ command, which lists open windows and highlights the
+selected one, you can also press =C-t w= on the default
+keymap. Another way would be to open the *input bar* (=C-t ;=), and
+write the command name there.
+
+Reminder: You can see the keybindings with their correspondent
+commands with =C-t ?= by default. For keybindings that require more
+than two chords, like group keybindings, you can press the first two
+and then =?= -- =C-t g ?= for a list of group keybindings.
+
+Most people also use something like a status bar with a window
+manager. If you want to use polybar or something external, that's
+fine, but StumpWM has its own thing, called the *mode line*. By
+default, it displays the group name and open windows, but it can be
+customized. I have mine set to show the time and date too.
+
+One of the cool things about StumpWM is that you can execute arbitrary
+Common Lisp code in it's eval prompt (=C-t := or =eval=). This way you
+can modify StumpWM from inside StumpWM. Try enabling the mode line --
+press =C-t := and type:
+
+#+BEGIN_SRC lisp
+  (toggle-mode-line (current-screen)
+                    (current-head))
+#+END_SRC
+
+* Configuration
+
+Let's see some basic things you might want to do in your
+configuration.
+
+I store mine in =~/.config/stumpwm/config=, though it can be in other
+places too. See the [[https://stumpwm.github.io/1.0.0/stumpwm-1.0.0_1.html#Init-File][Init File]] section of the manual.
+
+If you don't want to have to type ~stumpwm:~ before anything
+StumpWM-related, I recommend putting ~(in-package :stumpwm)~ at the
+top of the file. All the examples shown below assume you did this.
+
+** [[https://stumpwm.github.io/1.0.0/stumpwm-1.0.0_2.html#Binding-Keys][Keybindings]]
+One of the first things you'll want to do is to change some of the
+default keys or add new ones. Let's say we don't like xterm and want
+to open kitty instead when pressing =C-t c=. We'll need only one line
+of nice and clean Lisp:
+
+#+BEGIN_SRC lisp
+(define-key *root-map* (kbd "c") "exec kitty")
+#+END_SRC
+
+The ~*root-map*~ binds keys after the prefix, so this means that if
+=c= is presed after =C-t=, it will launch kitty.
+
+If you want to bind keys without the prefix, you would use ~*top-map*~
+instead of the ~*root-map*~. For example, let's see how one would
+configure the volume keys:
+
+#+BEGIN_SRC lisp
+(define-key *top-map* (kbd "XF86AudioMute") "exec pulsemixer --toggle-mute")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "exec pulsemixer --change-volume +2")
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "exec pulsemixer --change-volume -2")
+#+END_SRC
+
+** Visuals
+*** [[https://stumpwm.github.io/1.0.0/stumpwm-1.0.0_7.html#Mode_002dline][Mode line]]
+To enable to mode line, you would use:
+
+#+BEGIN_SRC lisp
+  (toggle-mode-line (current-screen)
+                    (current-head))
+#+END_SRC
+
+You want to change the information written on the mode line so it
+shows the time and date too and have it update every 5 seconds?
+
+#+BEGIN_SRC lisp
+(setf *screen-mode-line-format* "[^B%n^b] %W ^> %d")
+(setf *mode-line-timeout* 5)
+#+END_SRC
+
+You don't like the default colors?
+
+#+BEGIN_SRC lisp
+(setf *mode-line-background-color* "#1C2028"
+      *mode-line-foreground-color* "#eeeeee")
+#+END_SRC
+
+*** Message and input bar
+See the [[https://stumpwm.github.io/1.0.0/stumpwm-1.0.0_4.html#Customizing-The-Bar][Customizing The Bar]] section of the manual.
+
+*** Window appearance
+See the [[https://stumpwm.github.io/1.0.0/stumpwm-1.0.0_5.html#Customizing-Window-Appearance][Customizing Window Appearance]] section of the manual.
+
+** Startup programs
+There are times when you want stuff to happen when the window manager
+starts. For example, setting a wallpaper.
+
+StumpWM allows you to do this by using ~run-shell-command~ in your
+configuration file. Here is some example code taken from my config
+that sets my wallpaper using nitrogen and starts Emacs as a daemon:
+#+BEGIN_SRC elisp
+(run-shell-command "nitrogen --restore")
+(run-shell-command "emacs --daemon")
+#+END_SRC
+
+* Give it a try
+StumpWM is a great program and I think it will be stay my window
+manager for quite some time. 
+
+I'm looking into getting it on my laptop too, but, beware, the default
+fonts don't scale on a HiDPI display (like my laptop has). You would
+need to change the font from the config file. I don't know yet how to
+do that, so I can't help.

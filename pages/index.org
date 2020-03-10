@@ -10,6 +10,8 @@ Want to chat? Shoot me an email.
 - email :: [[mailto:brown121407@member.fsf.org][brown121407@member.fsf.org]]
 - sourcehut :: [[https://git.sr.ht/~brown121407][~brown121407]]
 - mastodon :: [[https://fosstodon.org/@brown121407][@brown121407@fosstodon.org]]
+- public key :: [[https://brown.121407.xyz/assets/pubkey.asc][pubkey.asc]]
+- fingerprint :: 8571 7664 DFDC 6B6A 3ED2 DA68 2348 7CC8 2397 2C1F
 
 * Posts
 #+INCLUDE: ../includes/posts.inc
