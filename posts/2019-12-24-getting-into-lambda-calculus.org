@@ -17,8 +17,8 @@ How I got into λs again is through LISP. I was filled with joy when I recreated
 #+END_SRC
 
 I made this post because I tought I should post the resources I found about this topic as they may prove useful for others. Here we go:
-- [[../assets/books/lambda-calc-geuvers.pdf][Introduction to Lambda Calculus]] by Henk Barendregt and Erik Barendsen.
-- [[../assets/books/lambda-calc-a-short-intro.pdf][A short introduction to Lambda Calculus]] by Achim Jung
-- [[../assets/books/lambda-calc-lecture-notes-dalhousie-uni.pdf][Lecture Notes on the Lambda Calculus]] by Peter Selinger
-- [[../assets/books/lambda-calc-university-of-iowa.pdf][Chapter 5: THE LAMBDA CALCULUS]] from the University of Iowa
+- [[../extra/books/lambda-calc-geuvers.pdf][Introduction to Lambda Calculus]] by Henk Barendregt and Erik Barendsen.
+- [[../extra/books/lambda-calc-a-short-intro.pdf][A short introduction to Lambda Calculus]] by Achim Jung
+- [[../extra/books/lambda-calc-lecture-notes-dalhousie-uni.pdf][Lecture Notes on the Lambda Calculus]] by Peter Selinger
+- [[../extra/books/lambda-calc-university-of-iowa.pdf][Chapter 5: THE LAMBDA CALCULUS]] from the University of Iowa
     

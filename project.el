@@ -21,7 +21,13 @@
 	 :recursive t
 	 :publishing-directory "public/assets"
 	 :publishing-function org-publish-attachment)
-	("website" :components ("pages" "posts" "assets"))))
+        ("extra"
+         :base-directory "extra"
+         :base-extension any
+         :recursive t
+         :publishing-directory "public/extra"
+         :publishing-function org-publish-attachment)
+	("website" :components ("pages" "posts" "assets" "extra"))))
 
 (setq geiser-default-implementation 'guile
       org-export-with-toc nil
