@@ -1,5 +1,71 @@
 #+TITLE: StumpWM and fonts
+#+DATE: <2020-02-22 Sat>
 
 Getting StumpWM to play nice with fonts was a headache on my HiDPI
 laptop so I thought to write a post about my adventure to help others
 who may want to modify the appearance of this great window manager.
+
+* StumpWM Contrib
+First of all, you're going to need the [[https://github.com/stumpwm/stumpwm-contrib/][contrib repo]] --- a collection
+of StumpWM modules. Clone that somewhere on your computer, preferably
+in the same directory with your StumpWM config.
+
+I have my config in =~/.config/stumpwm=, so I cloned that repo into
+=~/.config/stumpwm/stumpwm-contrib=.
+
+#+BEGIN_SRC lisp
+(defvar *stumpwm-config-dir* "~/.config/stumpwm")
+(set-module-dir "~/.config/stumpwm/stumpwm-contrib")
+#+END_SRC
+
+Then you'll need to load a specific module for fonts:
+
+#+BEGIN_SRC lisp
+(load-module "ttf-fonts")
+#+END_SRC
+
+* Changing fonts
+To make StumpWM use a specific font, you'd write something like this:
+
+#+BEGIN_SRC lisp
+(set-font (make-instance 'xft:font
+			 :family "Source Code Pro"
+			 :subfamily "Regular"
+			 :size 10))
+#+END_SRC
+
+But none of this will work, because you're missing a
+dependency. ~ttf-fonts~ requires ~clx-truetype~. This package seems to
+no longer be available on quicklisp, but I managed to find the sources
+and put up [[https://git.sr.ht/~brown121407/clx-truetype][a repository]] along with [[https://git.sr.ht/~brown121407/guix.121407.xyz/tree/master/channel/non-gnu/packages/lisp.scm#L33][a Guix package]].
+
+I don't know how you would go about installing clx-truetype if you're
+not on Guix and your distribution doesn't have it packaged already (I
+think Arch has it in their repos).
+
+If you have the luck to be on Guix, to get it first add my channel to
+your =~/.config/guix/channels.scm=:
+
+#+BEGIN_SRC scheme
+(append
+ (list ;; your other channels
+       (channel
+        (name 'brown121407)
+        (url "https://git.sr.ht/~brown121407/guix.121407.xyz")))
+ %default-channels)
+#+END_SRC
+
+Do a ~guix pull~ after that and then ~guix install
+sbcl-clx-truetype~. You should be ready now.
+
+One more thing you need to do is put this into your StumpWM config,
+before ~set-font~, and follow the advice given in the comment (this
+applies for the first setup too, because you want fonts to be
+indexed):
+
+#+BEGIN_SRC lisp
+;; Uncomment this whenever installing new fonts to refresh cache
+;;(xft:cache-fonts)
+#+END_SRC
+
+

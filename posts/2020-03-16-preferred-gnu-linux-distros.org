@@ -1,0 +1,18 @@
+#+TITLE: My prefered GNU/Linux distributions
+#+DATE: <2020-03-16 Mon>
+
+* For hardcore hackers and free software enthusiasts
+** GNU Guix System
+The Guix System is a distribution of the GNU operating system based on
+the Guix package manager.
+
+* For moderate geeks
+** Arch Linux
+
+* For normal people
+** Manjaro
+
+** Fedora
+
+* My current setup
+For the moment, I dual boot GNU Guix System and Manjaro.

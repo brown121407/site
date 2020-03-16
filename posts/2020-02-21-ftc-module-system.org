@@ -1,4 +1,5 @@
 #+TITLE: A module system for coding FTC robots
+#+DATE: <2020-02-21 Fri>
 
 * Abstract
 Writing code for FTC[fn::[[https://www.firstinspires.org/robotics/ftc][FIRST Tech Challenge]]] often turns into a mess
@@ -57,8 +58,6 @@ very easy.
 
 *NOTE*: All the code in this article is Kotlin.
 
-*NOTE*: There will be /a lot/ of code in this article.
-
 *NOTE*: I will be removing the ~import~ statements from the files
 because only God knows which ones to keep and which to
 discard.[fn::I'm writing this from a machine with GNU Guix, which
@@ -67,10 +66,7 @@ doesn't have Android Studio to give me insights as to what is needed.]
 *NOTE*: I will be modifying some of the snippets /in place/ (that
 means I'm copying them from a git repo into this article and /then/,
 without any tool to verify the correctness of the code, I'm messing
-with it).
-
-*NOTE*: Actual review my team got for this: "So your programmer was
-bored and he decided to jerk out some fancy-looking complicated code".
+with it) --- this might lead to some bugs here and there.
 
 * The base for our modules
 Enough with the propaganda, let's get to work.
@@ -121,6 +117,12 @@ val frontLeftMotor = driveTrain.get<DcMotor>("front-left")
 #+END_SRC
 
 * Constructing a Robot
+We can imagine a robot as being represented by the set of all its
+mechanisms. For programming reasons, it also has to have access to the
+opMode you'll be using with it.
+
+Let's see how can we represent that:
+
 #+CAPTION: Robot.kt
 #+BEGIN_SRC kotlin
 class Robot(val opMode: OpMode, val modules: Set<RobotModule>) {
@@ -128,7 +130,24 @@ class Robot(val opMode: OpMode, val modules: Set<RobotModule>) {
 }
 #+END_SRC
 
+The ~get~ function, similar to the one from ~RobotModule~, returns us
+a module by searching for it's type. Supposing you had a ~robot:
+Robot~ which includes a ~DriveTrain~ module, to acces that you would
+do:
+
+#+BEGIN_SRC kotlin
+robot.get<DriveTrain>()
+#+END_SRC
+
 * Making use of our Robot in OpModes
+The simple and obvious approach would be to create a robot field in
+the desired opMode. That's fine, but it kinda sucks for the reason
+that you always have to write ~robot.~ when getting its
+modules, and it's a lot of typing. Ain't nobody got time for that.
+
+Let's design our own OpMode and LinearOpMode such that they offer
+better integration with their robots.
+
 #+CAPTION: MyOpModeBase.kt
 #+BEGIN_SRC kotlin
 interface MyOpModeBase  {
@@ -138,13 +157,123 @@ interface MyOpModeBase  {
 inline fun <reified T: RobotModule> MyOpModeBase.get(): T = robot.get()
 #+END_SRC
 
+#+CAPTION: MyOpMode.kt
+#+BEGIN_SRC kotlin
+abstract class MyOpMode : OpMode(), MyOpModeBase
+#+END_SRC
+
+#+CAPTION: MyLinearOpMode.kt
+#+BEGIN_SRC kotlin
+abstract class MyLinearOpMode : LinearOpMode(), MyOpModeBase
+#+END_SRC
+
+Now you just have to make your opModes inherit those two new classes
+rather than the old, plain ~OpMode~ and ~LinearOpMode~.
+
 * Sample modules and usage
 ** Mecanum drivetrain
+I'll show you a sample implementation for a Mecanum drive train
+module. Since we want to take advantage of our module system, we'll
+first create an abstract class that represents what a generic drive
+train can do:
 
-** Hooks for grabbing the tray
+#+CAPTION: DriveTrainModule.kt
+#+BEGIN_SRC kotlin
+abstract class DriveTrainModule : RobotModule {
+    val motors get() = components.filter { it.value is DcMotorEx }.map { it.value as DcMotorEx }.toList()
+    val motorsWithNames get() = components.map { Pair(it.key, it.value as DcMotorEx) }.toMap()
+
+    abstract fun encoderDrive(inches: Double, power: Double, timeout: Double)
+    abstract fun forward(inches: Double, power: Double = DEFAULT_POWER, timeout: Double)
+    abstract fun sideways(inches: Double, power: Double = DEFAULT_POWER, timeout: Double)
+
+    companion object {
+        const val DEFAULT_POWER = 0.5
+    }
+}
+#+END_SRC
+
+Only then, can we implement our Mecanum drive train, making it inherit
+the thing above. This approach is nice because you can have modules
+ready for other drive trains, too, and if your engineers decide to
+swap them out, all you need is to change ~MecanumDriveTrainModule~
+with ~HolonomicDriveTrainModule~ in your robot's set of modules (and
+anywhere in your opMode where you
+~get<MecanumDriveTrainModule>()~). All the functions have the same
+name with this approach, so after a simple and quick change you're
+ready to go.
+
+#+CAPTION: MecanumDriveTrainModule.kt
+#+BEGIN_SRC kotlin
+class MecanumDriveTrainModule(override val opMode: OpMode) : DriveTrainModule() {
+    override var components: HashMap<String, HardwareDevice> = hashMapOf()
+
+    override fun init() {
+        listOf("lf", "rf", "lb", "rb")
+            .forEach { name -> components[name] = hardwareMap.get(DcMotorEx::class.java, name) }
+
+        motorsWithNames
+            .forEach { (name, motor) ->
+                when (name) {
+                    "rf", "rb" -> motor.direction = DcMotorSimple.Direction.REVERSE
+                }
+                motor.zeroPowerBehaviour = DcMotor.ZeroPowerBehavior.BRAKE
+            }
+    }
+
+    override fun stop() {
+        motors.forEach { it.power = 0.0 }
+    }
+
+    override fun encoderDrive(inches: Double, power: Double, timeout: Double) {
+        val newTarget = (inches * COUNTS_PER_INCH).toInt()
+        val stopwatch = ElapsedTime()
+
+        motors.forEach { it.mode = DcMotor.RunMode.STOP_AND_RESET_ENCODER }
+        motors.forEach { it.targetPosition = newTarget }
+        motors.forEach { it.mode = DcMotor.RunMode.RUN_TO_POSITION }
+        motors.forEach { it.power = abs(power) }
+
+        while (linearOpMode.opModeIsActive() &&
+            stopwatch.seconds() < timeout &&
+            motors.all { it.isBusy }) 
+        {
+            motorsWithNames.forEach {
+                telemetry.addData(it.key, "${it.value.currentPosition} ->> ${it.value.targetPosition}")
+            }
+            telemetry.update()
+        }
+
+        stop()
+    }
+
+    override fun forward(inches: Double, power: Double, timeout: Double) {
+        get<DcMotorEx>("lf").direction = DcMotorSimple.Direction.FORWARD
+        get<DcMotorEx>("rf").direction = DcMotorSimple.Direction.REVERSE
+        get<DcMotorEx>("lb").direction = DcMotorSimple.Direction.FORWARD
+        get<DcMotorEx>("rb").direction = DcMotorSimple.Direction.REVERSE
+        encoderDrive(inches, power, timeout)
+    }
+
+    override fun sideways(inches: Double, power: Double, timeout: Double) {
+        get<DcMotorEx>("lf").direction = DcMotorSimple.Direction.FORWARD
+        get<DcMotorEx>("rf").direction = DcMotorSimple.Direction.FORWARD
+        get<DcMotorEx>("lb").direction = DcMotorSimple.Direction.REVERSE
+        get<DcMotorEx>("rb").direction = DcMotorSimple.Direction.REVERSE
+        encoderDrive(inches, power, timeout)
+    }
+
+    companion object {
+        const val COUNTS_PER_MOTOR_REV = 383.6
+        const val WHEEL_DIAMETER = 4.0 // in inches
+        const val DRIVE_GEAR_REDUCTION = 2.0
+        const val COUNTS_PER_INCH = COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION / (WHEEL_DIAMETER * PI)
+        const val DEFAULT_POWER = 0.5
+    }
+}
+#+END_SRC
 
 ** Example OpMode structure using modules
-
 #+BEGIN_SRC kotlin
 @TeleOp(name = "Sample", group = "TESTS")
 class ControlledSimple : MyOpMode() {
@@ -166,10 +295,23 @@ class ControlledSimple : MyOpMode() {
 }
 #+END_SRC
 
-
 * Using the same module class multiple times
 Imagine your robot has two identical pieces that can be represented as
 a module, but each one of those require some special values to work
 right. You could think of two servos that do the same things but only
 on opposite sides of the robot, so they would require different
 positions.
+
+The solution for this is to abuse the object-oriented type
+system. Since our robots can hold only one module of each type, we'll
+make multiple types for the same module. How? Create a new class for
+each instance of that module on your robot, class in which you don't write a
+single thing, but make it inherit your module.
+
+If you're getting any errors that say that you can't inherit the
+module, try making it ~open~.
+
+Say you end up with ~LeftArm~ and ~RightArm~, both inheriting
+~ArmModule~. Now all you need is to treat them like two separate
+modules, including them both in a robot's module set. If you want to
+do something with the left arm, all you need is ~get<LeftArm>()~.
