@@ -1,0 +1,42 @@
+#+TITLE: Start Emacs as a daemon
+
+One of the great things about Emacs is that it can be
+daemonized. People always complain how their editors and IDEs turn so
+heavy that they can go take a nap while waiting for those to start
+up. Emacs, although being known as "the bloatfest" of editors, can
+manage the situation quite nicely by starting as a daemon:
+
+#+BEGIN_SRC bash
+emacs --daemon
+#+END_SRC
+
+It's that simple. When you start Emacs as a daemon, it loads all your
+settings and plugins in the background and keeps them in memory. You
+will notice that if you start Emacs the normal way after you turned on
+a daemon, you will feel no difference. That's because you don't use
+~emacs~ to connect to the daemon, you use ~emacsclient~. Please issue
+a ~emacsclient --help~ in your terminal to see the available options.
+
+Most of the time you will want to create a new window (or frame,
+whatever Emacs calls its stuff). By default, if you only provide a
+filename to ~emascclient~, it will try to open it in an already
+existing frame. To open it in a new one, use ~emacsclient -c~ or
+~emacsclient --create-frame~.
+
+Now, using emacsclient, you will notice that your files open instantly
+and all your settings are loaded correctly. If you use Emacs
+frequently I recommend starting the daemon when you boot into the
+system. Myself, I use a wrapper script that checks if there is any
+running daemon --- if there is, connect to it, otherwise start one and
+then connect.
+
+#+BEGIN_SRC bash
+#!/bin/sh
+
+ps aux | grep "[e]macs.*daemon" || emacs --daemon && emacsclient -c "$@" &
+#+END_SRC
+
+Another benefit of editing with a daemon is that your buffers stay
+open even if you close your window. I actually closed this by mistake
+while writing the previous paragraph but after a quick, whispered
+"fuck", I remembered the whole thing is still in memory. Cool.
