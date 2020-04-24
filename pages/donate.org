@@ -7,12 +7,12 @@ I'm a high school student passionate about programming and [[https://www.gnu.org
 
 * Where to donate?
 
-I currently accept donations on LiberaPay. If any other libre donation service opens up and you wish to support me there, send me an email, and I'll look into it.
+I currently accept donations on Liberapay. If any other libre donation service opens up and you wish to support me there, send me an email, and I'll look into it.
 
 \\
 
 #+ATTR_HTML: :target _blank :class liberapay
-[[https://liberapay.com/brown121407][Donate on LiberaPay]]
+[[https://liberapay.com/brown121407][Donate on Liberapay]]
 
 \\
 

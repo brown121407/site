@@ -4,19 +4,14 @@
 Here I keep anything else that doesn't go in a post but I still want to have in my corner of the internet.
 
 * My other websites
-- [[https://maro.121407.xyz][Personal website in Romanian]]
-- [[https://guix.121407.xyz][Website dedicated to GNU Guix]]
 - [[https://temple.121407.xyz][TempleOS website mirror]] 
 
-* Other documents
-- [[./notes.org][Notebook]] (project ideas and thoughts that can't go into a post)
-
 * TODO Reminders & ideas [0/8]
+- [ ] Generate an RSS feed.
 - [ ] Clean this list sometime in the future.
 - [ ] Write post about Doom Emacs.
 - [ ] Finish some of my projects and find a way to sell them (as libre software, of course).
 - [ ] Write post about using proprietary crapware in Romanian schools and the Information and Communication Technology curriculum and exam.
 - [ ] Write post about my love for free software.
 - [ ] "Without Facebook you don't exist"
-- [ ] Generate an RSS feed.
 - [ ] Add a folder with all my books and link them nicely. (MUST DO -- I collected over 100 cool books about math & computer science stuff just in the last week).

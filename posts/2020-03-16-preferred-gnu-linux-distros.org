@@ -1,18 +1,183 @@
 #+TITLE: My prefered GNU/Linux distributions
 #+DATE: <2020-03-16 Mon>
 
-* For hardcore hackers and free software enthusiasts
+* For hackers and free software enthusiasts
 ** GNU Guix System
-The Guix System is a distribution of the GNU operating system based on
+The [[https://guix.gnu.org/][Guix System]] is a distribution of the GNU operating system based on
 the Guix package manager.
+
+There are better chances you've heard of Nix. From the GNU Guix manual:
+
+#+BEGIN_QUOTE
+Guix is based on the [[https://nixos.org/nix/][Nix package manager]], which was designed and
+implemented by Eelco Dolstra, with contributions from other people
+(see the nix/AUTHORS file in Guix.) Nix pioneered functional package
+management, and promoted unprecedented features, such as transactional
+package upgrades and rollbacks, per-user profiles, and referentially
+transparent build processes. Without this work, Guix would not exist.
+#+END_QUOTE
+
+The terminology for Guix may be a bit confusing. When someone says
+they are using Guix, the may be referring to either using the Guix
+/package manager/ on a foreign distro, or actually using the GNU
+distribution, which is usually differentiated by calling it the /Guix
+System/. So:
+
+- plain "Guix" = maybe the package manager, maybe the distro
+- "Guix System" = the GNU distribution
+
+Note how I don't specifically say GNU/Linux distribution. That is
+because, despite basically everyone using Guix as with the Linux
+kernel, there is the possibility to use another kernel, such as Hurd.
+
+*** What do I like about Guix?
+Technicalities aside, Guix is a GNU distribution that features only
+free software in its official repository. This is a thing I deeply
+respect, and it turns out I can do everything I need on a computer
+only with free software. I am running Guix for about half a year now
+and I love it.
+
+Guix uses/is a *functional package manager*. I can't explain why it's
+cool good enough so I recommend you read what [[https://nixos.org/nix/about.html][Nix has to say]] on that
+and a bit of [[https://guix.gnu.org/manual/en/html_node/Managing-Software-the-Guix-Way.html#Managing-Software-the-Guix-Way][the Guix manual]].
+
+A good thing that comes from this is being able to have multiple
+system "generations" saved. That means that if, right now, I do a
+system upgrade and things get messed up, I can revert easily to the
+previous state of the system by booting up the previous generation
+(you can select those in the bootloader menu).
+
+Another nice thing about Guix is how it manages packaging. All
+packages are describes using Scheme code and they are stored in a git
+repo. Take a look at the =hello= program's recipe:
+
+#+BEGIN_SRC scheme
+(define-public hello
+  (package
+    (name "hello")
+    (version "2.10")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append "mirror://gnu/hello/hello-" version
+                                  ".tar.gz"))
+              (sha256
+               (base32
+                "0ssi1wpaf7plaswqqjwigppsg5fyh99vdlb9kzl7c9lng89ndq1i"))))
+    (build-system gnu-build-system)
+    (synopsis "Hello, GNU world: An example GNU package")
+    (description
+     "GNU Hello prints the message \"Hello, world!\" and then exits.  It
+serves as an example of standard GNU coding practices.  As such, it supports
+command-line arguments, multiple languages, and so on.")
+    (home-page "https://www.gnu.org/software/hello/")
+    (license gpl3+)))
+#+END_SRC
+
+Because all packages are pretty descriptive code in a public git repo,
+Guix accepts patches from anybody for updating, fixing or adding new
+definitions. Because the whole process is extremely simple it allowed
+me to get 21 commits into the master branch at the time of writing
+with no prior contributions done to a GNU/Linux distribution.
+
+Thanks to the way Guix is built, one more great thing that it features
+is represented by its environments. An environment is a
+temporary... uh... environment? with a selected set of
+packages. You're basically dropping into a shell that has a different
+set of packages than your normal one, set specifically tailored for
+some purpose, such as building a program. If I play with Guix's own
+source code, I don't have to install all of its dependencies
+permanently on my system. I can have a temporary shell with them for
+as long as I need to work on that code with ~guix environment guix~.
+
+I mentioned earlier that packages are Scheme code. Well, in Guix,
+pretty much everything is Scheme code. Even the base system
+configuration is Scheme code. Take a look at this: [[https://guix.gnu.org/manual/en/html_node/Using-the-Configuration-System.html#Using-the-Configuration-System][Using the
+Configuration System]].
+
+[[https://guix.gnu.org/manual/en/html_node/Channels.html][Channels]] are great too. Basically the Arch AUR but on steroids and
+everyone can make one. Cooler than PPAs.
+
+*** What do I dislike about Guix?
+Not all the packages one would need, or not the latest versions. There
+are not as many people working on it as I'd like. This is not
+something that happens because Guix is bad in some way, it's just that
+it's so new and different not many people use it, fewer even
+contribute.
+
+The package manager is noticeably slower than others. If you use an
+Arch machine after playing with Guix you'd think you were in slow
+motion before using =pacman=. Why does "building database for manual
+pages" take so damn long?
 
 * For moderate geeks
 ** Arch Linux
+If you prefer something more established than Guix, something where
+you can still tinker a lot but is more mainstream, I can recommend
+Arch (I never tried Gentoo).
+
+*** What do I like about Arch?
+When shit breaks when updating, the solution is always on Arch's
+website.
+
+Makes it easy to install proprietary software.
+
+The AUR.
+
+Fast package manager.
+
+Bigger community and more packages than other distributions, such as
+Guix.
+
+Great documentation. I really love the Arch wiki, and everyone that
+ever touched a GNU/Linux system probably does too.
+
+You can run games on it! (Proprietary software bad tho.) Arch (and Arch
+derivatives) are great for playing video games because they have the
+latest drivers and software available so it's likely you will have the
+newest advancements in game tech always available.
+
+*** What do I dislike about Arch?
+Shit breaks sometimes when updating.
+
+Makes it easy to install proprietary software.
+
+The AUR could be better (see Guix channels).
+
+The packaging procedure is a bit underwhelming after dealing with
+Guix. On Arch, there's a [[https://wiki.archlinux.org/index.php/Trusted_Users][select bunch of people]] that actually manage
+the packages in the official repos. I prefer Guix's approach ---
+everyone can send in patches for any package, and if they are good,
+they get in. No "official maintainer" for stuff. I got some new
+packages into the official Guix repo without having any special label
+on me.
 
 * For normal people
 ** Manjaro
+Manjaro is basically Arch for people than want the benefits of Arch
+but don't want to be bothered with setting everything up themselves
+(and there's nothing wrong with that).
 
-** Fedora
+*** What do I like about Manjaro?
+Whatever I like about Arch.
 
+Easy installation process and it's also nice that they have some
+driver management. I always got confused on plain Arch about what
+graphics drivers I have installed and running.
+
+*ARM support*. I see that they don't have a RPI3 image anymore ([[https://manjaro.org/download/#ARM][they
+have images for a lot of other hardware]]), but I remember having it
+installed on my board about half a year ago and it was the nicest
+experience I ever had with my Pi.
+
+*** What do I dislike about Manjaro?
+Whatever I dislike about Arch.
+
+Sometimes feels unnecessarily bloated, but I guess that's the cost of
+having a /fully working/, preconfigured machine. =¯\_(ツ)_/¯=
+
+** TODO Fedora
 * My current setup
-For the moment, I dual boot GNU Guix System and Manjaro.
+For the moment, I dual boot GNU Guix System and Manjaro. I use Manjaro
+to occasionally play Age of Empires 2 and use whatever proprietary
+shit my school forces me to use from time to time. Guix System is my
+primary operating system and *I love it*.

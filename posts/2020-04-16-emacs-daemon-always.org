@@ -1,4 +1,5 @@
 #+TITLE: Start Emacs as a daemon
+#+DATE: <2020-04-16 Thu>
 
 One of the great things about Emacs is that it can be
 daemonized. People always complain how their editors and IDEs turn so
