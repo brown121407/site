@@ -1,4 +1,5 @@
 #+TITLE: New: PROJECTS page
+#+DATE: <2020-02-03 Mon>
 
 This is just a quick announcement that the website just got a [[https://brown.121407.xyz/projects.html][PROJECTS]] page.
 

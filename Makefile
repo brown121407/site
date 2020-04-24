@@ -9,7 +9,7 @@ publish : clean
 	emacs --script project.el
 
 ring :
-	./assets/bin/openring \
+	assets/bin/openring \
 	  -s https://drewdevault.com/feed.xml \
           -s https://emersion.fr/blog/rss.xml \
           -s https://danluu.com/atom.xml \

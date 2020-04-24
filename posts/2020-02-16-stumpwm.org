@@ -1,4 +1,5 @@
 #+TITLE: StumpWM
+#+DATE: <2020-02-16 Sun>
 
 * Towards a LISP Machine[fn::https://en.wikipedia.org/wiki/Lisp_machine]
 

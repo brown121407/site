@@ -3,7 +3,10 @@
 
 * About me
 
-Passionate about programming, free software, mathematics. I usually go by the nick *brown121407*.
+Passionate about programming, free software, mathematics. I usually go
+by the nick *brown121407*.
+
+For my projects and work experience see [[file:projects.org][Projects]].
 
 Want to chat? Shoot me an email.
 

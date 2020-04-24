@@ -1,11 +1,23 @@
 #+TITLE: Projects
 
-Here's a list of the projects I work on or contribute to. Click on any of those
-items to expand it and show more information.
+If I were to make a summary of what my overall experience with stuff
+is:
+- I use GNU/Linux full-time on all my computers for more than a year now.
+- I know to write and manage websites (if you didn't notice until now,
+  you're on one of these things).
+- I know to write various other programs (see the list below and [[https://git.sr.ht/~brown121407][my
+  sourcehut]]). I feel pretty confortable with LISPs, C/C++, Python,
+  some web stuff and .NET. I was also the programmer for my
+  highschool's robotics team, task for which I used Kotlin. I can pick
+  up other languages quite easily.
+- I have experience with git. I love email and IRC, though PRs and
+  Issues are not unfamiliar to me.
+- I love to write stuff with words too, not just code.
 
-If you think I'm cool and you want to hire me or something, [[mailto:brown121407@member.fsf.org][send me an email]]. As much as I'm shitting on proprietary software I still need to buy food, so, while I prefer working on and with libre software, I still accept job offers that don't include such basic life-sustaining conditions. 
+I am *available for hire*. You can also [[https://brown.121407.xyz/donate.html][donate]].
 
-You can also [[https://brown.121407.xyz/donate.html][donate]].
+Here's a list of the projects I work on or contribute to. Click on any
+of those items to expand it and show more information.
 
 #+begin_export html
 <ul class="project-list">
