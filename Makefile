@@ -1,12 +1,13 @@
-mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
-mkfile_dir := $(dir $(mkfile_path))
-
 .PHONY : publish clean
 
 all : clean ring publish
 
 publish : clean
+	./gen-stuff
 	emacs --script project.el
+	mv -f rss.xml public/rss.xml
+	cp -f COPYING public/COPYING
+	cp -f project.el public/extra/project.el
 
 ring :
 	assets/bin/openring \

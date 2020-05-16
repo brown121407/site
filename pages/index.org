@@ -16,5 +16,5 @@ Want to chat? Shoot me an email.
 - PGP key :: [[https://brown.121407.xyz/assets/pubkey.asc][pubkey.asc]]
 - fingerprint :: 8571 7664 DFDC 6B6A 3ED2 DA68 2348 7CC8 2397 2C1F
 
-* Posts
+* Posts ([[https://brown.121407.xyz/rss.xml][RSS]])
 #+INCLUDE: ../includes/posts.inc

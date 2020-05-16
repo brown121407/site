@@ -1,0 +1,20 @@
+#!/bin/sh
+
+RSS_TMP=/tmp/brown-feed.rss
+
+get_attribute() {
+	grep "$1" "$2" | sed "s/$1: \(.*\)/\1/"
+}
+
+echo "" > includes/posts.inc
+echo "" > "$RSS_TMP"
+
+for FILE in $(ls -r1 posts)
+do
+	TITLE=$(get_attribute "#+TITLE" "posts/$FILE")
+	DATE=$(get_attribute "#+DATE" "posts/$FILE" | sed 's/<\(.*\) .*>/\1/')
+	printf -- "- %s - [[../posts/%s][%s]]\n" "$DATE" "$FILE" "$TITLE" >> includes/posts.inc
+	printf "<item><link>https://brown.121407.xyz/posts/%s.html</link><title>%s</title><description></description><pubDate>%s</pubDate></item>\n" $(basename "$FILE" .org) "$TITLE" "$DATE" >> "$RSS_TMP"
+done
+
+sed "/<!-- BROWN -->/r $RSS_TMP" "includes/template.rss" > rss.xml

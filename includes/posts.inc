@@ -1,4 +1,5 @@
-- 2020-04-23 - [[../posts/2020-04-16-emacs-daemon-always.org][Start Emacs as a daemon]]
+
+- 2020-04-16 - [[../posts/2020-04-16-emacs-daemon-always.org][Start Emacs as a daemon]]
 - 2020-03-16 - [[../posts/2020-03-16-preferred-gnu-linux-distros.org][My prefered GNU/Linux distributions]]
 - 2020-02-22 - [[../posts/2020-02-22-stumpwm-fonts.org][StumpWM and fonts]]
 - 2020-02-21 - [[../posts/2020-02-21-ftc-module-system.org][A module system for coding FTC robots]]

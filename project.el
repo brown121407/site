@@ -47,26 +47,20 @@
 
 (setq webring (f-read "includes/webring-out.html"))
 
-(setq org-html-postamble (concat "
-<footer>
-    <hr>
-    <marquee>
+(setq marquee-shit "<marquee>
+        Copyright 2019, 2020 Alexandru-Sergiu Marton |
 	<a href='https://git.sr.ht/~brown121407/brown.121407.xyz' target=\"_blank\">Source code</a> is licensed under <a rel=\"license\" href=\"/COPYING\">GNU GPLv3</a> | 
 	Content is licensed under <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">CC-BY-SA</a> |
 	<a href=\"/donate.html\">DONATE</a> |
 	    why the fuck is the &lt;marquee&gt; tag deprecated?
-    </marquee>
-    <hr>
-"
+    </marquee>"
+      org-html-postamble (concat "<footer><hr>"
+				 marquee-shit
+				 "<hr>"
 				 webring
-				 "<hr>
-<marquee>
-	<a href='https://git.sr.ht/~brown121407/brown.121407.xyz' target=\"_blank\">Source code</a> is licensed under <a rel=\"license\" href=\"/COPYING\">GNU GPLv3</a> | 
-	Content is licensed under <a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/\">CC-BY-SA</a> |
-	<a href=\"/donate.html\">DONATE</a> |
-	    why the fuck is the &lt;marquee&gt; tag deprecated?
-    </marquee>
-</footer>"))
+				 "<hr>"
+				 marquee-shit
+				 "</footer>"))
 
 
 (defun org-html-src-block (src-block _contents info)
@@ -169,34 +163,5 @@ contextual information."
 
 
 
-
-;; TODO find a way to maybe avoid publishing two times?
-
 (org-publish-remove-all-timestamps)
 (org-publish-project "website")
-
-(let* ((file-paths (f-files "posts"))
-       (posts (mapcar
-	       (lambda (path)
-		 (list (f-filename path)
-		       (org-publish-find-title path '("posts"))
-		       (format-time-string "%Y-%m-%d"
-					   (org-publish-find-date path '("posts")))))
-	       file-paths))
-       (lines (mapcar
-	       (lambda (x)
-		 (format "- %s - [[../posts/%s][%s]]\n"
-			 (caddr x) (car x) (cadr x)))
-	       posts)))
-  (f-delete "includes/posts.inc")
-  (f-write "" 'utf-8 "includes/posts.inc")
-  (dolist (line (sort lines 'string>))
-    (f-append line 'utf-8 "includes/posts.inc")))
-
-(org-publish-project "website")
-
-(when (f-exists? "public/COPYING") (f-delete "public/COPYING"))
-(f-copy "COPYING" "public/COPYING")
-
-(when (f-exists? "public/assets/project.el") (f-delete "public/assets/project.el"))
-(f-copy "project.el" "public/assets/project.el")
