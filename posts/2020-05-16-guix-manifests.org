@@ -1,0 +1,37 @@
+#+TITLE: GNU Guix: (Interactive) manifests
+#+DATE: <2020-05-16 Sat>
+
+* What's a manifest and where can I get one?
+GNU Guix has, besides all the other cool features, a (you guessed it) cool
+feature that allows users to specify what packages they want to have installed
+in a given profile by using Scheme code. And since Scheme is not just a weird
+configuration format, but a complete programming language, you can do whatever
+you want with it. 
+
+The file you're feeding into Guix must contain a "manifest". It's just scheme
+code that will evaluate to a manifest. What's a manifest? A list of packages in
+Guix's own special format (not just a list of strings).
+
+How would you create a manifest?
+
+#+BEGIN_SRC scheme
+
+#+END_SRC
+
+* How to make it even cooler
+What's so great about configuring you system with code is that you can *do*
+stuff in your code. It's not just a static declaration.
+
+Let's say you have multiple machines, each of which you use for a different
+purpose. On one of them, the "office box", you need LibreOffice and GNU Cash. On
+another one, the "writing desk", you need Emacs, Org mode and a LaTeX
+distribution. And you also have a "code box" because you like programming, don't
+you?
+
+Everything other than the specific software needed to provide the flavors to
+each computer (office, writing, code) you'll want to have in common. You also
+want to have an easy setup, so if you buy a new laptop instead of your current
+"code box", you don't have to remember all the little programs you needed to
+take sexy screenshots for r/unixporn.
+
+
