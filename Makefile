@@ -7,7 +7,7 @@ publish : clean
 	emacs --script project.el
 	mv -f rss.xml public/rss.xml
 	cp -f COPYING public/COPYING
-	cp -f project.el public/extra/project.el
+	cp -f project.el public/assets/project.el
 
 ring :
 	assets/bin/openring \

@@ -1,11 +1,14 @@
 #+TITLE: Getting into Lambda Calculus
 #+DATE: <2019-12-24 Tue>
 
-I first heard about Lambda Calculus in [[https://www.youtube.com/watch?v=eis11j_iGMs][a Computerphile video]]. I thought it was a neat & weird bit of math. I remember I especially liked composing booleans and logic using only lambda expressions or whatever those functions are called.
+I first heard about Lambda Calculus in [[https://www.youtube.com/watch?v=eis11j_iGMs][a Computerphile video]]. I thought it was a
+neat & weird bit of math. I remember I especially liked composing booleans and
+logic using only lambda expressions or whatever those functions are called.
 
 That was about half a year ago.
 
-How I got into λs again is through LISP. I was filled with joy when I recreated the boolean logic from a while ago in Scheme:
+How I got into λs again is through LISP. I was filled with joy when I recreated
+the boolean logic from a while ago in Scheme:
 
 #+BEGIN_SRC scheme
 (define T (λ (x y) x))
@@ -16,9 +19,10 @@ How I got into λs again is through LISP. I was filled with joy when I recreated
 (define OR (λ (x y) (x T b)))
 #+END_SRC
 
-I made this post because I tought I should post the resources I found about this topic as they may prove useful for others. Here we go:
-- [[../extra/books/lambda-calc-geuvers.pdf][Introduction to Lambda Calculus]] by Henk Barendregt and Erik Barendsen.
-- [[../extra/books/lambda-calc-a-short-intro.pdf][A short introduction to Lambda Calculus]] by Achim Jung
-- [[../extra/books/lambda-calc-lecture-notes-dalhousie-uni.pdf][Lecture Notes on the Lambda Calculus]] by Peter Selinger
-- [[../extra/books/lambda-calc-university-of-iowa.pdf][Chapter 5: THE LAMBDA CALCULUS]] from the University of Iowa
-    
+I made this post because I tought I should post the resources I found about this
+topic as they may prove useful for others. Here we go:
+
+- [[../assets/books/lambda-calc-geuvers.pdf][Introduction to Lambda Calculus]] by Henk Barendregt and Erik Barendsen.
+- [[../assets/books/lambda-calc-a-short-intro.pdf][A short introduction to Lambda Calculus]] by Achim Jung
+- [[../assets/books/lambda-calc-lecture-notes-dalhousie-uni.pdf][Lecture Notes on the Lambda Calculus]] by Peter Selinger
+- [[../assets/books/lambda-calc-university-of-iowa.pdf][Chapter 5: THE LAMBDA CALCULUS]] from the University of Iowa
