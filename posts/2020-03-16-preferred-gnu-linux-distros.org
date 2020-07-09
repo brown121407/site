@@ -1,4 +1,4 @@
-#+TITLE: My prefered GNU/Linux distributions
+#+TITLE: My preferred GNU/Linux distributions
 #+DATE: <2020-03-16 Mon>
 
 * For hackers and free software enthusiasts
@@ -109,6 +109,15 @@ Arch machine after playing with Guix you'd think you were in slow
 motion before using =pacman=. Why does "building database for manual
 pages" take so damn long?
 
+Not necessarily a dislike for me but worth mentioning: be prepared to do some
+compilation! Since Guix basically has recipes to build everything from source,
+if something isn't already built on their [[https://guix.gnu.org/manual/en/html_node/Substitutes.html#Substitutes][substitutes]] server, your machine is
+going to do it. Most of the time you'll be fine, especially if you keep pull all
+the new definitions today and upgrade tomorrow, for example.
+
+**** EDIT <2020-07-09 Thu>
+Guix got faster now because of Guile 3.0. Not pacman fast but faster.
+
 * For moderate geeks
 ** Arch Linux
 If you prefer something more established than Guix, something where
@@ -175,9 +184,15 @@ Whatever I dislike about Arch.
 Sometimes feels unnecessarily bloated, but I guess that's the cost of
 having a /fully working/, preconfigured machine. =¯\_(ツ)_/¯=
 
-** TODO Fedora
+Packages seem to come way faster on Arch -- I don't think there's a day when
+=pacman -Syu= doesn't do anything. But on Manjaro, the updates don't seem to be
+so frequent.
+
 * My current setup
 For the moment, I dual boot GNU Guix System and Manjaro. I use Manjaro
 to occasionally play Age of Empires 2 and use whatever proprietary
 shit my school forces me to use from time to time. Guix System is my
 primary operating system and *I love it*.
+
+** EDIT <2020-07-09 Thu>
+I ditched Manjaro on my desktop and I only use Guix now.

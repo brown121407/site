@@ -29,9 +29,9 @@ To make StumpWM use a specific font, you'd write something like this:
 
 #+BEGIN_SRC lisp
 (set-font (make-instance 'xft:font
-			 :family "Source Code Pro"
-			 :subfamily "Regular"
-			 :size 10))
+                         :family "Source Code Pro"
+                         :subfamily "Regular"
+                         :size 10))
 #+END_SRC
 
 But none of this will work, because you're missing a

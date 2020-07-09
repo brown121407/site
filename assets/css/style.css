@@ -1,28 +1,15 @@
 body {
     /* font-family: monospace; */
     font-size: 1rem;
-    padding: 10px;
-    border: 0.6rem double;
+    padding: 1.2em;
     margin: 0 auto;
-    max-width: 60%;
+    max-width: 60em;
 }
 
 header {
     font-size: 1.2rem;
     font-weight: bold;
     font-family: monospace;
-}
-
-@media only screen and (max-width: 600px) {
-    body {
-	max-width: 100%;
-    }
-}
-
-@media only screen and (max-width: 1000px) and (min-width: 601px) {
-    body {
-	max-width: 80%;
-    }
 }
 
 a.liberapay {
@@ -36,23 +23,22 @@ a.liberapay:hover {
     background-color: #ffd940 !important;
 }
 
-pre.inside-src {
+.org-src-container {
     position: relative;
+    margin-bottom: 1.5em;
+}
+pre.src, pre.example {
+    margin: 0.3em 0 0 0;
+    margin-top: 0.3em;
+    padding: 0.5em;
+    position: static;
     overflow-x: auto;
-    margin: 0;
-    border: none;
-    box-shadow: none;
-    padding: 16px 8px;
+    -webkit-overflow-scrolling: touch;
 }
-
-pre.src {
-    padding: 0px;
+pre.src::before {
+    top: -1em;
+    right: 1em;
 }
-
-pre.src.src-text::before {
-    content: 'Plain text';
-}
-
 
 code {
     background-color: #e4e4e4;
@@ -67,18 +53,12 @@ code {
     overflow-x: auto;
 }
 
-a:visited:hover {
-    background-color: blueviolet;
-    color: white;
+a {
+    text-decoration: none;
 }
 
-a:link:hover {
-    background-color: blue;
-    color: white;
-}
-
-a:hover code {
-    background-color: gray;
+a:hover {
+    text-decoration: underline;
 }
 
 ul.project-list {

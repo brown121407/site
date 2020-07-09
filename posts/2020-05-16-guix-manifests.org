@@ -8,15 +8,24 @@ in a given profile by using Scheme code. And since Scheme is not just a weird
 configuration format, but a complete programming language, you can do whatever
 you want with it. 
 
-The file you're feeding into Guix must contain a "manifest". It's just scheme
-code that will evaluate to a manifest. What's a manifest? A list of packages in
+The file you're feeding into Guix must contain a "manifest". It's just Scheme
+code that will evaluate to a manifest. What's a [[https://guix.gnu.org/manual/en/html_node/Invoking-guix-package.html#profile_002dmanifest][manifest]]? A list of packages in
 Guix's own special format (not just a list of strings).
 
 How would you create a manifest?
 
-#+BEGIN_SRC scheme
+The simplest way is by writing a Scheme file in which you plug a list of strings
+into ~specifications->manifest~:
 
+#+BEGIN_SRC scheme
+(use-modules (gnu)) ;; specifications->manifest is located inside this module
+
+(specifications->manifest '("emacs" "gcc-toolchain"))
 #+END_SRC
+
+Supposing you saved this file as =manifest.scm=, you can now feed it into Guix
+with =guix package -m manifest.scm= and that will configure your profile to
+contain *only* the packages written in your manifest.
 
 * How to make it even cooler
 What's so great about configuring you system with code is that you can *do*
@@ -34,4 +43,104 @@ want to have an easy setup, so if you buy a new laptop instead of your current
 "code box", you don't have to remember all the little programs you needed to
 take sexy screenshots for r/unixporn.
 
+Guix is here to save you!
 
+Let's write some code that will generate a manifest interactively, allowing us
+to select "classes" of software. We'll begin by defining the structure that
+holds our packages and categories of packages. Good thing Scheme allows creating
+dynamic structures easily with its lists:
+
+#+CAPTION: Software groups
+#+BEGIN_SRC scheme
+(define groups
+  `((programming . ((c . ("gcc-toolchain"
+                          "clang"
+                          "gdb"
+                          "ccls"))
+                    (guile . ("guile"))
+                    (ocaml . ("opam"))
+                    (python . ("python"))
+                    (php . ("php"))
+                    (elisp . ("emacs"))
+                    (haskell . ("ghc"
+                                "ghcid"))))
+    (fonts . ("fontconfig"
+              "font-adobe-source-code-pro"
+              "font-gnu-unifont"
+              "font-fira-code"
+              "font-google-noto"
+              "font-dejavu"
+              "font-liberation"
+              "font-awesome"))
+    (emacs . ("emacs"
+              "emacs-f"
+              "emacs-s"
+              "emacs-dash"
+              "emacs-telega"
+              "emacs-htmlize"))
+    (mail . ("offlineimap"
+             "mu"))
+    (vim . ("neovim"
+            "python-pynvim"
+            "node"))
+    (latex . ("texlive"
+              "biber"))
+    (office . ("libreoffice"))))
+#+END_SRC
+
+That is an excerpt from my own setup. As you can see, we put related software
+into categories such as =fonts= or =emacs= and we can also have subcategories
+(nesting is unlimited!) like =haskell= or =c= in =programming=.
+
+The problem that arises now is how to process this structure.
+
+I managed to hack two mutually recursive functions together that:
+- shows you the groups you can choose from
+- lets you write a list of groups
+- traverses those groups and:
+  - if the group contains subgroups, do the same thing all over again for those
+  - else take each string from the group and append it to a list
+
+There probably is a better way to do this, but here's my solution:
+
+#+CAPTION: Processing functions
+#+BEGIN_SRC scheme
+;; TODO: come up with a meaningful name for foo1 and foo
+(define (foo1 group group-name)
+  (format #t "~%Enter a list with the tools you want to set up from the `~a' group.~%" group-name)
+  (format #t "Here are the available tools: ~a.~%" (map car group))
+  (newline)
+  (letrec ((selected (read))
+           (loop (lambda (l acc)
+                   (if (null? l)
+                       acc
+                       (loop (cdr l) (append acc (foo (assoc-ref group (car l)) (car l))))))))
+    (loop (if (equal? selected 'all)
+              (map car group)
+              selected)
+          '())))
+
+(define (foo group group-name)
+  (if (list? (car group))
+      (foo1 group group-name)
+      group))
+#+END_SRC
+
+After loading this, try running =(foo1 groups "all")=. It should give you the
+prompt to select groups and after you go through all that, it should return a
+list of strings representing the names of all the packages you want installed.
+
+To turn this into the correct representation for Guix, remember our good friend
+=specifications->manifest=.
+
+#+caption: That's all folks
+#+begin_src scheme
+(define to-install (foo1 groups "all"))
+
+(specifications->manifest to-install)
+#+end_src
+
+If you put all this stuff into a file, you can feed it into =guix package -m=
+just like before. Since Guix and Scheme are cool they will evaluate your whole
+script and prompt you to say what groups of software you want installed, just
+like you told them to.

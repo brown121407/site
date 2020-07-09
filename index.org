@@ -1,4 +1,7 @@
-#+TITLE: Sergiu Marton's Website
+#+TITLE: brown121407
+#+META_TYPE: website
+#+DESCRIPTION: Marton Sergiu's personal blog
+#+DATE: <2017-10-20 Fri>
 #+OPTIONS: num:nil
 
 * About me
@@ -10,11 +13,11 @@ For my projects and work experience see [[file:projects.org][Projects]].
 
 Want to chat? Shoot me an email.
 
-- email :: [[mailto:brown121407@member.fsf.org][brown121407@member.fsf.org]]
+- email :: [[mailto:brown121407@posteo.ro][brown121407@posteo.ro]]
 - sourcehut :: [[https://git.sr.ht/~brown121407][~brown121407]]
 - mastodon :: [[https://fosstodon.org/@brown121407][@brown121407@fosstodon.org]]
 - PGP key :: [[https://brown.121407.xyz/assets/pubkey.asc][pubkey.asc]]
 - fingerprint :: 8571 7664 DFDC 6B6A 3ED2 DA68 2348 7CC8 2397 2C1F
 
-* Posts ([[https://brown.121407.xyz/rss.xml][RSS]])
-#+INCLUDE: ../includes/posts.inc
+* Posts ([[./rss.xml][RSS]])
+#+INCLUDE: ./posts/sitemap.org

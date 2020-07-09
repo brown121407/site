@@ -3,42 +3,64 @@
 
 * Backstory
 
-I really like the way [[https://sourcehut.org][sourcehut]] is structured into different subdomains for different services. I recently bought the 121407.xyz domain so I could do something similar – [[https://brown.121407.xyz][brown.121407.xyz]] would host my personal blog, maro.121407.xyz would be Romanian version of it, git.121407.xyz would host a sourcehut git instance or something similar and so on and so forth.
+I really like the way [[https://sourcehut.org][sourcehut]] is structured into different subdomains for
+different services. I recently bought the 121407.xyz domain so I could do
+something similar – [[https://brown.121407.xyz][brown.121407.xyz]] would host my personal blog,
+maro.121407.xyz would be Romanian version of it, git.121407.xyz would host a
+sourcehut git instance or something similar and so on and so forth.
 
-In the future, if I want to do something more exotic on my blog, I'll buy a VPS and host it there. But since I'm only starting, and GitLab's[fn::Remind me to write a post about why I prefer GitLab over GitHub, and sourcehut over both and anything else.] being so nice as to offer [[https://docs.gitlab.com/ee/user/project/pages/][free hosting for static websites]], why not use take advantage of that?
+In the future, if I want to do something more exotic on my blog, I'll buy a VPS
+and host it there. But since I'm only starting, and GitLab's[fn::Remind me to
+write a post about why I prefer GitLab over GitHub, and Sourcehut over both and
+anything else.] being so nice as to offer [[https://docs.gitlab.com/ee/user/project/pages/][free hosting for static websites]], why
+not use take advantage of that?
 
-The docs were a bit confusing (at least for me) regarding setting up the DNS for custom subdomains. After a lot of trial and error, I finally figured it out, so I wanted to share my solution with you, in case it could help someone.
+The docs were a bit confusing (at least for me) regarding setting up the DNS for
+custom subdomains. After a lot of trial and error, I finally figured it out, so
+I wanted to share my solution with you, in case it could help someone.
 
 * Instructions
 
-This article presumes that you got to the page where you need to verify your domain on GitLab. It's not a step-by-step tutorial for adding a custom domain – for this, read the [[https://gitlab.com/help/user/project/pages/custom_domains_ssl_tls_certification/index.md][GitLab docs]]. Instead it clarifies some things about setting up DNS on Namecheap for Pages.
+This article presumes that you got to the page where you need to verify your
+domain on GitLab. It's not a step-by-step tutorial for adding a custom domain –
+for this, read the [[https://gitlab.com/help/user/project/pages/custom_domains_ssl_tls_certification/index.md][GitLab docs]]. Instead it clarifies some things about setting
+up DNS on Namecheap for Pages.
 
-Throughout this article, wherever you see ~example.com~ or ~subdomain.example.com~, be sure to replace those with *your* domain and subdomain.
+Throughout this article, wherever you see ~example.com~ or
+~subdomain.example.com~, be sure to replace those with *your* domain and
+subdomain.
 
-The [[https://gitlab.com/help/user/project/pages/custom_domains_ssl_tls_certification/index.md][GitLab docs]] say to add the following DNS records to get a custom domain for GitLab pages:
+The [[https://gitlab.com/help/user/project/pages/custom_domains_ssl_tls_certification/index.md][GitLab docs]] say to add the following DNS records to get a custom domain for
+GitLab pages:
 
 #+begin_quote
 A DNS A or CNAME record pointing your domain to GitLab Pages server.
 A DNS TXT record to verify your domain's ownership.
 #+end_quote
 
-Ok, that doesn't seem hard. We see that, for a root domain, we need an A record pointing to GitLab's IP for the Pages server and a TXT record containing the verification code. Here's the sketch GitLab provides:
+Ok, that doesn't seem hard. We see that, for a root domain, we need an A record
+pointing to GitLab's IP for the Pages server and a TXT record containing the
+verification code. Here's the sketch GitLab provides:
 
 | From                                        | DNS Record | To                                                              |
 |---------------------------------------------+------------+-----------------------------------------------------------------|
 | example.com                                 | A          | 35.185.44.232                                                   |
 | _gitlab-pages-verification-code.example.com | TXT        | gitlab-pages-verification-code=00112233445566778899aabbccddeeff |
 
-Namecheap, though, has a different structure for DNS records: Type-Host-Value. The following configuration works for root domains:
+Namecheap, though, has a different structure for DNS records: Type-Host-Value.
+The following configuration works for root domains:
 
 | Type       | Host | Value                                                                                                           |
 |------------+------+-----------------------------------------------------------------------------------------------------------------|
 | A Record   | @    | 35.185.44.232                                                                                                   |
 | TXT Record | @    | _gitlab-pages-verification-code.example.com TXT gitlab-pages-verification-code=00112233445566778899aabbccddeeff |
 
-Notice that we need to enter the whole string GitLab provided us for verification in the ~Value~ field. It doesn't need to be just the ~gitlab-pages-verification-code=...~, but *the whole string*.
+Notice that we need to enter the whole string GitLab provided us for
+verification in the ~Value~ field. It doesn't need to be just the
+~gitlab-pages-verification-code=...~, but *the whole string*.
 
-Now that that's done, let's see how we proceed about *subdomains*. GitLab shows us the following:
+Now that that's done, let's see how we proceed about *subdomains*. GitLab shows
+us the following:
 
 | From                                                  | DNS Record | To                                                              |
 |-------------------------------------------------------+------------+-----------------------------------------------------------------|
@@ -52,6 +74,9 @@ To get that to work on Namecheap, we need the following configuration:
 | CNAME Record | subdomain                                 | namespace.gitlab.io                                                                                                       |
 | TXT Record   | _gitlab-pages-verification-code.subdomain | _gitlab-pages-verification-code.subdomain.example.com TXT gitlab-pages-verification-code=00112233445566778899aabbccddeeff |
 
-Pay attention to the fact that in the ~Host~ column, where we wrote ~subdomain~, we refer strictly to the first part of ~subdomain.example.com~, not the whole thing.
+Pay attention to the fact that in the ~Host~ column, where we wrote ~subdomain~,
+we refer strictly to the first part of ~subdomain.example.com~, not the whole
+thing.
 
-I hope this helps some of you. If you have questions or you spotted a mistake, [[mailto:brown121407@member.fsf.org][send me an email]].
+I hope this helps some of you. If you have questions or you spotted a mistake,
+[[mailto:brown121407@posteo.ro][send me an email]].
