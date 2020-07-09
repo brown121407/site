@@ -1,5 +1,5 @@
 #+TITLE: GNU Guix: (Interactive) manifests
-#+DATE: <2020-05-16 Sat>
+#+DATE: <2020-07-09 Thu>
 
 * What's a manifest and where can I get one?
 GNU Guix has, besides all the other cool features, a (you guessed it) cool
