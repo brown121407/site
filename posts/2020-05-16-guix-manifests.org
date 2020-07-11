@@ -144,3 +144,22 @@ If you put all this stuff into a file, you can feed it into =guix package -m=
 just like before. Since Guix and Scheme are cool they will evaluate your whole
 script and prompt you to say what groups of software you want installed, just
 like you told them to.
+
+** Edit <2020-07-11 Sat>
+I talked to a friend about this and he told me that it would be useful to make
+this accept packages too (package objects, not strings) in the groups.
+
+It turns out that this is extremely easy to implement. Just drop the package
+objects where you want them in the groups and replace the last line:
+
+#+BEGIN_SRC scheme
+(specifications->manifest to-install)
+#+END_SRC
+
+with:
+
+#+BEGIN_SRC scheme
+(concatenate-manifests
+ (list (specifications->manifest (filter string? to-install))
+       (packages->manifest (filter package? to-install))))
+#+END_SRC
