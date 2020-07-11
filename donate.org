@@ -1,0 +1,13 @@
+#+TITLE: Donate
+#+OPTIONS: num:nil
+
+I currently accept donations on Liberapay. If any other libre donation service opens up and you wish to support me there, send me an email, and I'll look into it.
+
+\\
+
+#+ATTR_HTML: :target _blank :class liberapay
+[[https://liberapay.com/brown121407][Donate on Liberapay]]
+
+\\
+
+I have a [[https://www.paypal.me/brown121407][PayPal account]] if you wish to make a one-time donation.
