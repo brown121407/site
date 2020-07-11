@@ -152,6 +152,7 @@ PROJECT is the current project."
            (with-temp-buffer
              (insert (format "* [[file:%s][%s]]\n" file title))
              (org-set-property "RSS_PERMALINK" link)
+             (org-set-property "RSS_TITLE" title)
              (org-set-property "PUBDATE" date)
              (insert-file-contents file)
              (buffer-string))))
@@ -320,6 +321,7 @@ contextual information."
          :html-link-use-abs-url t
          :html-link-org-files-as-html t
          :auto-sitemap t
+         :indent nil
          :sitemap-filename "rss.org"
          :sitemap-title ,b7-title
          :sitemap-style list
