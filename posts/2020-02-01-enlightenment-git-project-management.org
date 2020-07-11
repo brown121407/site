@@ -162,6 +162,6 @@ that means there's something cool as hell about patches and email.
 I hope you liked this post and got something useful out of it. If you
 spotted any typo, want to make some completions or just want to yell
 at me, open an Issue or a Pull Request at... Oh, wait. You
-can't. Thank God. You could consider [[https://brown.121407.xyz/donate.html][donating]] instead. The only pull
+can't. Thank God. You could consider [[../donate.org][donating]] instead. The only pull
 request you'll see here is me requesting you pull your code from
 ShitHubs.
