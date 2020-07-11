@@ -363,6 +363,7 @@ contextual information."
         (org-html-postamble-format '(("en" "<hr>\n<p class=\"author\">Copyright 2019, 2020 %a (%e)</p>\n<p>Source code is licensed under GNU GPLv3</p>\n<p>Content is licensed under CC-BY-SA</p>\n<p class=\"date\">Date: %d</p>\n<p class=\"creator\">%c</p>")))
         (org-html-preamble-format `(("en" ,(format "<a href=\"%s\">HOME</a> |\n<a href=\"%s\">PROJECTS</a> |\n<a href=\"%s\">EXTRA</a><hr>" "/" "/projects.html" "/extra.html")))))
     (org-publish-remove-all-timestamps)
+    (delete-directory (project-dir "public") t)
     (org-publish-all)))
 
 ;;;
