@@ -1,5 +1,5 @@
 #+TITLE: GNU Guix: (Interactive) manifests
-#+DATE: <2020-07-09 Thu>
+#+DATE: <2020-05-16 Sat>
 
 * What's a manifest and where can I get one?
 GNU Guix has, besides all the other cool features, a (you guessed it) cool
@@ -126,6 +126,8 @@ There probably is a better way to do this, but here's my solution:
       group))
 #+END_SRC
 
+(You'll need to import ~(ice-9 format)~ for the ~format~ function.)
+
 After loading this, try running =(foo1 groups "all")=. It should give you the
 prompt to select groups and after you go through all that, it should return a
 list of strings representing the names of all the packages you want installed.
@@ -163,3 +165,6 @@ with:
  (list (specifications->manifest (filter string? to-install))
        (packages->manifest (filter package? to-install))))
 #+END_SRC
+
+For this you'll need to also include the ~(guix packages)~ and ~(guix profiles)~
+modules.
