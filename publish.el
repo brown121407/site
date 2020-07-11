@@ -275,6 +275,13 @@ contextual information."
 		  (format "<pre class=\"src src-%s\"%s><pre class=\"inside-src\">%s</pre></pre>"
                           lang label code)))))))
 
+(defun org-rss-final-function (contents backend info)
+  "Prettify the RSS output."
+  (with-temp-buffer
+    (xml-mode)
+    (insert contents)
+;;    (indent-region (point-min) (point-max))
+    (buffer-substring-no-properties (point-min) (point-max))))
 
 (setq b7-project-alist
       `(("pages"
@@ -321,7 +328,6 @@ contextual information."
          :html-link-use-abs-url t
          :html-link-org-files-as-html t
          :auto-sitemap t
-         :indent nil
          :sitemap-filename "rss.org"
          :sitemap-title ,b7-title
          :sitemap-style list
