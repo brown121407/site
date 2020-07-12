@@ -163,8 +163,9 @@ with:
 #+BEGIN_SRC scheme
 (concatenate-manifests
  (list (specifications->manifest (filter string? to-install))
-       (packages->manifest (filter package? to-install))))
+       (packages->manifest (filter package? to-install))
+       (packages->manifest (filter inferior-package? to-install))))
 #+END_SRC
 
-For this you'll need to also include the ~(guix packages)~ and ~(guix profiles)~
-modules.
+For this you'll need to also include the ~(guix packages)~, ~(guix profiles)~
+and ~(guix inferior)~ modules.
