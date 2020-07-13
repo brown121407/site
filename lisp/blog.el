@@ -47,19 +47,7 @@
   (concat (file-name-as-directory blog-url) link))
 
 (defun get-blog-project-alist ()
-      `(("pages"
-         :base-directory ,(project-dir "")
-         :base-extension "org"
-         :recursive nil
-         :publishing-directory ,(project-dir "public")
-         :publishing-function blog-org-html-publish-to-html
-         :html-link-home "/"
-         :html-home/up-format ""
-         :html-format-headline-function blog-org-html-format-headline-function
-         :author ,blog-author-name
-         :email ,blog-author-email
-         :with-creator t)
-        ("posts"
+      `(("posts"
          :base-directory ,(project-dir "posts")
          :base-extension "org"
          :recursive nil
@@ -76,6 +64,18 @@
          :sitemap-style list
          :sitemap-function blog-org-publish-sitemap
          :sitemap-format-entry blog-org-publish-sitemap-entry
+         :author ,blog-author-name
+         :email ,blog-author-email
+         :with-creator t)
+        ("pages"
+         :base-directory ,(project-dir "")
+         :base-extension "org"
+         :recursive nil
+         :publishing-directory ,(project-dir "public")
+         :publishing-function blog-org-html-publish-to-html
+         :html-link-home "/"
+         :html-home/up-format ""
+         :html-format-headline-function blog-org-html-format-headline-function
          :author ,blog-author-name
          :email ,blog-author-email
          :with-creator t)
