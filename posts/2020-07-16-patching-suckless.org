@@ -1,0 +1,217 @@
+#+TITLE: Patching Suckless software
+
+I finally don't have to copy other people's configs because I built my own [[https://git.sr.ht/~brown121407/dwm][dwm]]
+and [[https://git.sr.ht/~brown121407/st][st]] forks that I'm proud of.
+
+I think it wouldn't hurt if one more person shares the way they do patching so
+here we go!
+
+For this lesson we'll use [[https://dwm.suckless.org/][dwm]] and the [[https://dwm.suckless.org/patches/stacker/][stacker]] and [[https://dwm.suckless.org/patches/barpadding/][barpadding]] patches.
+
+* Getting the code
+
+First we need to get the source, right?
+
+#+begin_src bash
+git clone https://git.suckless.org/dwm
+#+end_src
+
+At the time of writing, [[https://git.suckless.org/dwm/commit/bb2e7222baeec7776930354d0e9f210cc2aaad5f.html][bb2e7222]] was the latest commit. You can, of course,
+checkout the latest tag. I'm just going to go with the latest commit instead.
+
+* Building & installing
+
+The first thing I do after cloning is fix =config.mk= and =Makefile= according
+to my needs. I add =rm -f config.h= to the clean rule in the =Makefile= because
+I only play with the =config.def.h= in my builds. Since I use [[https://guix.gnu.org/][Guix System]] on all
+of my computers I change =config.h= to use =pkg-config= for finding library
+paths and flags. I also have a [[https://git.sr.ht/~brown121407/dwm/tree/master/guix-install][script]] that installs the necessary dependencies
+in a [[https://guix.gnu.org/manual/en/html_node/Invoking-guix-environment.html#Invoking-guix-environment][Guix environment]].
+
+Those are the steps that I take to ensure dwm builds for me. Make sure you set
+it up for your machine correctly.
+
+My script also installs it for me when I run it, but you might need to run =make
+install= to do it. If you want to change where the files end up (the default
+being =/usr/local=), do =make install PREFIX=/your/custom/path=.
+
+* Running
+
+To run dwm you usually put =exec dwm= as the last line in your =.xinitrc= (if
+you start X with [[https://manpages.debian.org/testing/xinit/startx.1.en.html][startx(1)]]). Some display managers look for =.xsession= and they
+load whatever that file has instead so you'll have to check what yours does if
+you use one.
+
+While patching and configuring dwm I find it useful to have it reload quickly so
+I put it in a loop:
+
+#+begin_src bash
+while true
+do
+    dwm > "$XDG_DATA_HOME/dwm.log" 2> "$XDG_DATA_HOME/dwm.error.log"
+done
+#+end_src
+
+This way I can kill it with =pkill dwm= and it's intantly reloaded without any
+of my other programs closing. The redirections are so that I can see what
+happened if something goes wrong by just reading the logs.
+
+* Patching
+
+Finally, the good part!
+
+** Stacker
+
+We'll use the [[https://dwm.suckless.org/patches/stacker/dwm-stacker-6.2.diff][dwm-stacker-6.2.diff]] version.
+
+You'll have to download it and save it somewhere accessible on your computer. I
+prefer making a =patches= folder in the dwm tree and put stuff there.
+
+Let's look through this patch before jumping in to apply it and try to
+understand what it changes.
+
+#+begin_src
+From d04f2d00688c8b0969d4f10f460c980dd91dac37 Mon Sep 17 00:00:00 2001
+From: MLquest8 <miskuzius@gmail.com>
+Date: Fri, 12 Jun 2020 16:04:18 +0400
+Subject: [PATCH] stacker updated for version 6.2
+#+end_src
+
+If a patch has this kind of headers it was probably created with
+[[https://www.man7.org/linux/man-pages/man1/git-format-patch.1.html][git-format-patch(1)]]. That means we can use [[https://www.man7.org/linux/man-pages/man1/git-apply.1.html][git-apply(1)]] or [[https://www.man7.org/linux/man-pages/man1/git-am.1.html][git-am(1)]] to apply
+the patch. Please read the man pages for these commands.
+
+If we look further in the patch we can see what files have been modified:
+
+#+begin_src
+ config.def.h | 14 +++++++--
+ dwm.c        | 88 ++++++++++++++++++++++++++++++++++++++++------------
+ 2 files changed, 80 insertions(+), 22 deletions(-)
+#+end_src
+
+To see the individual lines that have been added look for the ones starting with
+=+= in the patch. For the lines removed, look for =-=. Vim and Emacs both have
+syntax highlighting for patches/diff files so reading it in one of those (or any
+editor that applies some kind of coloring) may help.
+
+/It's always useful to at least skim through the patch yourself before applying it./
+
+Let's apply the patch:
+
+#+begin_src bash
+git apply patches/dwm-stacker-6.2.diff
+#+end_src
+
+If a git patch is applied on a clean clone of dwm the process should be
+successful. If it isn't, you can use =--3way= or =-3= and then go through the
+files to manually fix stuff if you have to.
+
+After applying and fixing all the conflicts (there shouldn't be any for us) you
+should check if dwm builds and if it works like you would expect it to. If yes,
+I suggest you make a commit to save your progress so you can go back to when you
+applied this patch if you fuck something up later.
+
+** Barpadding
+
+We'll use the [[https://dwm.suckless.org/patches/barpadding/dwm-barpadding-6.2.diff][dwm-barpadding-6.2.diff]] version.
+
+You'll see that this file doesn't have the headers we've seen previously. This
+means we'll apply this patch with the [[https://man7.org/linux/man-pages/man1/patch.1.html][patch(1)]] command. Note that patches
+created with [[https://www.man7.org/linux/man-pages/man1/git-format-patch.1.html][git-format-patch(1)]] can still be applied with [[https://man7.org/linux/man-pages/man1/patch.1.html][patch(1)]].
+
+#+begin_src bash
+patch -p1 < patches/dwm-barpadding-6.2.diff
+#+end_src
+
+Patch should tell you which sections have been applied successfully and which
+haven't. It will also tell you where it saved rejected code.
+
+For example, applying barpadding on the commit I mentioned in the beginning will
+surely fail.
+
+#+begin_src
+[brown121407@T420 dwm]$ patch -p1 < patches/dwm-barpadding-6.2.diff
+patching file config.def.h
+patching file dwm.c
+Hunk #1 succeeded at 242 (offset 1 line).
+Hunk #2 succeeded at 570 (offset 1 line).
+Hunk #3 FAILED at 707.
+Hunk #4 succeeded at 734 with fuzz 1 (offset 1 line).
+Hunk #5 succeeded at 1550 (offset 1 line).
+Hunk #6 succeeded at 1579 (offset 1 line).
+Hunk #7 succeeded at 1710 (offset 3 lines).
+Hunk #8 succeeded at 1820 (offset 3 lines).
+Hunk #9 succeeded at 1835 (offset 3 lines).
+1 out of 9 hunks FAILED -- saving rejects to file dwm.c.rej
+#+end_src
+
+Let's see what was rejected:
+
+#+begin_src diff
+--- dwm.c	2019-12-10 17:24:37.945708263 +1300
++++ dwm.c	2019-12-10 17:41:46.192676099 +1300
+@@ -707,7 +709,7 @@ drawbar(Monitor *m)
+ 	if (m == selmon) { /* status is only drawn on selected monitor */
+ 		drw_setscheme(drw, scheme[SchemeNorm]);
+ 		sw = TEXTW(stext) - lrpad + 2; /* 2px right padding */
+-		drw_text(drw, m->ww - sw, 0, sw, bh, 0, stext, 0);
++		drw_text(drw, m->ww - sw - 2 * sp, 0, sw, bh, 0, stext, 0);
+ 	}
+
+ 	for (c = m->clients; c; c = c->next) {
+#+end_src
+
+That is because the latest version of dwm has renamed the ~sw~ variable to ~tw~.
+You'll have to remove the old ~drw_text~ call and adapt the new one like this:
+
+#+begin_src
+drw_text(drw, m->ww - tw - 2 * sp, 0, tw, bh, 0, stext, 0);
+#+end_src
+
+After fixing this manually you can try to recompile dwm and it should work. When
+you're sure everything works correctly you can safely delete all the =.rej=
+files and create a new commit to save your progress.
+
+* I want to replace a patch
+
+Hopefully you created a commit for each applied patch as I suggested above as
+this makes such operations a lot easier.
+
+If the patch you want to replace is the last commit you did, you can use
+[[https://man7.org/linux/man-pages/man1/git-reset.1.html][git-reset(1)]] to remove it:
+
+#+begin_src bash
+git reset --hard HEAD~1
+#+end_src
+
+But what if the commit you want to remove is further down the road? Let's
+imagine the last few lines of your log look like this:
+
+#+begin_src
+0ff301a - Add actualfullscreen patch.
+3caf63f - Add swallow patch.
+09e0561 - Add barpadding patch.
+507950a - Add fullgaps patch.
+5c92984 - Add stacker patch.
+#+end_src
+
+and you want to remove the [[https://dwm.suckless.org/patches/fullgaps/][fullgaps]] patch and replace it with [[https://dwm.suckless.org/patches/vanitygaps/][vanitygaps]]. To do
+this, you will need to use [[https://man7.org/linux/man-pages/man1/git-revert.1.html][git-revert(1)]]. Find the hash of the commit you want
+to revert and plug it in here:
+
+#+begin_src bash
+git revert <commit-hash>
+#+end_src
+
+Now you can apply the vanitygaps patch and after you do that your log would
+probably look something like this:
+
+#+begin_src
+0be3ca8 - Add vanitygaps patch.
+76b270e - Revert "Add fullgaps patch."
+0ff301a - Add actualfullscreen patch.
+3caf63f - Add swallow patch.
+09e0561 - Add barpadding patch.
+507950a - Add fullgaps patch.
+5c92984 - Add stacker patch.
+#+end_src
