@@ -53,7 +53,7 @@ pre.inside-src {
     padding: 16px 8px;
 }
 
-pre.src {
+pre.src, pre.example {
     padding: 0px;
     margin: 0.75em 0 0 0;
 }

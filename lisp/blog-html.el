@@ -93,7 +93,8 @@ contextual information."
            (klipsify  (and  (plist-get info :html-klipsify-src)
                             (member lang '("javascript" "js"
                                            "ruby" "scheme" "clojure" "php" "html")))))
-      (if (not lang) (format "<pre class=\"example\"%s>\n%s</pre>" label code)
+      (if (not lang) (format "<div class=\"org-src-container\">\n
+<pre class=\"example\"%s><pre class=\"inside-src\">%s</pre></pre></div>" label code)
         (format "<div class=\"org-src-container\">\n%s%s\n</div>"
                 ;; Build caption.
                 (let ((caption (org-export-get-caption src-block)))

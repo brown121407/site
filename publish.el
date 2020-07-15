@@ -2,7 +2,7 @@
 ;;
 ;; Copyright (C) 2020 Alexandru-Sergiu Marton
 ;;
-;; Author: Alexandru-Sergiu Marton <http://github/brown>
+;; Author: Alexandru-Sergiu Marton <https://brown.121407.xyz>
 ;; Maintainer: Alexandru-Sergiu Marton <brown121407@posteo.ro>
 ;; Created: July 03, 2020
 ;; Modified: July 03, 2020

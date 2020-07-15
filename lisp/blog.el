@@ -135,9 +135,9 @@
                                      ,(format "<a href=\"%s\">HOME</a> |\n
 <a href=\"%s\">PROJECTS</a> |\n
 <a href=\"%s\">EXTRA</a><hr>"
-                                              blog-root
-                                              (root-link "/projects.html")
-                                              (root-link "/extra.html"))))))
+                                              "/"
+                                              "/projects.html"
+                                              "/extra.html")))))
     (org-publish-remove-all-timestamps)
     (delete-directory (project-dir "public") t)
     (org-publish-all)))

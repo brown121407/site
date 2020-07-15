@@ -213,7 +213,7 @@ After this we should republish our project to update the index file, so the last
 (org-publish-project "website")
 #+end_src
 
-This website's ~project.el~ is always available at [[../assets/project.el][/assets/project.el]].
+This website's ~project.el~ is always available at [[../assets/project.el][/assets/project.el]]. (Edit <2020-07-14 Tue>: That was a lie. But it's still available in the git history.)
 
 Now, you should have a working static blog generator made with Emacs Lisp and Org!
 
