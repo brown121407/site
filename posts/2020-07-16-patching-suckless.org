@@ -1,4 +1,5 @@
 #+TITLE: Patching Suckless software
+#+DATE: <2020-07-16 Thu>
 
 I finally don't have to copy other people's configs because I built my own [[https://git.sr.ht/~brown121407/dwm][dwm]]
 and [[https://git.sr.ht/~brown121407/st][st]] forks that I'm proud of.
