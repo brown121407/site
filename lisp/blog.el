@@ -132,15 +132,16 @@
                                               blog-code-license
                                               blog-content-license))))
         (org-html-preamble-format `(("en"
-                                     ,(format "<a href=\"%s\">HOME</a> |\n
-<a href=\"%s\">PROJECTS</a> |\n
+                                     ,(format "<a href=\"%s\">HOME</a> <span class=\"pre-sep\">|</span>\n
+<a href=\"%s\">PROJECTS</a> <span class=\"pre-sep\">|</span>\n
 <a href=\"%s\">EXTRA</a><hr>"
                                               "/"
                                               "/projects.html"
                                               "/extra.html")))))
     (org-publish-remove-all-timestamps)
     (delete-directory (project-dir "public") t)
-    (org-publish-all)))
+    (org-publish-all)
+    (message "Done publishing.")))
 
 (provide 'blog)
 ;;;

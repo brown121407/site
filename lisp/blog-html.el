@@ -174,6 +174,7 @@ ATTRS specify additional attributes."
                  ,(and description
                        (blog-org-html-close-tag "meta" '(property twitter:card) '(content summary)))
                  ,(blog-org-html-close-tag "link" '(rel stylesheet) '(href "/assets/css/style.css"))
+                 ,(blog-org-html-close-tag "link" '(rel stylesheet) '(href "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"))
                  )
                "\n")))
 

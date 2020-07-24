@@ -1,3 +1,12 @@
+/* @font-face { */
+/*     font-family: 'Roboto'; */
+/*     src: url('/assets/fonts/Roboto-Regular.ttf'); */
+/* } */
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
 body {
     /* font-family: monospace; */
     font-size: 1rem;
@@ -9,7 +18,7 @@ body {
 header {
     font-size: 1.2rem;
     font-weight: bold;
-    font-family: monospace;
+    /* font-family: monospace; */
 }
 
 a.liberapay {
@@ -75,12 +84,32 @@ code {
     overflow-x: auto;
 }
 
+.revolutionary {
+  font-weight: bold;
+  color: #e84644;
+}
+
 a {
-    text-decoration: none;
+    text-decoration: underline;
+    color: #000;
 }
 
 a:hover {
     text-decoration: underline;
+}
+
+ul {
+  margin-top: 0;
+  padding-left: 1em;
+  list-style-type: none;
+}
+
+ul li {
+  padding-left: 1.5em;
+  background-image: url(/assets/img/Red_star.svg);
+  background-position: 0px .1em;
+  background-size: 1em 1em;
+  background-repeat: no-repeat;
 }
 
 ul.project-list {
@@ -90,6 +119,7 @@ ul.project-list {
 
 .project-list li {
     border: 1px solid gray;
+    background-image: none;
     padding: 10px;
     margin-bottom: 10px;
 }
@@ -98,4 +128,8 @@ ul.project-list {
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
+}
+
+.pre-sep {
+    margin: 0 0.3em;
 }
