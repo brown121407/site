@@ -133,3 +133,13 @@ ul.project-list {
 .pre-sep {
     margin: 0 0.3em;
 }
+
+.proles, .proles a {
+    float: right;
+    background-color: white;
+    color: white;
+}
+
+.proles:hover, .proles a:hover {
+    color: black;
+}

@@ -124,6 +124,7 @@
         (org-html-postamble t)
         (org-html-postamble-format `(("en"
                                       ,(format "<hr>\n
+<p class=\"proles\"><a href=\"https://www.marxists.org/\"><i>Workers of the world, unite!</i></a></p>\n
 <p class=\"author\">Copyright 2019, 2020 %%a (%%e)</p>\n
 <p>Source code is licensed under %s</p>\n
 <p>Content is licensed under %s</p>\n
