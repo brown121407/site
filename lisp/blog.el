@@ -24,6 +24,7 @@
 (require 'blog-html)
 (require 'blog-sitemap)
 (require 'blog-rss)
+(require 'xmlgen)
 
 (defun parent-dir (file)
   "Return the parent directory of FILE."
@@ -35,8 +36,8 @@
 (defvar blog-root (parent-dir (or load-file-name buffer-file-name)))
 (defvar blog-author-name user-full-name)
 (defvar blog-author-email user-mail-address)
-(defvar blog-content-license "CC-BY-SA")
-(defvar blog-code-license "GNU GPLv3")
+(defvar blog-content-license '("CC-BY-SA" . ""))
+(defvar blog-code-license '("GNU GPLv3" . ""))
 
 (defun project-dir (&optional dir)
   "Get the absolute path of DIR as if it is a directory in BLOG-ROOT."
@@ -123,22 +124,30 @@
         (org-html-preamble t)
         (org-html-postamble t)
         (org-html-postamble-format `(("en"
-                                      ,(format "<hr>\n
-<p class=\"proles\"><a href=\"https://www.marxists.org/\"><i>Workers of the world, unite!</i></a></p>\n
-<p class=\"author\">Copyright 2019, 2020 %%a (%%e)</p>\n
-<p>Source code is licensed under %s</p>\n
-<p>Content is licensed under %s</p>\n
-<p class=\"date\">Date: %%d</p>\n
-<p class=\"creator\">%%c</p>"
-                                              blog-code-license
-                                              blog-content-license))))
+                                      ,(xmlgen
+                                        `(div
+                                          (hr)
+                                          (p :class "proles"
+                                             (a :href "https://www.marxists.org"
+                                                "Workers of the world, unite!"))
+                                          (p :class "author" "Copyright 2019, 2020 %a %e")
+                                          (p :class "lic-code"
+                                             "Source code is licensed under "
+                                             (a :href ,(cdr blog-code-license) ,(car blog-code-license)))
+                                          (p :class "lic-content"
+                                             "Content is licensed under "
+                                             (a :href ,(cdr blog-content-license) ,(car blog-content-license)))
+                                          (p :class "date" "Date: %d")
+                                          (p :class "creator" "%c"))))))
         (org-html-preamble-format `(("en"
-                                     ,(format "<a href=\"%s\">HOME</a> <span class=\"pre-sep\">|</span>\n
-<a href=\"%s\">PROJECTS</a> <span class=\"pre-sep\">|</span>\n
-<a href=\"%s\">EXTRA</a><hr>"
-                                              "/"
-                                              "/projects.html"
-                                              "/extra.html")))))
+                                     ,(xmlgen
+                                       `(div
+                                         (a :href "/" "HOME")
+                                         (span :class "pre-sep" "|")
+                                         (a :href "/projects.html" "PROJECTS")
+                                         (span :class "pre-sep" "|")
+                                         (a :href "/extra.html" "EXTRA")
+                                         (hr)))))))
     (org-publish-remove-all-timestamps)
     (delete-directory (project-dir "public") t)
     (org-publish-all)
