@@ -1,0 +1,170 @@
+#+TITLE: Suckless Guix
+#+DATE: <2020-07-31 Fri>
+
+Today, we'll see how to install and configure Suckless programs on GNU Guix.
+
+This is mostly a response to [[https://www.youtube.com/watch?v=MV8SOJ2hlWQ][Distrotube's latest video on Guix]]. Derek is a great
+guy and I want to thank him for doing so much publicity work for Guix.
+
+*NOTE*: This is not a tutorial for how to use git, how to compile or configure
+programs. This will just help you use the knowledge you already have on a GNU
+Guix System.
+
+So, how do we install Suckless programs like dwm, st and dmenu on this great
+GNU/Linux distribution? Derek mentioned that on other systems he used to do a
+=git clone= for his forks and then install them with =sudo make install=. That's
+what you usually do for this stuff, indeed.
+
+But on Guix you can't.
+
+The way the Suckless makefiles are written combined with the way Guix works
+makes it impossible for you to compile them right after getting your code.
+
+Let me show you what I mean by that with st. Clone the repo somewhere:
+
+#+BEGIN_SRC bash
+git clone https://git.suckless.org/st
+#+END_SRC
+
+And try to run make in it.
+
+#+BEGIN_SRC
+[brown@121408 ~]$ cd st
+[brown@121408 st]$ make
+st build options:
+CFLAGS  = -I/gnu/store/nab7hhw326cpmpwyc1rgm0q8sk464qry-libx11-1.6.9/include -I/gnu/store/a8gdwnmpryd39jixzy4xs9p4i7gy17qv-libxcb-1.14/include -I/gnu/store/h7sy4hr7arjknbyy1aq0xwv6fksnzw9n-libxau-1.0.9/include -I/gnu/store/6cdl970wcv4jhvpgbh8sdj54a5gwhmwj-libxdmcp-1.1.3/include -I/gnu/store/wxl57nkbqgamfp73b7v62kk3f1hiv0cz-xorgproto-2019.2/include  -I/gnu/store/yykjxzsw9yrhbdwm0v45cxp2fnyjzn6f-fontconfig-2.13.1/include -I/gnu/store/a45p39mgqvfd8kjwibyr0q42k1mw7gmf-util-linux-2.35.1-lib/include/uuid -I/gnu/store/imh5xxqw10dql4crlngbbjh4r24raf4j-expat-2.2.9/include -I/gnu/store/haaam6v8l4s75mj9xmpb9gc78xk001y9-freetype-2.10.1/include/freetype2 -I/gnu/store/3x2kak8abb6z2klch72kfff2qxzv00pj-libpng-1.6.37/include/libpng16 -I/gnu/store/rykm237xkmq7rl1p0nwass01p090p88x-zlib-1.2.11/include  -I/gnu/store/haaam6v8l4s75mj9xmpb9gc78xk001y9-freetype-2.10.1/include/freetype2 -I/gnu/store/3x2kak8abb6z2klch72kfff2qxzv00pj-libpng-1.6.37/include/libpng16 -I/gnu/store/rykm237xkmq7rl1p0nwass01p090p88x-zlib-1.2.11/include -DVERSION="0.8.4" -D_XOPEN_SOURCE=600  -O1
+LDFLAGS = -L/usr/X11R6/lib -lm -lrt -lX11 -lutil -lXft  -L/gnu/store/yykjxzsw9yrhbdwm0v45cxp2fnyjzn6f-fontconfig-2.13.1/lib -L/gnu/store/haaam6v8l4s75mj9xmpb9gc78xk001y9-freetype-2.10.1/lib -lfontconfig -lfreetype  -L/gnu/store/haaam6v8l4s75mj9xmpb9gc78xk001y9-freetype-2.10.1/lib -lfreetype
+CC      = c99
+c99 `pkg-config --cflags x11`  `pkg-config --cflags fontconfig`  `pkg-config --cflags freetype2` -DVERSION=\"0.8.4\" -D_XOPEN_SOURCE=600  -O1 -c st.c
+/gnu/store/pwcp239kjf7lnj5i4lkdzcfcxwcfyk72-bash-minimal-5.0.16/bin/sh: c99: command not found
+make: *** [Makefile:22: st.o] Error 127
+
+#+END_SRC
+
+On my system, pkg-config managed to find the X11 and fontconfig libraries and
+whatever else it needs, because I have them installed (but it still failed --
+we'll talk about why in a second). For you it might not be this case. Let's see
+how to ensure we have all the dependencies.
+
+Guix has this awesome feature called "environments". An environment is like a
+temporary profile. You can install packages in that environment, and they'll be
+available for as long as you are yourself in that environment, but as soon as
+you quit it, those packages are not available anymore (you're back to your
+setup). Environments are great for developing stuff -- you can set up an one
+with all the dependencies for a project and activate it whenever you want to
+work in that thing.
+
+You can tell an environment what packages to contain the following ways: either
+by =guix environment st= or =guix environment --ad-hoc pkg-config=.
+
+The first way looks at the definition for the =st= package (that means it has to
+be in the Guix repos or in one of your channels) and pulls all the dependencies
+needed to build that package.
+
+The second way installs whatever packages you write after =--ad-hoc= directly in
+your environment.
+
+So, if we want to have everything we need to build st, we'll use =guix
+environment st=.
+
+We notice that make complains about c99 not being found. That's because st tries
+to use c99 as the default compiler executable. To change that we use ~CC=gcc~
+(if it complains about gcc not existing, try installing gcc-toolchain in the
+profile; I don't think that will be necessary though) in the command invocation.
+Also, note that the =/usr/local= directory does not exist on a Guix System, and
+that's where st tries to install by default. We override that by setting
+=PREFIX=.
+
+The full command to build and install will be:
+
+#+BEGIN_SRC bash
+guix environment st -- make install CC=gcc PREFIX=~/.local
+#+END_SRC
+
+Your st executable will now be at =~/.local/bin/st=.
+
+To ensure better integration, I suggest you make st find the X11 libraries with
+pkg-config too.
+
+#+BEGIN_SRC diff
+1 file changed, 9 insertions(+), 15 deletions(-)
+config.mk | 24 +++++++++---------------
+
+modified   config.mk
+@@ -7,29 +7,23 @@ VERSION = 0.8.4
+ PREFIX = /usr/local
+ MANPREFIX = $(PREFIX)/share/man
+
+-X11INC = /usr/X11R6/include
+-X11LIB = /usr/X11R6/lib
+-
+ PKG_CONFIG = pkg-config
+
+ # includes and libs
+-INCS = -I$(X11INC) \
++INCS = `$(PKG_CONFIG) --cflags x11` \
++	   `$(PKG_CONFIG) --cflags xft` \
++	   `$(PKG_CONFIG) --cflags xrender` \
+        `$(PKG_CONFIG) --cflags fontconfig` \
+        `$(PKG_CONFIG) --cflags freetype2`
+-LIBS = -L$(X11LIB) -lm -lrt -lX11 -lutil -lXft -lXrender\
+-       `$(PKG_CONFIG) --libs fontconfig` \
+-       `$(PKG_CONFIG) --libs freetype2`
++LIBS = -lm -lrt -lutil \
++		`$(PKG_CONFIG) --libs x11` \
++		`$(PKG_CONFIG) --libs xft` \
++		`$(PKG_CONFIG) --libs xrender` \
++		`$(PKG_CONFIG) --libs fontconfig` \
++		`$(PKG_CONFIG) --libs freetype2`
+
+ # flags
+ STCPPFLAGS = -DVERSION=\"$(VERSION)\" -D_XOPEN_SOURCE=600
+ STCFLAGS = $(INCS) $(STCPPFLAGS) $(CPPFLAGS) $(CFLAGS)
+ STLDFLAGS = $(LIBS) $(LDFLAGS)
+
+-# OpenBSD:
+-#CPPFLAGS = -DVERSION=\"$(VERSION)\" -D_XOPEN_SOURCE=600 -D_BSD_SOURCE
+-#LIBS = -L$(X11LIB) -lm -lX11 -lutil -lXft \
+-#       `$(PKG_CONFIG) --libs fontconfig` \
+-#       `$(PKG_CONFIG) --libs freetype2`
+-
+-# compiler and linker
+-# CC = c99
+
+#+END_SRC
+
+Setting up dwm and dmenu will be similar, but be careful as you'll have to
+define the =PKG_CONFIG= variable on your own in their =config.mk=. That's what got
+me a few times before. As their package definition in Guix doesn't depend on
+pkg-config, you'll have to use =--ad-hoc pkg-config= when writing their
+environments.
+
+I suggest you put the commands for creating the specific environments and
+building each program in a script, so you don't have to remember them. I have a
+=guix-install= script in the root of every suckless program, and all I need to
+write to build and install one is =./guix-install=.
+
+You could, of course, create a package definition for your forks, as Ukko
+suggested in a comment on Distrotube's video:
+
+#+BEGIN_SRC scheme
+(define my-st
+  (package
+   (inherit st)
+   (source
+    (origin
+     (method git-fetch)
+     (uri (git-reference
+           (url "https://url.tld/repo.git")
+           (commit "commit hash, can also be a tag name")))
+     (sha256
+      (base32
+       "hash string"))))))
+#+END_SRC
+
+I don't use that method because I want to be able to configure and reinstall my
+programs without pushing to a repository and synchronzing channels, but if you
+have a build that you're confident you'll not want to modify too much, this is a
+great approach too.
+
+You can find all of my suckless forks on [[https://sr.ht/~brown121407/computing-environment/][sourcehut]].
