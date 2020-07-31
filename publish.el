@@ -27,6 +27,8 @@
 (setq blog-url "https://brown.121407.xyz"
       blog-title "brown121407"
       blog-root (parent-dir (or load-file-name buffer-file-name))
+      blog-content-license '("CC BY-SA 4.0" . "https://creativecommons.org/licenses/by-sa/4.0/")
+      blog-code-license '("GNU GPLv3" . "https://www.gnu.org/licenses/gpl-3.0.en.html")
       org-rss-posts-url (concat (file-name-as-directory blog-url) "posts"))
 
 (provide 'publish)
