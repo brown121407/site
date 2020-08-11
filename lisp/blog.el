@@ -38,6 +38,7 @@
 (defvar blog-author-email user-mail-address)
 (defvar blog-content-license '("CC-BY-SA" . ""))
 (defvar blog-code-license '("GNU GPLv3" . ""))
+(defvar copyright-years "2019, 2020")
 
 (defun project-dir (&optional dir)
   "Get the absolute path of DIR as if it is a directory in BLOG-ROOT."
@@ -49,9 +50,9 @@
 
 (defun get-blog-project-alist ()
       `(("posts"
-         :base-directory ,(project-dir "posts")
+         :base-directory ,(project-dir "site/posts")
          :base-extension "org"
-         :recursive nil
+         :recursive t
          :exclude ,(regexp-opt '("rss.org" "sitemap.org"))
          :publishing-directory ,(project-dir "public/posts")
          :publishing-function blog-org-html-publish-to-html
@@ -69,9 +70,10 @@
          :email ,blog-author-email
          :with-creator t)
         ("pages"
-         :base-directory ,(project-dir "")
+         :base-directory ,(project-dir "site")
          :base-extension "org"
-         :recursive nil
+         :recursive t
+	 :exclude ,(regexp-opt '("posts" "rss.org"))
          :publishing-directory ,(project-dir "public")
          :publishing-function blog-org-html-publish-to-html
          :html-link-home "/"
@@ -80,36 +82,28 @@
          :author ,blog-author-name
          :email ,blog-author-email
          :with-creator t)
-        ("blog-rss"
-         :base-directory ,(project-dir "posts")
-         :base-extension "org"
-         :recursive nil
-         :exclude ,(regexp-opt '("rss.org" "index.org" "sitemap.org" "404.org" "projects.org" "extra.org"))
-         :publishing-function blog-org-rss-publish-to-rss
-         :publishing-directory ,(project-dir "public")
-         :rss-extension "xml"
-         :html-link-home ,blog-url
-         :html-link-use-abs-url t
-         :html-link-org-files-as-html t
-         :auto-sitemap t
-         :sitemap-filename "rss.org"
-         :sitemap-title ,blog-title
-         :sitemap-style list
-         :sitemap-sort-files anti-chronologically
-         :sitemap-function blog-format-rss-feed
-         :sitemap-format-entry blog-format-rss-feed-entry)
-        ("assets"
-         :base-directory ,(project-dir "assets")
+	("rss"
+	 :base-directory ,(project-dir "site")
+	 :base-extension "org"
+	 :publishing-directory ,(project-dir "public")
+	 :publishing-function blog-org-rss-publish-to-rss
+	 :rss-extension "xml"
+	 :html-link-home ,blog-url
+	 :html-link-use-abs-url t
+	 :html-link-org-files-as-html t)
+        ("rest"
+         :base-directory ,(project-dir "site")
          :base-extension any
          :recursive t
-         :publishing-directory ,(project-dir "public/assets")
+	 :exclude ".*\.org"
+         :publishing-directory ,(project-dir "public")
          :publishing-function org-publish-attachment)))
 
 (defun blog-publish-all ()
   "Publish the blog."
   (interactive)
   (let ((org-publish-project-alist (get-blog-project-alist))
-        ;;(org-publish-timestamp-directory ".timestamps")
+        ;;(org-publish-timestamp-directory (project-dir ".timestamps"))
         (org-export-with-smart-quotes    t)
         (org-export-with-toc             nil)
         (org-html-doctype "html5")
@@ -130,7 +124,10 @@
                                           (p :class "proles"
                                              (a :href "https://www.marxists.org"
                                                 "Workers of the world, unite!"))
-                                          (p :class "author" "Copyright 2019, 2020 %a %e")
+                                          (p :class "author" (concat
+							      "Copyright "
+							      copyright-years
+							      " %a %e"))
                                           (p :class "lic-code"
                                              "Source code is licensed under "
                                              (a :href ,(cdr blog-code-license) ,(car blog-code-license)))

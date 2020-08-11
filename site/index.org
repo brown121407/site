@@ -1,7 +1,7 @@
 #+TITLE: brown121407
 #+META_TYPE: website
 #+DESCRIPTION: Marton Sergiu's personal blog
-#+DATE: <2017-10-20 Fri>
+#+DATE: <2017-10-20 Fri 20:00>
 #+OPTIONS: num:nil
 
 * About me

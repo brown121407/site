@@ -1,5 +1,5 @@
 #+TITLE: Projects
-#+DATE: <2020-05-01 Fri>
+#+DATE: <2020-05-01 Fri 10:00>
 
 If I were to make a summary of what my overall experience with stuff
 is:

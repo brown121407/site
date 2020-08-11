@@ -1,5 +1,5 @@
 #+TITLE: Suckless Guix
-#+DATE: <2020-07-31 Fri>
+#+DATE: <2020-07-31 Fri 10:00>
 
 Today, we'll see how to install and configure Suckless programs on GNU Guix.
 
@@ -147,6 +147,10 @@ write to build and install one is =./guix-install=.
 You could, of course, create a package definition for your forks, as Ukko
 suggested in a comment on Distrotube's video:
 
+#+BEGIN_QUOTE
+To make an st/dwm/etc from a custom source (but with the same command-line
+commands as upstream) you should be able to add something like:
+
 #+BEGIN_SRC scheme
 (define my-st
   (package
@@ -162,9 +166,70 @@ suggested in a comment on Distrotube's video:
        "hash string"))))))
 #+END_SRC
 
+to your config file and then use my-st instead of st further in the config. If
+you want to create such packages for availability with `guix install`, you
+should probably create your own channel
+(https://guix.gnu.org/manual/en/guix.html#Channels).
+
+Oh and to get the hash string you can run `guix hash -rx .` in your cloned
+repository (or just let guix fail with a hash mismatch because it will display
+what the actual hash is lmao)
+#+END_QUOTE
+
 I don't use that method because I want to be able to configure and reinstall my
 programs without pushing to a repository and synchronzing channels, but if you
 have a build that you're confident you'll not want to modify too much, this is a
 great approach too.
 
 You can find all of my suckless forks on [[https://sr.ht/~brown121407/computing-environment/][sourcehut]].
+
+* EDIT <2020-07-31 Fri 12:17>
+
+Ukko also points out that stuff installed with my method might stop working
+after a =guix gc=. I guess that is because it might garbage collect some
+libraries that your builds depend on. I think that if you want to use my method
+it would be safe to also install the dependecies directly in your profile to
+ensure they don't get garbage collected. If your suckless programs don't start
+anymore, you can always enter a TTY (Ctrl+Alt+F1 through F7, I think; this is
+assuming your WM is borked too, otherwise a normal terminal works just fine) and
+rebuild them from there. The X session is on F7 by default.
+
+But there's a better solution!
+
+You could define a lightweight recipe for your suckless programs right in their
+directories and install that with Guix, but without pulling the code from a
+repo, and instead using the current directory. Here's how I do it for my =st=
+build:
+
+#+CAPTION: st.scm
+#+BEGIN_SRC scheme
+(use-modules (guix gexp)
+             (gnu packages)
+             (gnu packages suckless)
+             (guix packages)
+             (guix git-download)
+             (guix build-system gnu))
+
+(define %source-dir (dirname (current-filename)))
+
+(define-public st-121407
+  (package
+    (inherit st)
+    (source (local-file %source-dir
+                        #:recursive? #t
+                        #:select? (git-predicate %source-dir)))))
+
+st-121407
+#+END_SRC
+
+This way, it shouldn't break after you throw away the trash with =guix gc= and
+you don't have to install the dependencies explicitly in your profile.
+
+You can edit your config however you want and instead of running =make=, to
+install it you'll now use =guix package -f st.scm= (replace st.scm with however
+you named your file; the convention for those local definitions is that the file
+is named =guix.scm=).
+
+If you want to see more examples of package definitions like this, that build
+from the current directory, you can try searching GitHub or other forges for
+=guix.scm= files. That's how Ukko found [[https://github.com/DisyInformationssysteme/git-to-jira-links/blob/276c21afad2e8946c9e093c46a8aa125c129f27d/guix.scm][this one]], which we treated as a base.

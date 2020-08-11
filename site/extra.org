@@ -1,8 +1,11 @@
 #+TITLE: Extra
-#+DATE: <2020-05-01 Fri>
+#+DATE: <2020-05-01 Fri 10:00>
 #+OPTIONS: num:nil
 
 Here I keep anything else that doesn't go in a post but I still want to have in my corner of the internet.
 
 * My other websites
 - [[https://temple.121407.xyz][TempleOS website mirror]]
+
+* My other articles
+- [[file:extra/simple-web-pages.html][Simple Web Pages]]
