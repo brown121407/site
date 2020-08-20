@@ -22,7 +22,7 @@ of those items to expand it and show more information.
       <p>
         Minimalist weblog built using Emacs Lisp and Org.
         <dl>
-          <dt>relation</dt>
+          <dt>relationship</dt>
           <dd>maintainer</dd>
 
           <dt>source code</dt>
@@ -30,6 +30,24 @@ of those items to expand it and show more information.
 
           <dt>license</dt>
           <dd><a href="/COPYING">GPL 3+</a></dd>
+        </dl>
+      </p>
+    </details>
+  </li>
+  <li>
+    <details>
+      <summary>org-webring</summary>
+      <p>
+        Emacs Lisp / Org-mode implementation for an RSS-fetched webring.
+        <dl>
+          <dt>relationship</dt>
+          <dd>co-maintainer</dd>
+
+          <dt>project page</dt>
+          <dd><a href="https://sr.ht/~brettgilio/org-webring">sourcehut</a></dd>
+	  
+          <dt>license</dt>
+          <dd><a href="https://git.sr.ht/~brettgilio/org-webring/tree/master/LICENSE">GPL 3+</a></dd>
         </dl>
       </p>
     </details>
@@ -44,7 +62,7 @@ of those items to expand it and show more information.
           <dt>homepage</dt>
           <dd><a href="https://guix.gnu.org/">website</a><dd>
 
-          <dt>relation</dt>
+          <dt>relationship</dt>
           <dd><a href="http://git.savannah.gnu.org/cgit/guix.git/log/?qt=author&q=Alexandru-Sergiu+Marton">contributor</a></dd>
 
           <dt>source code</dt>
@@ -62,7 +80,7 @@ of those items to expand it and show more information.
       <p>
         Rust program to display information about a project dependencies.
         <dl>
-          <dt>relation</dt>
+          <dt>relationship</dt>
           <dd>maintainer</dd>
 
           <dt>source code</dt>
