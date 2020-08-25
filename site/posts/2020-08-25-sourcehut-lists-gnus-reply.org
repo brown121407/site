@@ -1,0 +1,35 @@
+#+TITLE: Sourcehut: Don't break mailing list threading with Gnus
+#+DATE: <2020-08-25 Tue 10:25>
+
+When I reply to a Sourcehut mailing list from Gnus it creates a new
+thread reather than adding the reply to the existing one. I'm not the
+only one that experiences this so you can imagine that us Emacs people
+will be polluting lists if we don't fix this.
+
+I can't tell you what the /good, official/ solution to this is, as I
+know little about the inner workings of Gnus and Sourcehut, and
+threading seems to work well on other mailing lists, such as the GNU
+ones. If you browse the Guix mailing lists you'll find a lot of
+correctly formed threads where emails have the =User-agent= header set
+to something about Gnus and Emacs. I found a simple, manual hack
+though.
+
+Before sending a reply to a Sourcehut mailing list, run
+=message-insert-headers= (C-c M-h) in the compose window. Look for the
+=In-Reply-To= header; it should be of the form of an id followed by
+some information in paranthesis.
+
+#+BEGIN_SRC
+In-Reply-To: <20200823075510.5542-1-ivan-p-sokolov@ya.ru> (Ivan Sokolov's
+	message of "Sun, 23 Aug 2020 10:55:08 +0300")
+#+END_SRC
+
+To fix our problems, just remove whatever is after the id. This is how
+my example would look after cleaning:
+
+#+BEGIN_SRC
+In-Reply-To: <20200823075510.5542-1-ivan-p-sokolov@ya.ru>
+#+END_SRC
+
+Now you can send it and it should appear as a reply in the same thread
+as the message you responded to.
