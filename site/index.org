@@ -1,7 +1,7 @@
 #+TITLE: brown121407
 #+META_TYPE: website
 #+DESCRIPTION: Marton Sergiu's personal blog
-#+DATE: <2017-10-20 Fri 20:00>
+#+DATE: <2020-08-24 Mon 01:49>
 #+OPTIONS: num:nil
 
 * About me
@@ -21,3 +21,6 @@ Want to chat? Shoot me an email.
 
 * Posts ([[./rss.xml][RSS]])
 #+INCLUDE: ./posts/sitemap.org
+
+-----
+#+INCLUDE: ./assets/ring.org

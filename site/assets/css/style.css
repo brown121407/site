@@ -143,3 +143,59 @@ ul.project-list {
 .proles:hover, .proles a:hover {
     color: black;
 }
+
+
+.org-webring .org-webring-articles {
+    display: flex;
+}
+.org-webring .org-webring-article-title {
+    margin: 0;
+}
+.org-webring .org-webring-article {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    margin: 0 0.5rem;
+    padding: 0.5rem;
+    border: 0.1rem black solid;
+    border-color: black;
+}
+.org-webring .org-webring-article-summary {
+    font-size: 0.8rem;
+    flex: 1 1 0;
+}
+.org-webring .org-webring-attribution {
+    text-align: right;
+    font-size: 0.8rem;
+    padding-right: 0.5rem;
+    color: #555;
+}
+.org-webring .org-webring-article-date {
+    text-align: right;
+    color: black;
+}
+.org-webring .org-webring-article-source {
+    text-align: right;
+    color: black;
+}
+.org-webring .org-webring-timestamp {
+    color: #bebebe;
+}
+@media screen and (max-width: 600px) {
+    .org-webring .org-webring-articles {
+	display: flex;
+	flex-direction: column;
+    }
+}
+@media screen and (max-width: 600px) {
+    .org-webring .org-webring-article {
+	flex: 1 1 0;
+	display: flex;
+	flex-direction: column;
+	margin: 0 0.5rem;
+	margin-bottom: 0.5rem;
+	padding: 0.5rem;
+	border: 0.1rem black solid;
+	border-color: black;
+    }
+}
