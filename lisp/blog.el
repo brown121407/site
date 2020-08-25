@@ -85,12 +85,15 @@
 	("rss"
 	 :base-directory ,(project-dir "site")
 	 :base-extension "org"
+	 :exclude ".*"                ;; To exclude all files...
+	 :include ("posts/rss.org")   ;; ... except index.org.
 	 :publishing-directory ,(project-dir "public")
-	 :publishing-function blog-org-rss-publish-to-rss
+	 :publishing-function (blog-org-rss-publish-to-rss)
 	 :rss-extension "xml"
 	 :html-link-home ,blog-url
 	 :html-link-use-abs-url t
-	 :html-link-org-files-as-html t)
+	 :html-link-org-files-as-html t
+	 :title "brown121407")
         ("rest"
          :base-directory ,(project-dir "site")
          :base-extension any

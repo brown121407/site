@@ -383,9 +383,6 @@ information."
                (buffer-file-name))
       (sit-for 2))))
 
-
-
-
 (defun blog-format-rss-feed-entry (entry style project)
   "Format ENTRY for the RSS feed.
 ENTRY is a file name.  STYLE is either 'list' or 'tree'.

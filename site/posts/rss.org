@@ -1,20 +1,37 @@
 #+TITLE: brown121407
 #+RSS_POSTS_URL: https://brown.121407.xyz/posts
+#+OPTIONS: num:nil
+
+* [[file:2020-08-25-sourcehut-lists-gnus-reply.org][Sourcehut: Don’t break mailing list threading with Gnus]]
+:PROPERTIES:
+:RSS_PERMALINK: 2020-08-25-sourcehut-lists-gnus-reply.html
+:RSS_TITLE: Sourcehut: Don’t break mailing list threading with Gnus
+:ID:       722cc4ed-ca82-4f70-94e8-966425b271b7
+:PUBDATE:  <2020-08-25 Tue 11:09>
+:END:
+
+#+INCLUDE: "2020-08-25-sourcehut-lists-gnus-reply.org" :lines "4-"
 
 * [[file:/home/brown/src/brown.121407.xyz/posts/2020-07-31-guix-suckless.org][Suckless Guix]]
 :PROPERTIES:
 :RSS_PERMALINK: 2020-07-31-guix-suckless.html
 :RSS_TITLE: Suckless Guix
-:PUBDATE:  2020-07-31
-:ID:       c790018a-e344-4aa2-b03a-2f2bf17efaf9
+:ID:       e3210d00-daec-4e70-b42b-a6f61defd21c
+:PUBDATE:  <2020-07-31 Fri 11:16>
 :END:
+
+#+INCLUDE: "2020-07-31-guix-suckless.org" :lines "4-"
+
 * [[file:/home/brown/src/brown.121407.xyz/posts/2020-07-16-patching-suckless.org][Patching Suckless software]]
 :PROPERTIES:
 :RSS_PERMALINK: 2020-07-16-patching-suckless.html
 :RSS_TITLE: Patching Suckless software
-:PUBDATE:  2020-07-16
-:ID:       4a195c94-0482-493c-8766-89e57428e04a
+:ID:       30b70edd-3f33-429f-91c5-ba6f8a188b30
+:PUBDATE:  <2020-07-16 Thu 11:16>
 :END:
+
+#+INCLUDE: "2020-07-16-patching-suckless.org" :lines "4-"
+
 * [[file:/home/brown/src/brown.121407.xyz/posts/2020-07-14-nfs-reflections.org][NearlyFreeSpeech reflections]]
 :PROPERTIES:
 :RSS_PERMALINK: 2020-07-14-nfs-reflections.html
