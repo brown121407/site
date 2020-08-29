@@ -1,7 +1,7 @@
 #+BEGIN_SRC emacs-lisp :exports results :results value html
   (require 'org-webring)
 
-  (setq org-webring-urls '("https://brettgilio.ml/rss.xml"
+  (setq org-webring-urls '("https://brettgilio.com/rss.xml"
                            "https://drewdevault.com/feed.xml"
                            "https://emersion.fr/blog/rss.xml"))
 

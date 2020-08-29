@@ -1,3 +1,4 @@
+- 2020-08-25 --- [[file:2020-08-25-sourcehut-lists-gnus-reply.org][Sourcehut: Don't break mailing list threading with Gnus]]
 - 2020-07-31 --- [[file:2020-07-31-guix-suckless.org][Suckless Guix]]
 - 2020-07-16 --- [[file:2020-07-16-patching-suckless.org][Patching Suckless software]]
 - 2020-07-14 --- [[file:2020-07-14-nfs-reflections.org][NearlyFreeSpeech reflections]]

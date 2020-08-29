@@ -33,3 +33,7 @@ In-Reply-To: <20200823075510.5542-1-ivan-p-sokolov@ya.ru>
 
 Now you can send it and it should appear as a reply in the same thread
 as the message you responded to.
+
+* EDIT: <2020-08-29 Sat>
+Threading has been fixed on Sourcehut and you no longer need to employ
+any hacks to make it work when you send emails from Emacs.
