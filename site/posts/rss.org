@@ -2,6 +2,16 @@
 #+RSS_POSTS_URL: https://brown.121407.xyz/posts
 #+OPTIONS: num:nil
 
+* [[file:2020-09-13-vultr-vps.org][Moving to a VPS (Vultr)]]
+:PROPERTIES:
+:RSS_PERMALINK: 2020-09-13-vultr-vps.html
+:RSS_TITLE: Moving to a VPS (Vultr)
+:PUBDATE:  <2020-09-13 Sun 22:14>
+:ID:       b4ca6fb3-f4c2-4a1f-b651-d005085bcd28
+:END:
+
+#+INCLUDE: "2020-09-13-vultr-vps.org" :lines "4-"
+
 * [[file:2020-08-25-sourcehut-lists-gnus-reply.org][Sourcehut: Don’t break mailing list threading with Gnus]]
 :PROPERTIES:
 :RSS_PERMALINK: 2020-08-25-sourcehut-lists-gnus-reply.html

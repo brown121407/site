@@ -1,0 +1,33 @@
+#+TITLE: Moving to a VPS (Vultr)
+#+DATE: <2020-09-13 Sun 22:14>
+
+For a while I've been wanting to get my own server to do some stuff
+other than hosting files, and I finally got around to doing just that.
+
+What you're reading now is served from a server with 100% free
+software, running GNU Guix System. Maybe I'll write about how I
+configured it another time.
+
+The VPS provider I use is [[https://vultr.com][Vultr]] which I definitely recommend. I use
+their 5 USD/month plan and it works a lot better than I expected with
+Guix. The fact that they allow uploading arbitrary ISOs and booting
+from them is a blessing which allowed me to get this thing working in
+the first place.
+
+If you want to help me keep this online and you're interested in
+getting a server yourself, you can use one of my affiliate links to
+register. Here are the links and the details for each of them:
+
+- https://www.vultr.com/?ref=8680364
+  
+  I earn $10 for every new unique paid user I refer. Referred users
+  must be active for 30+ days and use at least $10 in payments to be
+  counted as verified sales.
+
+- https://www.vultr.com/?ref=8680365-6G
+
+  I earn $25 for every new unique paid user I refer. The users I refer
+  receive $100 to test out the platform. Referred users must be active
+  for 30+ days and use at least $25 in payments to be counted as
+  verified sales.
+
