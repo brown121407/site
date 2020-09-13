@@ -1,5 +1,5 @@
 #+TITLE: Moving to a VPS (Vultr)
-#+DATE: <2020-09-13 Sun 22:14>
+#+DATE: <2020-09-13 Sun 19:14>
 
 For a while I've been wanting to get my own server to do some stuff
 other than hosting files, and I finally got around to doing just that.
@@ -31,3 +31,6 @@ register. Here are the links and the details for each of them:
   for 30+ days and use at least $25 in payments to be counted as
   verified sales.
 
+-----
+
+#+INCLUDE: ../response.org

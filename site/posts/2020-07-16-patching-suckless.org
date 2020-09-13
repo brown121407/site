@@ -216,3 +216,7 @@ probably look something like this:
 507950a - Add fullgaps patch.
 5c92984 - Add stacker patch.
 #+end_src
+
+-----
+
+#+INCLUDE: ../response.org

@@ -1,100 +1,39 @@
 #+TITLE: Projects
 #+DATE: <2020-05-01 Fri 10:00>
+#+OPTIONS: num:nil
 
-If I were to make a summary of what my overall experience with stuff
-is:
-- I use GNU/Linux full-time on all my computers for more than a year now.
-- I know a bunch of programming languages. I feel pretty confortable
-  with LISPs, C/C++, Python, some web stuff and .NET. I was also the
-  programmer for my highschool's robotics team, task for which I used
-  Kotlin. I can pick up other languages quite easily.
-- I have experience with git. I love email and IRC, though PRs and
-  Issues are not unfamiliar to me.
+* brown.121407.xyz (this website)
+Minimalist weblog built using Emacs Lisp and Org.
 
-Here's a list of the projects I work on or contribute to. Click on any
-of those items to expand it and show more information.
+- relationship :: maintainer
+- source code :: [[https://git.sr.ht/~brown121407/brown.121407.xyz][sourcehut]]
+- license :: GPL 3+
 
-#+begin_export html
-<ul class="project-list">
-  <li>
-    <details>
-      <summary>brown.121407.xyz (this website)</summary>
-      <p>
-        Minimalist weblog built using Emacs Lisp and Org.
-        <dl>
-          <dt>relationship</dt>
-          <dd>maintainer</dd>
+-----
 
-          <dt>source code</dt>
-          <dd><a href="https://git.sr.ht/~brown121407/brown.121407.xyz">sourcehut</a></dd>
+* org-webring
+Emacs Lisp / Org-mode implementation for an RSS-fetched webring.
 
-          <dt>license</dt>
-          <dd><a href="/COPYING">GPL 3+</a></dd>
-        </dl>
-      </p>
-    </details>
-  </li>
-  <li>
-    <details>
-      <summary>org-webring</summary>
-      <p>
-        Emacs Lisp / Org-mode implementation for an RSS-fetched webring.
-        <dl>
-          <dt>relationship</dt>
-          <dd>co-maintainer</dd>
+- relationship :: co-author
+- source code :: [[https://sr.ht/~brettgilio/org-webring/][sourcehut]]
+- license :: GPL 3+
 
-          <dt>project page</dt>
-          <dd><a href="https://sr.ht/~brettgilio/org-webring">sourcehut</a></dd>
-	  
-          <dt>license</dt>
-          <dd><a href="https://git.sr.ht/~brettgilio/org-webring/tree/master/LICENSE">GPL 3+</a></dd>
-        </dl>
-      </p>
-    </details>
-  </li>
-  <li>
-    <details>
-      <summary>GNU Guix</summary>
-      <p>
-        Guix is an advanced distribution of the GNU operating system developed by the GNU Project—which respects the freedom of computer users.
+-----
 
-        <dl>
-          <dt>homepage</dt>
-          <dd><a href="https://guix.gnu.org/">website</a><dd>
+* GNU Guix
+Guix is an advanced distribution of the GNU operating system developed
+by the GNU Project—which respects the freedom of computer users.
 
-          <dt>relationship</dt>
-          <dd><a href="http://git.savannah.gnu.org/cgit/guix.git/log/?qt=author&q=Alexandru-Sergiu+Marton">contributor</a></dd>
+- homepage :: [[https://guix.gnu.org/][website]]
+- relationship :: [[http://git.savannah.gnu.org/cgit/guix.git/log/?qt=author&q=Alexandru-Sergiu+Marton][contributor]]
+- source code :: [[http://git.savannah.gnu.org/cgit/guix.git][savannah]]
+- license :: [[http://git.savannah.gnu.org/cgit/guix.git/tree/COPYING][GPL 3+]]
 
-          <dt>source code</dt>
-          <dd><a href="http://git.savannah.gnu.org/cgit/guix.git">savannah</a></dd>
+-----
 
-          <dt>license</dt>
-          <dd><a href="http://git.savannah.gnu.org/cgit/guix.git/tree/COPYING">GPL 3+</a></dd>
-        </dl>
-      </p>
-    </details>
-  </li>
-  <li>
-    <details>
-      <summary>thank</summary>
-      <p>
-        Rust program to display information about a project dependencies.
-        <dl>
-          <dt>relationship</dt>
-          <dd>maintainer</dd>
+* thank
+Rust program to display information about a project dependencies.
 
-          <dt>source code</dt>
-          <dd><a href="https://git.sr.ht/~brown121407/thank">sourcehut</a></dd>
-
-          <dt>license</dt>
-          <dd><a href="https://git.sr.ht/~brown121407/thank/tree/master/LICENSE">GPL 3+</a></dd>
-        </dl>
-      </p>
-    </details>
-  </li>
-</ul>
-#+end_export
-
-Fun fact: Those dropdowns are achieved using plain HTML. No JavaShit at work
-here. Inspect the source and read about the ~<details>~ tag if you don't know
-this already.
+- relationship :: maintainer
+- source code :: [[https://git.sr.ht/~brown121407/thank][sourcehut]]
+- license :: [[https://git.sr.ht/~brown121407/thank/tree/master/LICENSE][GPL 3+]]

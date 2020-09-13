@@ -2,11 +2,21 @@
 #+RSS_POSTS_URL: https://brown.121407.xyz/posts
 #+OPTIONS: num:nil
 
+* [[file:2020-09-13-losing-weight.org][Losing weight]]
+:PROPERTIES:
+:RSS_PERMALINK: 2020-09-13-losing-weight.html
+:RSS_TITLE: Losing weight
+:PUBDATE:  <2020-09-13 Sun 21:18>
+:ID:       bbb91d0b-200e-47df-9431-09cd48c5407c
+:END:
+
+#+INCLUDE: "2020-09-13-losing-weight.org" :lines "4-"
+
 * [[file:2020-09-13-vultr-vps.org][Moving to a VPS (Vultr)]]
 :PROPERTIES:
 :RSS_PERMALINK: 2020-09-13-vultr-vps.html
 :RSS_TITLE: Moving to a VPS (Vultr)
-:PUBDATE:  <2020-09-13 Sun 22:14>
+:PUBDATE:  <2020-09-13 Sun 19:14>
 :ID:       b4ca6fb3-f4c2-4a1f-b651-d005085bcd28
 :END:
 

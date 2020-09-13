@@ -38,7 +38,7 @@
 (defvar blog-author-email user-mail-address)
 (defvar blog-content-license '("CC-BY-SA" . ""))
 (defvar blog-code-license '("GNU GPLv3" . ""))
-(defvar copyright-years "2019, 2020")
+(defvar blog-copyright-years "2019, 2020")
 
 (defun project-dir (&optional dir)
   "Get the absolute path of DIR as if it is a directory in BLOG-ROOT."
@@ -58,14 +58,7 @@
          :publishing-function blog-org-html-publish-to-html
          :html-link-home "/"
          :html-home/up-format ""
-         :auto-sitemap t
          :html-format-headline-function blog-org-html-format-headline-function
-         :sitemap-filename "sitemap.org"
-         :sitemap-title ,blog-title
-         :sitemap-sort-files anti-chronologically
-         :sitemap-style list
-         :sitemap-function blog-org-publish-sitemap
-         :sitemap-format-entry blog-org-publish-sitemap-entry
          :author ,blog-author-name
          :email ,blog-author-email
          :with-creator t)
@@ -124,21 +117,24 @@
                                       ,(xmlgen
                                         `(div
                                           (hr)
-                                          (p :class "proles"
-                                             (a :href "https://www.marxists.org"
-                                                "Workers of the world, unite!"))
-                                          (p :class "author" (concat
-							      "Copyright "
-							      copyright-years
-							      " %a %e"))
-                                          (p :class "lic-code"
-                                             "Source code is licensed under "
-                                             (a :href ,(cdr blog-code-license) ,(car blog-code-license)))
-                                          (p :class "lic-content"
-                                             "Content is licensed under "
-                                             (a :href ,(cdr blog-content-license) ,(car blog-content-license)))
-                                          (p :class "date" "Date: %d")
-                                          (p :class "creator" "%c"))))))
+					  (div :style "display: flex; flex-flow: row wrap;"
+					   (div :style "flex-grow: 1"
+						(p :class "author" ,(concat
+								     "Copyright "
+								     blog-copyright-years
+								     " %a %e"))
+						(p :class "lic-code"
+						   "Source code is licensed under "
+						   (a :href ,(cdr blog-code-license) ,(car blog-code-license)))
+						(p :class "lic-content"
+						   "Content is licensed under "
+						   (a :href ,(cdr blog-content-license) ,(car blog-content-license)))
+						(p :class "date" "Date: %d")
+						(p :class "creator" "%c"))
+					   (div :style "flex-grow: 1"
+                                            (p :class "proles"
+                                               (a :href "https://www.marxists.org"
+                                                  "Workers of the world, unite!")))))))))
         (org-html-preamble-format `(("en"
                                      ,(xmlgen
                                        `(div

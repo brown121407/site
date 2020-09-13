@@ -233,3 +233,7 @@ is named =guix.scm=).
 If you want to see more examples of package definitions like this, that build
 from the current directory, you can try searching GitHub or other forges for
 =guix.scm= files. That's how Ukko found [[https://github.com/DisyInformationssysteme/git-to-jira-links/blob/276c21afad2e8946c9e093c46a8aa125c129f27d/guix.scm][this one]], which we treated as a base.
+
+-----
+
+#+INCLUDE: ../response.org

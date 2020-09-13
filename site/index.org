@@ -1,6 +1,6 @@
 #+TITLE: brown121407
 #+META_TYPE: website
-#+DESCRIPTION: Marton Sergiu's personal blog
+#+DESCRIPTION: Alexandru-Sergiu Marton's blog
 #+DATE: <2020-08-24 Mon 01:49>
 #+OPTIONS: num:nil
 
@@ -20,7 +20,32 @@ Want to chat? Shoot me an email.
 - fingerprint :: 8571 7664 DFDC 6B6A 3ED2 DA68 2348 7CC8 2397 2C1F
 
 * Posts ([[./posts/rss.xml][RSS]])
-#+INCLUDE: ./posts/sitemap.org
+** 2020
+- <2020-09-13 Sun> --- [[file:posts/2020-09-13-losing-weight.org][Losing weight]]
+- <2020-09-13 Sun> --- [[file:posts/2020-09-13-vultr-vps.org][Moving to a VPS (Vultr)]]
+- <2020-08-25 Tue> --- [[file:posts/2020-08-25-sourcehut-lists-gnus-reply.org][Sourcehut: Don't break mailing list threading with Gnus]]
+- <2020-07-31 Fri> --- [[file:posts/2020-07-31-guix-suckless.org][Suckless Guix]]
+- <2020-07-16 Thu> --- [[file:posts/2020-07-16-patching-suckless.org][Patching Suckless software]]
+- <2020-07-14 Tue> --- [[file:posts/2020-07-14-nfs-reflections.org][NearlyFreeSpeech reflections]]
+- <2020-05-16 Sat> --- [[file:posts/2020-05-16-guix-manifests.org][GNU Guix: (Interactive) manifests]]
+- <2020-04-16 Thu> --- [[file:posts/2020-04-16-emacs-daemon-always.org][Start Emacs as a daemon]]
+- <2020-03-16 Mon> --- [[file:posts/2020-03-16-preferred-gnu-linux-distros.org][My preferred GNU/Linux distributions]]
+- <2020-02-22 Sat> --- [[file:posts/2020-02-22-stumpwm-fonts.org][StumpWM and fonts]]
+- <2020-02-21 Fri> --- [[file:posts/2020-02-21-ftc-module-system.org][A module system for coding FTC robots]]
+- <2020-02-16 Sun> --- [[file:posts/2020-02-16-stumpwm.org][StumpWM]]
+- <2020-02-03 Mon> --- [[file:posts/2020-02-03-projects-page.org][New: PROJECTS page]]
+- <2020-02-01 Sat> --- [[file:posts/2020-02-01-enlightenment-git-project-management.org][Enlightenment: Git patches and mailing lists]]
+- <2020-01-14 Tue> --- [[file:posts/2020-01-14-guix-databases.org][GNU Guix: Databases]]
+** 2019
+- <2019-12-29 Sun> --- [[file:posts/2019-12-29-guix-fonts-cursors-icons.org][GNU Guix System: Fonts, icons and cursors]]
+- <2019-12-26 Thu> --- [[file:posts/2019-12-26-please-format-your-code-nicely.org][CS teachers hate him! See how he wrote READABLE code with one simple trick...]]
+- <2019-12-25 Wed> --- [[file:posts/2019-12-25-guix-adwaita-cursor.org][Use Adwaita cursors in the GNU Guix System]]
+- <2019-12-24 Tue> --- [[file:posts/2019-12-24-contributing-to-guix.org][Contributing to Guix]]
+- <2019-12-24 Tue> --- [[file:posts/2019-12-24-getting-into-lambda-calculus.org][Getting into Lambda Calculus]]
+- <2019-12-23 Mon> --- [[file:posts/2019-12-23-moving-to-nfs.org][Moving to NearlyFreeSpeech.NET]]
+- <2019-12-18 Wed> --- [[file:posts/2019-12-18-org-mode-site.org][Build a blog with Emacs and Org mode]]
+- <2019-11-26 Tue> --- [[file:posts/2019-11-26-gitlab-pages-namecheap-subdomains.org][GitLab Pages and custom subdomains with Namecheap]]
+- <2019-11-23 Sat> --- [[file:posts/2019-11-23-love-marquee.org][why the fuck is the marquee tag deprecated?]]
 
 -----
 #+INCLUDE: ./assets/ring.org

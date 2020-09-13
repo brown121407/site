@@ -80,13 +80,23 @@ Why are patches so OP? Let's see...
   them. This is how extra features are distributed for [[https://suckless.org/][suckless software]]. For
   example, to add transparency to [[https://st.suckless.org/][st]], you want [[https://st.suckless.org/patches/alpha/][this patch]].
 
-** TODO I need a maintainer's perspective on applying patches vs accepting Pull Requests
+** I need a maintainer's perspective on applying patches vs accepting Pull Requests
 
-If you're a maintainer or someone with commit access to a project and
-you regularly accept patches from contributors, and if you want to
-share your opinions on patches vs PRs, with both their advantages and
-disadvantages, send me an email with what would you like to add to
-this section.
+After all this time (writing now on <2020-09-13 Sun>), I gained some
+experience myself with applying patches, as I became co-maintainer of
+[[https://git.sr.ht/~brettgilio/org-webring][org-webring]].
+
+Unsurprisingly, it's easy as fuck on this side too. =git apply= and
+=git am= are your best friends. I wish I could say more but it's
+really that simple and I have no use for filling your time with empty
+words. Just use =git am= or =git apply=.
+
+I've seen something interesting happen on Sourcehut in the time since
+I started this post. There was a contributor who was offered commit
+access to a project, but guess what? They refused, preferring to send
+patches instead, because they didn't like having many accounts. Simple
+as that. It's a bit harder to do stuff like this if you stick to the
+GitHub model...
 
 * Bring back the mailing lists
 I'm not one of the oldies around here. At the time of writing I'm
