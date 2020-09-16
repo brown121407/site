@@ -1,4 +1,4 @@
-#+TITLE: brown121407
+#+TITLE: Index
 #+META_TYPE: website
 #+DESCRIPTION: Alexandru-Sergiu Marton's blog
 #+DATE: <2020-08-24 Mon 01:49>
@@ -6,18 +6,20 @@
 
 * About me
 
-Passionate about programming, free software, mathematics. I usually go
-by the nick *brown121407*.
+Hi, I'm Alexandru-Sergiu Marton, an univeristy student interested in
+programming, free software and a bit of mathematics. I usually go by
+the nick [[file:nickname.org][brown121407]].
 
-For my projects and work experience see [[file:projects.org][Projects]].
+For my projects and work experience see [[file:resume.org][my resume]].
 
-Want to chat? Shoot me an email.
+Want to chat? Shoot me an email or ping me on IRC. If it's sensitive,
+encrypt it with my public key, attached below.
 
 - email :: [[mailto:brown121407@posteo.ro][brown121407@posteo.ro]]
 - sourcehut :: [[https://git.sr.ht/~brown121407][~brown121407]]
-- mastodon :: [[https://fosstodon.org/@brown121407][@brown121407@fosstodon.org]]
-- PGP key :: [[https://brown.121407.xyz/assets/pubkey.asc][pubkey.asc]]
-- fingerprint :: 8571 7664 DFDC 6B6A 3ED2 DA68 2348 7CC8 2397 2C1F
+- freenode :: =brown121407=
+- GPG key :: [[https://brown.121407.xyz/assets/pubkey.asc][pubkey.asc]]
+- fingerprint :: =8571 7664 DFDC 6B6A 3ED2 DA68 2348 7CC8 2397 2C1F=
 
 * Posts ([[./posts/rss.xml][RSS]])
 ** 2020

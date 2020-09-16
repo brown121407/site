@@ -1,0 +1,59 @@
+#+TITLE: Resume
+#+DATE: <2020-05-01 Fri 10:00>
+#+OPTIONS: num:nil
+
+* Alexandru-Sergiu Marton
+Univeristy student interested in programming, free software and a bit
+of mathematics.
+
+- Email :: [[mailto:brown121407@posteo.ro][brown121407@posteo.ro]]
+- Code :: [[https://sr.ht/~brown121407][sourcehut]]
+- GPG key :: [[https://brown.121407.xyz/assets/pubkey.asc][pubkey.asc]]
+- Fingerprint :: =8571 7664 DFDC 6B6A 3ED2 DA68 2348 7CC8 2397 2C1F=
+
+------
+
+* Projects
+** brown.121407.xyz (this website)
+Minimalist weblog built using Emacs Lisp and Org.
+
+- Technologies :: Emacs Lisp, HTML, CSS (and NGINX on the server that
+  hosts it)
+- Relationship :: maintainer
+- Source code :: [[https://git.sr.ht/~brown121407/brown.121407.xyz][sourcehut]]
+- License :: GPL 3+
+
+** org-webring
+Emacs Lisp / Org-mode implementation for an ATOM/RSS webring or planet.
+
+- Technologies :: Emacs Lisp, XML, HTML, CSS
+- Relationship :: co-author
+- Source code :: [[https://sr.ht/~brettgilio/org-webring/][sourcehut]]
+- License :: GPL 3+
+
+** GNU Guix
+Advanced distribution of the GNU operating system developed by the GNU
+Project—which respects the freedom of computer users.
+
+- Technologies :: Guile Scheme
+- Homepage :: [[https://guix.gnu.org/][website]]
+- Relationship :: [[http://git.savannah.gnu.org/cgit/guix.git/log/?qt=author&q=Alexandru-Sergiu+Marton][contributor]]
+- Source code :: [[http://git.savannah.gnu.org/cgit/guix.git][savannah]]
+- License :: [[http://git.savannah.gnu.org/cgit/guix.git/tree/COPYING][GPL 3+]]
+
+** thank
+Rust program to display information about a project dependencies.
+
+- Technologies :: Rust, multithreading
+- Relationship :: maintainer
+- Source code :: [[https://git.sr.ht/~brown121407/thank][sourcehut]]
+- License :: [[https://git.sr.ht/~brown121407/thank/tree/master/LICENSE][GPL 3+]]
+
+* Education
+** Faculty of Mathematics and Computer Science, University of Bucharest
+- Studying Computer Science
+- 2020--present
+
+** National College "Alexandru-Vlahuță"
+- High school, mathematics--computer science profile
+- 2016--2020

@@ -1,0 +1,9 @@
+#+TITLE: Why this nickname?
+#+DATE: <2020-09-15 Tue 19:54>
+
+About three years ago I found a weird error log posted on Stack
+Overflow that contained "brown 121407" in it and I thought it sounded
+interesting and was random enough that I would like it.
+
+And the big ass number at the end also guarantees that the nickname is
+not taken wherever I use it, which is nice.

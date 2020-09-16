@@ -140,7 +140,7 @@
                                        `(div
                                          (a :href "/" "HOME")
                                          (span :class "pre-sep" "|")
-                                         (a :href "/projects.html" "PROJECTS")
+                                         (a :href "/resume.html" "RESUME")
                                          (span :class "pre-sep" "|")
                                          (a :href "/extra.html" "EXTRA")
                                          (hr)))))))

@@ -1,0 +1,24 @@
+#+TITLE: Losing weight
+#+DATE: <2020-09-13 Sun 21:18>
+
+Perhaps you've noticed already that this website is pretty
+ligthweight, at least compared to other, more "modern" ones. I decided
+to take this one step further and stop serving Roboto as the custom
+font for those pages.
+
+From now on your load times will be increased and your bandwidth (and
+mine) will suffer no more the burden of transporting the impressive
+167 KB of the TTF file. Though your browser was probably caching it
+and it isn't that big of a deal, I think it's a good decision
+nonetheless.
+
+Most browsers allow you to change your fonts. If you think to yourself
+that the writing on those pages looks kinda ugly, maybe it's time to
+finally settle on some good looking fonts that *you* prefer for all
+three families: serif, sans-serif and monospace.
+
+Have fun!
+
+-----
+
+#+INCLUDE: ../response.org
