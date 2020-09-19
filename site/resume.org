@@ -3,7 +3,7 @@
 #+OPTIONS: num:nil
 
 * Alexandru-Sergiu Marton
-Univeristy student interested in programming, free software and a bit
+University student interested in programming, free software and a bit
 of mathematics.
 
 - Email :: [[mailto:brown121407@posteo.ro][brown121407@posteo.ro]]
