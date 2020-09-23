@@ -1,0 +1,287 @@
+#+TITLE: Writing a simple IRC Client in OCaml
+#+DATE: <2020-09-20 Sun 20:31>
+#+OPTIONS: num:nil
+
+*NOTE*: This article assumes you know what IRC is and you used it at
+least once.
+
+* IRC Basics
+One of the best things about IRC is how simple it is. You don't need a
+proprietary shitload of JavaScript running in Electron to talk to your
+friends -- a TCP socket will do just fine.
+
+That's why [[https://drewdevault.com/2018/03/10/How-to-write-an-IRC-bot.html][people can give examples]] of connecting to IRC through
+telnet or netcat. Here's how a basic connection would go:
+
+1. Run =telnet chat.freenode.net 6667=.
+2. Enter the following lines:
+   
+#+BEGIN_SRC
+NICK testingirc
+USER testingirc 0 * :Testing IRC
+#+END_SRC
+
+You are now connected to the Freenode network, congratulations! Here's
+how you would join a channel and send a message to it:
+
+#+BEGIN_SRC
+JOIN #emacs
+PRIVMSG #emacs :Hi, how do I exit vim?
+#+END_SRC
+
+If you're confused about how to exit telnet (as I was), =C-]= followed
+by =C-d= should suffice.
+
+So we saw that it's really simple to connect to and use IRC even without a
+featureful client.
+
+* JOIN #ocaml
+Let's build a little OCaml project that will allow us to do at least
+what the example above did.
+
+#+BEGIN_SRC sh
+mkdir ocaml_irc
+cd ocaml_irc
+dune init exe ocaml_irc --libs core ocaml_irc
+#+END_SRC
+
+Now that we have everything set up, what should we worry about?
+
+To implement an IRC client, we must work with sockets. The
+functions we need to operate on sockets can be found in the [[https://ocaml.janestreet.com/ocaml-core/latest/doc/core/Core__/Core_unix/index.html#sockets][Unix
+module]]. First, we'll write a module to make the socket deal nicer to
+work with for our needs:
+
+#+BEGIN_SRC ocaml
+module Connection : sig
+  type t
+  val buffer : bytes
+  val create : string -> int -> t
+  val read : t -> string * int
+  val write : t -> string -> int
+end = struct 
+  type t = Unix.File_descr.t
+  let buffer = Bytes.make 512 '\000'
+             
+  let create (host : string) (port : int) : t =
+    let open Unix in
+    let sock = socket ~domain:PF_INET ~kind:SOCK_STREAM ~protocol:0 () in
+    let addr = ADDR_INET (Inet_addr.of_string host, port) in
+    connect sock ~addr;
+    sock
+
+  let read (conn : t) : string * int =
+    Bytes.fill buffer ~pos:0 ~len:(Bytes.length buffer) '\000';
+    let how_much = Unix.read conn ~buf:buffer in
+    (Bytes.to_string buffer, how_much)
+
+  let write (conn : t) (msg : string) : int =
+    let buf = Bytes.of_string msg in
+    let len = Bytes.length buf in
+    Unix.write conn ~buf ~len
+end
+#+END_SRC
+
+Notice how one of the main things this module does is deal with the
+conversion between strings and bytes -- this makes the function calls
+look nicer, because we can directely put strings in them. The =buffer=
+buffer is filled with the NULL character everytime we read something
+from the socket so we don't keep in trash from previous reads. The
+=create= function gives us a TCP socket connected to =host= on =port=.
+
+Before trying to actually connect to a network, let's write a little
+utility module to find the IPv4 addresses of a given hostname, so we
+don't have to work raw IPs.
+
+#+BEGIN_SRC ocaml
+module Hostname : sig
+  val get_ips : string -> int -> Unix.Inet_addr.t list
+end = struct
+  let get_ips (hostname : string) (port : int) : Unix.Inet_addr.t list =
+    let open Unix in
+    let filters = [AI_FAMILY PF_INET; AI_SOCKTYPE SOCK_STREAM] in
+    let service = Int.to_string port in
+    getaddrinfo hostname service filters
+    |> List.filter_map ~f:(fun x -> match x.ai_addr with
+                                    | ADDR_INET (inet_addr, _) -> Some inet_addr
+                                    | _ -> None)
+end
+#+END_SRC
+
+How would we get a Freenode IP and connect to it now?
+
+#+BEGIN_SRC ocaml
+let (hostname, port) = ("chat.freenode.net", 6667) in
+let ip = Hostname.get_ips hostname port
+         |> List.hd_exn
+         |> Unix.Inet_addr.to_string in
+let conn = Connection.create ip port
+#+END_SRC
+
+To see if Freenode accepts our connection, let's try reading from the
+socket:
+
+#+BEGIN_SRC ocaml
+print_endline (fst (Connection.read conn))
+#+END_SRC
+
+You should get something like:
+
+#+BEGIN_SRC
+:rothfuss.freenode.net NOTICE * :*** Looking up your hostname...
+#+END_SRC
+
+To be able to read what the IRC server sends us and write to it at the
+same time, we can use some multithreading: we'll create a new thread
+for receiving messages and we'll use the main one for sending. To stop
+them from running infinitely, we'll use a channel to make one of them
+yell at the other to stop.
+
+The receiving thread will be an almost-infinte loop that reads from
+the socket and prints whatever it gets, and quits only when the
+channel received something from the other end:
+
+#+BEGIN_SRC ocaml
+let chan = Event.new_channel () in
+let receive_loop (conn, chan) =
+  try
+    while true do
+      let () = match Event.poll (Event.receive chan) with
+        | Some _ -> raise Exit
+        | None -> ()
+      in print_endline (fst (Connection.read conn))
+    done
+  with Exit -> ()
+in  
+let receive_thread = Thread.create receive_loop (conn, chan) ~on_uncaught_exn:`Kill_whole_process
+#+END_SRC
+
+The loop running on the main thread will take input from STDIN and
+send it through the socket. When it detects that the message starts
+with "QUIT", it will exit the loop and send =()= through the channel
+so the receiving thread quits too.
+
+#+BEGIN_SRC ocaml
+try
+  while true do
+    let msg = In_channel.input_line In_channel.stdin in
+    match msg with
+    | Some msg ->
+       begin
+         Connection.write conn (msg ^ "\r\n") |> ignore;
+         if String.is_prefix ~prefix:"QUIT" msg then
+           raise Exit
+       end
+    | _ -> ()
+  done
+with Exit -> 
+  begin
+    Event.sync (Event.send chan ());
+    Thread.join receive_thread
+  end
+#+END_SRC
+
+Now you can try running the same commands as you were using in telnet
+or netcat (NICK, USER, JOIN, PRIVMSG etc.). You've got yourself a
+basic IRC client written in OCaml!
+
+-----
+
+Struggling to put everything together or just want to see the whole
+thing for yourself? Below is the source code for the entire
+client, licensed under the GNU GPLv3, and you can [[../assets/ocaml_irc_example.ml][access it raw here]].
+  
+#+BEGIN_SRC ocaml
+(*
+Copyright 2020 Alexandru-Sergiu Marton
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see < https://www.gnu.org/licenses/ >.
+*)
+open Core
+
+module Connection : sig
+  type t
+  val buffer : bytes
+  val create : string -> int -> t
+  val read : t -> string * int
+  val write : t -> string -> int
+end = struct 
+  type t = Unix.File_descr.t
+  let buffer = Bytes.make 512 '\000'
+
+  let create (host : string) (port : int) : t =
+    let open Unix in
+    let sock = socket ~domain:PF_INET ~kind:SOCK_STREAM ~protocol:0 () in
+    let addr = ADDR_INET (Inet_addr.of_string host, port) in
+    connect sock ~addr;
+    sock
+
+  let read (conn : t) : string * int =
+    Bytes.fill buffer ~pos:0 ~len:(Bytes.length buffer) '\000';
+    let how_much = Unix.read conn ~buf:buffer in
+    (Bytes.to_string buffer, how_much)
+
+  let write (conn : t) (msg : string) : int =
+    let buf = Bytes.of_string msg in
+    let len = Bytes.length buf in
+    Unix.write conn ~buf ~len
+end
+
+
+module Hostname : sig
+  val get_ips : string -> int -> Unix.Inet_addr.t list
+end = struct
+  let get_ips (hostname : string) (port : int) : Unix.Inet_addr.t list =
+    let open Unix in
+    let filters = [AI_FAMILY PF_INET; AI_SOCKTYPE SOCK_STREAM] in
+    let service = Int.to_string port in
+    getaddrinfo hostname service filters
+    |> List.filter_map ~f:(fun x -> match x.ai_addr with
+                                    | ADDR_INET (inet_addr, _) -> Some inet_addr
+                                    | _ -> None)
+end
+
+
+let () =
+  let (hostname, port) = ("chat.freenode.net", 6667) in
+  let ip = Hostname.get_ips hostname port
+           |> List.hd_exn
+           |> Unix.Inet_addr.to_string in
+  let conn = Connection.create ip port in
+  let chan = Event.new_channel () in
+  let receive_thread (conn, chan) =
+    try
+      while true do
+        let () = match Event.poll (Event.receive chan) with
+          | Some _ -> raise Exit
+          | None -> ()
+        in print_endline (fst (Connection.read conn))
+      done
+    with Exit -> ()
+  in  
+  let _ = Thread.create receive_thread (conn, chan) ~on_uncaught_exn:`Kill_whole_process in
+  try
+    while true do
+      let msg = In_channel.input_line In_channel.stdin in
+      match msg with
+      | Some msg ->
+         begin
+           Connection.write conn (msg ^ "\r\n") |> ignore;
+           if String.is_prefix ~prefix:"QUIT" msg then
+             raise Exit
+         end
+      | _ -> ()
+    done
+  with Exit -> Event.sync (Event.send chan ())
+#+END_SRC

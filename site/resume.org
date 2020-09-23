@@ -23,6 +23,15 @@ Minimalist weblog built using Emacs Lisp and Org.
 - Source code :: [[https://git.sr.ht/~brown121407/brown.121407.xyz][sourcehut]]
 - License :: GPL 3+
 
+** QnA
+Sample ASP.NET Core project showcasing a "Questions and Answers" type
+of platform.
+
+- Technologies :: ASP.NET Core, PostgreSQL, C#, Razor, HTML, CSS
+- Relationship :: maintainer
+- Source code :: [[https://sr.ht/~brown121407/QnA/][sourcehut]]
+- License :: GPL 3+
+
 ** org-webring
 Emacs Lisp / Org-mode implementation for an ATOM/RSS webring or planet.
 
@@ -40,6 +49,14 @@ Project—which respects the freedom of computer users.
 - Relationship :: [[http://git.savannah.gnu.org/cgit/guix.git/log/?qt=author&q=Alexandru-Sergiu+Marton][contributor]]
 - Source code :: [[http://git.savannah.gnu.org/cgit/guix.git][savannah]]
 - License :: [[http://git.savannah.gnu.org/cgit/guix.git/tree/COPYING][GPL 3+]]
+
+** Simple IRC Client
+(Extremely) Simple IRC Client written in OCaml.
+
+- Technologies :: OCaml, sockets, multithreading
+- Relationship :: maintainer
+- Source code :: [[./posts/2020-09-20-ocaml-simple-irc-client.html][blog post]]
+- License :: GLP 3+
 
 ** thank
 Rust program to display information about a project dependencies.

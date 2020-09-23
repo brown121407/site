@@ -23,6 +23,7 @@ encrypt it with my public key, attached below.
 
 * Posts ([[./posts/rss.xml][RSS]])
 ** 2020
+- <2020-09-20 Sun> --- [[file:posts/2020-09-20-ocaml-simple-irc-client.org][Writing a simple IRC Client in OCaml]]
 - <2020-09-13 Sun> --- [[file:posts/2020-09-13-losing-weight.org][Losing weight]]
 - <2020-09-13 Sun> --- [[file:posts/2020-09-13-vultr-vps.org][Moving to a VPS (Vultr)]]
 - <2020-08-25 Tue> --- [[file:posts/2020-08-25-sourcehut-lists-gnus-reply.org][Sourcehut: Don't break mailing list threading with Gnus]]

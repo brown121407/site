@@ -2,6 +2,16 @@
 #+RSS_POSTS_URL: https://brown.121407.xyz/posts
 #+OPTIONS: num:nil
 
+* [[file:2020-09-20-ocaml-simple-irc-client.org][Writing a simple IRC Client in OCaml]]
+:PROPERTIES:
+:RSS_PERMALINK: 2020-09-20-ocaml-simple-irc-client.html
+:RSS_TITLE: Writing a simple IRC Client in OCaml
+:PUBDATE:  <2020-09-20 Sun 20:31>
+:ID:       7682035c-213d-47eb-baf3-54212a85e175
+:END:
+
+#+INCLUDE: "2020-09-20-ocaml-simple-irc-client.org" :lines "4-"
+
 * [[file:2020-09-13-losing-weight.org][Losing weight]]
 :PROPERTIES:
 :RSS_PERMALINK: 2020-09-13-losing-weight.html

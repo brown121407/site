@@ -41,6 +41,7 @@ pre.inside-src {
 pre.src, pre.example {
     padding: 0px;
     margin: 0.75em 0 0 0;
+    overflow: visible;
 }
 
 pre.src.src-text::before {
